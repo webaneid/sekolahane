@@ -33,13 +33,15 @@
         ],
         "lint:fix": "phpcbf",
         "analyse": "phpstan analyse --memory-limit=1G",
-        "analyse:baseline": "phpstan analyse --memory-limit=1G --generate-baseline"
+        "analyse:baseline": "phpstan analyse --memory-limit=1G --generate-baseline",
+        "dist:check": "bash bin/check-dist.sh"
     },
     "scripts-descriptions": {
         "lint": "Cek sintaks PHP + WordPress Coding Standards (seluruh theme, termasuk pelanggaran lama)",
         "lint:changed": "PHPCS hanya untuk file yang berubah dibanding main — dipakai di SOP Langkah 3",
         "lint:fix": "Perbaiki otomatis pelanggaran format yang bisa diperbaiki",
         "analyse": "Analisis statis PHPStan",
-        "analyse:baseline": "Rekam ulang baseline PHPStan (hanya saat retrofit/keputusan sadar)"
+        "analyse:baseline": "Rekam ulang baseline PHPStan (hanya saat retrofit/keputusan sadar)",
+        "dist:check": "Pastikan paket ZIP rilis bersih dari semua file .md, folder docs/AI, dan tooling dev"
     }
 }

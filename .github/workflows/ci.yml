@@ -43,3 +43,6 @@ jobs:
 
       - name: Run PHPStan
         run: composer analyse
+
+      - name: Verify clean distribution package (no .md, docs, or AI folders)
+        run: composer dist:check

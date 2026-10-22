@@ -73,6 +73,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          bash bin/check-dist.sh
           VERSION="${{ steps.check_release.outputs.version }}"
           mkdir -p dist
           rsync -av --exclude-from=.distignore ./ dist/sekolahane/

@@ -33,7 +33,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "sed -i -E 's/^(Version:[[:space:]]*).*/\\1${nextRelease.version}/' style.css && mkdir -p dist && rsync -a --exclude-from=.distignore ./ dist/sekolahane/ && (cd dist && zip -rq sekolahane-${nextRelease.version}.zip sekolahane)"
+        "prepareCmd": "bash bin/check-dist.sh && sed -i -E 's/^(Version:[[:space:]]*).*/\\1${nextRelease.version}/' style.css && mkdir -p dist && rsync -a --exclude-from=.distignore ./ dist/sekolahane/ && (cd dist && zip -rq sekolahane-${nextRelease.version}.zip sekolahane)"
       }
     ],
     [
