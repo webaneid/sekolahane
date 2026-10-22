@@ -1,0 +1,29 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dependencies (diinstall ulang lewat composer/npm, tidak di-commit)
+/vendor/
+/node_modules/
+
+# Build output
+/dist/
+.sass-cache/
+*.log
+
+# Cache tooling
+.phpcs-cache
+.phpunit.result.cache
+.phpstan-cache/
+
+# Konfigurasi lokal AI tools (preferensi pribadi, bukan standar tim)
+.claude/settings.local.json
+.claude/worktrees/
+
+# Secret — JANGAN pernah di-commit
+.env
+.env.*
+!.env.example
+auth.json
