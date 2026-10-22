@@ -37,8 +37,7 @@ get_header();
 								the_post();
 								++$counter;
 								if ( 0 === $counter ) {
-									$detect = new Mobile_Detect();
-									if ( $detect->isMobile() && ! $detect->isTablet() ) {
+									if ( wp_is_mobile() ) {
 										get_template_part( 'tp/content', 'overlay' );
 									} else {
 										get_template_part( 'tp/content', 'klasik' );
@@ -46,8 +45,7 @@ get_header();
 								} elseif ( 5 === $counter ) {
 									get_template_part( 'tp/content', 'overlay' );
 								} else {
-									$detect = new Mobile_Detect();
-									if ( $detect->isMobile() && ! $detect->isTablet() ) {
+									if ( wp_is_mobile() ) {
 										get_template_part( 'tp/content', 'list' );
 									} else {
 										get_template_part( 'tp/content', (string) get_post_format() );

@@ -82,17 +82,5 @@ defined( 'ABSPATH' ) || exit;
 			</div>
 
 		</div>
-
-
-
-
-
-
-
-
-
-			<?php //panggil_konten_terkait(); ?>
 	</div>
-
-
 </article>

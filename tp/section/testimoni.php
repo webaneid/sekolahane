@@ -35,6 +35,5 @@ defined( 'ABSPATH' ) || exit;
 				endwhile; wp_reset_postdata(); ?>
 			</div>
 		</div>
-		<?php get_template_part('tp/home','client'); ?>
 	</div>
 </section>

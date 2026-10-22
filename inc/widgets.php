@@ -121,12 +121,7 @@ class Webane_Posts_Widget extends WP_Widget {
 		if ( $r->have_posts() ) :
 			while ( $r->have_posts() ) :
 				$r->the_post();
-				$detect = new Mobile_Detect();
-				if ( ! $detect->isTablet() ) {
-					get_template_part( 'tp/content', 'list' );
-				} else {
-					get_template_part( 'tp/content', (string) get_post_format() );
-				}
+				get_template_part( 'tp/content', 'list' );
 			endwhile;
 		else :
 			?>

@@ -15,48 +15,36 @@ situs sekolah, madrasah, dan pesantren milik pelanggan Webane Indonesia.
   template).
 - **Pendekatan tampilan:** Satu instalasi melayani tampilan desktop dan mobile
   secara terpisah di beberapa halaman dengan deteksi server-side menggunakan
-  `Mobile_Detect` (`$detect->isMobile() && !$detect->isTablet()`).
+  fungsi bawaan WordPress `wp_is_mobile()`.
 
 ---
 
 ## 2. Siklus Muat PHP (`functions.php` & `inc/`)
 
 `functions.php` menjalankan:
-1. Cek versi WP (`< 4.7` memanggil `inc/back-compat.php` — ⚠️ file tersebut
-   tidak ada di repo).
+1. Definisi konstanta `SEKOLAHANE_VERSION` dari header `style.css`.
 2. Hook `after_setup_theme` → `sekolahane_theme_setup()`:
    - `load_theme_textdomain( 'sekolahane' )`
    - Theme supports: `title-tag`, `automatic-feed-links`, `post-thumbnails`,
      `post-formats` (`video`, `gallery`), `html5`, `custom-logo` (400×97),
      `yoast-seo-breadcrumbs`.
-   - Image size kustom: `kotak` (400×400 crop), plus override ukuran bawaan
-     `medium` (700×394), `large` (1000×563), `thumbnail` (400×225).
+   - Image size kustom: `kotak` (400×400 crop).
    - Menu locations: `menuutama` ("Menu Utama"), `menufooter` ("Menu Footer").
-3. Hook `widgets_init` → `sekolahane_widgets()`: mendaftarkan sidebar
+3. Hook `after_switch_theme` → `sekolahane_configure_image_sizes()`:
+   mengonfigurasi ukuran gambar default (`medium` 700×394, `large` 1000×563,
+   `thumbnail` 400×225) hanya saat aktivasi theme.
+4. Hook `widgets_init` → `sekolahane_widgets()`: mendaftarkan sidebar
    `default-sidebar`.
-4. Filter penghapus query string versi WP pada aset & meta generator.
-5. `require` **4 file** di `inc/`:
+5. Filter penghapus query string versi WP pada aset & meta generator.
+6. `require` **4 file** di `inc/`:
 
-### File `inc/` yang AKTIF (di-`require` di `functions.php`)
+### File `inc/` (Seluruhnya Aktif)
 | File | Tanggung Jawab Aktual |
 |---|---|
-| `inc/sekolahane.php` | Enqueue CSS/JS, set Google Maps API key ACF, excerpt, popup gallery (`the_content`), shortcode caption, helper thumbnail/dummy/embed/YouTube, pagination, related & newest posts, prev/next post, `times_ago`, tombol share & komentar FB, author box (`the_content`), breadcrumbs, kustomisasi halaman login & dashboard admin, dynamic copyright year, custom avatar via user meta `gravatar_ane`, penghitung post views (`musi_views` + AJAX `wp_ajax_postviews`), dan pendaftaran **ACF Options Pages**. |
+| `inc/sekolahane.php` | Enqueue CSS/JS, Google Maps & FB App ID helper, excerpt, popup gallery (`the_content`), shortcode caption, helper thumbnail/dummy/embed/YouTube, pagination, related & newest posts, prev/next post, `times_ago`, tombol share & komentar FB, author box (`the_content`), breadcrumbs, kustomisasi halaman login & dashboard admin, dynamic copyright year (dengan cache transient), custom avatar via user meta `gravatar_ane`, penghitung post views (`musi_views` + AJAX `wp_ajax_postviews`), dan pendaftaran **ACF Options Pages**. |
 | `inc/custompost.php` | Mendaftarkan 3 Custom Post Type (`guru`, `ekstrakurikuler`, `testimoni`), 2 Custom Taxonomy untuk `guru` (`pelajaran`, `Kelas`), placeholder judul admin, dan menyertakan CPT ke RSS feed. |
 | `inc/widgets.php` | Class `Webane_Posts_Widget` (widget daftar post berdasarkan terbaru, populer, komentar terbanyak, format video, tag, atau kategori). |
-| `inc/Mobile_Detect.php` | Library pihak ketiga `Mobile_Detect` v2.8.x (dibundel langsung, 83 KB). |
-
-### File `inc/` yang TIDAK AKTIF (ada di folder, tidak pernah di-`require`)
-> ⚠️ Jangan berasumsi kode di file-file ini berjalan. Lihat `docs/RETROFIT-GAPS.md`
-> untuk rencana penanganannya.
-
-| File | Kondisi |
-|---|---|
-| `inc/customizer.php` | Mendaftarkan panel/setting Customizer (`logo`, `dummythumb`, `warna_*`, `bg_menu_*`). **Tidak di-require**, namun nilai `get_theme_mod( 'logo' )` dan `get_theme_mod( 'dummythumb' )` masih dibaca di `header.php` & `inc/sekolahane.php`. |
-| `inc/color.php` | Output inline `<style>` dari `get_theme_mod( 'warna_*' )`. Tidak pernah dipanggil. |
-| `inc/option.php` | Duplikat lama pendaftaran ACF Options Page (tanpa sub-page `Mobile Menu`). |
-| `inc/post-view.php` | Duplikat persis kode post views yang sudah ada di `inc/sekolahane.php:812-903`. |
-| `inc/related.php` | Fungsi `panggil_konten_terkait()` — pemanggilannya di `tp/single.php:91` sudah dikomentari. |
-| `inc/single-iklan.php` | Filter injeksi iklan ke paragraf `the_content` — tidak di-require. |
+| `inc/updater.php` | Auto-updater GitHub Release (private/public repo) terintegrasi dengan halaman Appearance → Themes dan tab pengaturan Auto Update di General Settings ACF. |
 
 ---
 

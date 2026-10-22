@@ -8,18 +8,11 @@
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
 		<?php
-			$detect = new Mobile_Detect();
-			global $detect;
-
-				if( $detect->isMobile() && !$detect->isTablet() ) {
-				    get_template_part('tp/pages/news-mobile');
-				}
-				elseif (! $detect->isTablet() ) {
-					    get_template_part('tp/pages/news-desktop');
-				}
-				else {
-					get_template_part('tp/pages/news-desktop');
-				}
+			if ( wp_is_mobile() ) {
+				get_template_part( 'tp/pages/news-mobile' );
+			} else {
+				get_template_part( 'tp/pages/news-desktop' );
+			}
 		?>
 	</main>
 </div>

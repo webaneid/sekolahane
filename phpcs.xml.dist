@@ -6,8 +6,6 @@
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
 	<exclude-pattern>/dist/*</exclude-pattern>
-	<!-- Library pihak ketiga (akan dipindah ke Composer di Fase 04) -->
-	<exclude-pattern>/inc/Mobile_Detect.php</exclude-pattern>
 
 	<arg name="extensions" value="php"/>
 	<arg name="basepath" value="."/>

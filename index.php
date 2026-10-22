@@ -4,7 +4,7 @@ get_header();
 ?>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
-		<?php panggil_breadcrumb ();?>
+		<?php panggil_breadcrumb(); ?>
 
 		<div class="container">
 
@@ -19,50 +19,33 @@ get_header();
 					<div class="ane-arsip">
 
 						<?php
-
 						if ( have_posts() ) :
-								$counter = -1; while ( have_posts() ) : the_post();
-								$counter++;
-									if($counter == 0){
-										$detect = new Mobile_Detect();
-
-											if( $detect->isMobile() && !$detect->isTablet() ) {
-
-												get_template_part( 'tp/content', 'overlay' );
-											}
-
-											else {
-												get_template_part( 'tp/content','klasik');
-											}
-
-
-
-									}
-									elseif($counter == 5){
-
+							$counter = -1;
+							while ( have_posts() ) :
+								the_post();
+								++$counter;
+								if ( 0 === $counter ) {
+									if ( wp_is_mobile() ) {
 										get_template_part( 'tp/content', 'overlay' );
+									} else {
+										get_template_part( 'tp/content', 'klasik' );
 									}
-									else {
-										$detect = new Mobile_Detect();
-
-											if( $detect->isMobile() && !$detect->isTablet() ) {
-											    get_template_part( 'tp/content','list');
-											}
-
-											else {
-												get_template_part( 'tp/content', get_post_format() );
-											}
+								} elseif ( 5 === $counter ) {
+									get_template_part( 'tp/content', 'overlay' );
+								} else {
+									if ( wp_is_mobile() ) {
+										get_template_part( 'tp/content', 'list' );
+									} else {
+										get_template_part( 'tp/content', (string) get_post_format() );
 									}
+								}
+							endwhile;
+						else :
+							get_template_part( 'tp/content', 'none' );
+						endif;
 
-
-								endwhile;
-
-								else :
-
-									get_template_part( 'tp/content', 'none' );
-								endif;
-
-						echo ane_post_pagination(); ?>
+						ane_post_pagination();
+						?>
 					</div>
 				</div>
 
@@ -71,4 +54,5 @@ get_header();
 		</div></div>
 	</main><!-- .site-main -->
 </div><!-- .content-area -->
-<?php get_footer ();
+<?php
+get_footer();

@@ -11,8 +11,8 @@
 |---|---|---|---|
 | 🔴 **Critical** | 1 | ✅ Selesai (1/1) | Fase 03 |
 | 🟠 **High** | 3 | ✅ Selesai (3/3) | Fase 03 |
-| 🟡 **Medium** | 10 | ✅ Selesai (9/10) — sisa `GAP-13` | Fase 03 & Fase 04 |
-| 🔵 **Low / Clean-up** | 7 | ✅ Selesai (1/7) — sisa 6 di Fase 04 | Fase 04 |
+| 🟡 **Medium** | 10 | ✅ Selesai (10/10) | Fase 03 & Fase 04 |
+| 🔵 **Low / Clean-up** | 7 | ✅ Selesai (5/7) — sisa `GAP-20` & `GAP-21` (opsional) | Fase 04 |
 
 ---
 
@@ -78,37 +78,28 @@
 
 ## D. Kode Mati, Duplikasi, & Standar (Maintainability)
 
-### GAP-13 — 🟡 Medium: 6 File di `inc/` Tidak Di-require (Duplikat / Menggantung)
-- **Lokasi:**
-  - `inc/post-view.php` & `inc/option.php` — 100% duplikat dari kode yang sudah ada di akhir `inc/sekolahane.php`.
-  - `inc/related.php` & `inc/single-iklan.php` — fitur lama yang tidak di-load.
-  - `inc/customizer.php` & `inc/color.php` — setting Customizer tidak di-load sementara sebagian `get_theme_mod()` masih dipanggil di template.
-- **Rencana Fix (Fase 04):** Hapus file yang murni duplikat (`post-view.php`, `option.php`) atau pisahkan modul `inc/sekolahane.php` yang terlalu besar (935 baris) ke file-file `inc/` yang jelas tanggung jawabnya; konfirmasi ke user apakah `customizer.php`/`color.php`/`single-iklan.php` masih ingin diaktifkan atau dipensiunkan.
+### GAP-13 — ✅ Selesai di Fase 04: Hapus File & Fungsi Duplikat/Menggantung
+- **Fix:** Dihapus `inc/post-view.php`, `inc/option.php`, `inc/related.php`, `inc/single-iklan.php`, `inc/customizer.php`, `inc/color.php`, `breadcrumbs.php`, `tp/page-contact.php`, `tp/home-categories.php`, `tp/content-sliders.php`, `tp/mobile/landinpage.php`, `tp/mobile/landingpage-menu.php`, dan `tp/mobile/home.php`. Fungsi ganda `ane_dummy_tumbnail()` dikonsolidasikan ke `sekolahane_dummy_tumbnail()`.
 
 ### GAP-14 — ✅ Selesai di Fase 02: Belum Ada Mekanisme Auto-Update & CI Release
 - **Lokasi:** `inc/updater.php`, `.github/workflows/ci.yml`, `.github/workflows/release.yml`, `.releaserc.json`.
 - **Fix:** Dipasang sesuai ADR-0002 dan ADR-0003.
 
-### GAP-15 — 🔵 Low: Text Domain Campur Aduk (8 Text Domain Berbeda)
-- **Lokasi:** Tersebar di template dan `inc/` (`sekolahane`, `anekabar`, `kabarane`, `anelogistik`, `rentcarane`, `roots`, `twentysixteen`, `webane-master`, `webane`).
-- **Rencana Fix (Fase 04):** Seragamkan seluruh fungsi terjemahan ke `'sekolahane'`.
+### GAP-15 — ✅ Selesai di Fase 04: Seragamkan Seluruh Text Domain ke `'sekolahane'`
+- **Fix:** Seluruh pemanggilan `__()`, `_e()`, `esc_html__()`, `esc_html_e()`, `_n()`, `esc_attr_x()` kini menggunakan `'sekolahane'`.
 
 ### GAP-16 — ✅ Selesai di Fase 03: Versi Enqueue `main.min.css` & `sekolahane.js` Menggunakan `SEKOLAHANE_VERSION`
 - **Lokasi:** `inc/sekolahane.php` (`ane_load_css_and_js`).
 - **Fix:** Menggunakan konstanta `SEKOLAHANE_VERSION` agar cache browser otomatis di-bust setiap kali rilis versi baru.
 
-### GAP-17 — 🔵 Low: Penggunaan `wp_reset_query()` Setelah `WP_Query`
-- **Lokasi:** `inc/sekolahane.php:196, 220`, `tp/single-guru.php:84, 115`, `tp/single-ekstrakurikuler.php:54`.
-- **Masalah:** `wp_reset_query()` ditujukan untuk `query_posts()`; untuk `new WP_Query()` seharusnya menggunakan `wp_reset_postdata()`.
-- **Rencana Fix (Fase 04):** Ganti ke `wp_reset_postdata()`.
+### GAP-17 — ✅ Selesai di Fase 04: Penggunaan `wp_reset_postdata()` Setelah `WP_Query`
+- **Fix:** Seluruh `new WP_Query()` kini menggunakan `wp_reset_postdata()`.
 
-### GAP-18 — 🔵 Low: File JS di `js/` yang Tidak Pernah Di-enqueue
-- **Lokasi:** `js/anekabar.js`, `js/bootstrap.min.js`, `js/gmap.js`, `js/plugins.js`.
-- **Rencana Fix (Fase 04):** Verifikasi apakah masih dibutuhkan; hapus atau gunakan sebagai pengganti CDN.
+### GAP-18 — ✅ Selesai di Fase 04: Hapus File JS Tidak Terpakai di `js/`
+- **Fix:** Dihapus `js/anekabar.js`, `js/bootstrap.min.js`, `js/gmap.js`, dan `js/plugins.js`.
 
-### GAP-19 — 🔵 Low: `inc/Mobile_Detect.php` Versi Lama Dibundel Manual
-- **Lokasi:** `inc/Mobile_Detect.php` + 22 pemanggilan `new Mobile_Detect()` berulang kali dalam satu request.
-- **Rencana Fix (Fase 04):** Bungkus dalam satu helper function `sekolahane_is_mobile()` dengan static cache per request agar tidak menginstansiasi objek berulang-ulang di dalam loop.
+### GAP-19 — ✅ Selesai di Fase 04: Hapus `inc/Mobile_Detect.php` & Gunakan `wp_is_mobile()`
+- **Fix:** Dihapus `inc/Mobile_Detect.php` (1.475 baris) dan diganti seluruh pemanggilannya dengan fungsi bawaan WordPress `wp_is_mobile()`.
 
 ### GAP-20 — 🔵 Low: Definisi Field ACF Belum Disimpan di Repo (`acf-json/`)
 - **Lokasi:** Tidak ada folder `acf-json/`.

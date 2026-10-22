@@ -6,12 +6,12 @@ defined( 'ABSPATH' ) || exit;
 	<div class="row">
 		<?php
 			if ( has_post_thumbnail() ) {
-				$thumbImg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large');
-				$imgurl = $thumbImg['0'];
-				echo '<header class="entry-header" style="background-image:url('.$imgurl.')">';
+				$thumbImg = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID() ), 'large' );
+				$imgurl = is_array( $thumbImg ) ? $thumbImg[0] : '';
+				echo '<header class="entry-header" style="background-image:url(' . esc_url( $imgurl ) . ')">';
 			}
 			else {
-				echo '<header class="entry-header" style="background-image:url('.ane_dummy_tumbnail().')">';
+				echo '<header class="entry-header" style="background-image:url(' . esc_url( sekolahane_dummy_tumbnail() ) . ')">';
 			}
 		?>
             <div class="container">

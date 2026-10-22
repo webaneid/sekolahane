@@ -24,31 +24,20 @@ get_header();
 								$counter = -1; while ( have_posts() ) : the_post();
 								$counter++;
 									if($counter == 0){
-										$detect = new Mobile_Detect();
-
-											if( $detect->isMobile() && !$detect->isTablet() ) {
-
+											if( wp_is_mobile() ) {
 												get_template_part( 'tp/content', 'overlay' );
 											}
-
 											else {
 												get_template_part( 'tp/content','klasik');
 											}
-
-
-
 									}
 									elseif($counter == 5){
-
 										get_template_part( 'tp/content', 'overlay' );
 									}
 									else {
-										$detect = new Mobile_Detect();
-
-											if( $detect->isMobile() && !$detect->isTablet() ) {
+											if( wp_is_mobile() ) {
 											    get_template_part( 'tp/content','list');
 											}
-
 											else {
 												get_template_part( 'tp/content', get_post_format() );
 											}

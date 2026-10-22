@@ -242,15 +242,6 @@ function ane_get_youtube_thumbnail( $url, $size = '' ) {
 }
 
 /**
- * URL gambar placeholder landscape.
- *
- * @return string
- */
-function ane_dummy_tumbnail() {
-	return (string) get_theme_mod( 'dummythumb', get_template_directory_uri() . '/img/no-image.jpg' );
-}
-
-/**
  * URL gambar placeholder persegi (kotak).
  *
  * @return string

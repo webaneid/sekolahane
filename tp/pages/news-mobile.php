@@ -62,7 +62,7 @@ defined( 'ABSPATH' ) || exit;
 		endif;
 		// wp_reset_postdata(); // reset the query
 		else:
-			echo '<p>'.__('Sorry, no posts matched your criteria.').'</p>';
+			echo '<p>' . esc_html__( 'Sorry, no posts matched your criteria.', 'sekolahane' ) . '</p>';
 		endif;
 
 	?>

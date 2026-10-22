@@ -24,9 +24,6 @@ defined( 'ABSPATH' ) || exit;
 							} else {
 								$paged = 1;
 							}
-							if(1 == $paged) {
-								get_template_part('tp/news', 'featured-mobile');
-							}
 							$mobile_query_args = array(
 								'post_type' => 'post',
 								'posts_per_page' => 15,
@@ -37,21 +34,8 @@ defined( 'ABSPATH' ) || exit;
 
 							echo '<section class="ane-newest">';
 								if ( $mobile_query->have_posts() ) :
-									$counter = -1; while( $mobile_query->have_posts() ) : $mobile_query->the_post();
-
-										$counter++;
-
-											if($counter == 7){
-												get_template_part( 'tp/content','list' );
-												get_template_part('tp/mobile','news-populer');
-											}
-
-											else {
-												get_template_part( 'tp/content','list' );
-
-										}
-
-
+									while( $mobile_query->have_posts() ) : $mobile_query->the_post();
+										get_template_part( 'tp/content', 'list' );
 									endwhile; wp_reset_postdata();
 
 								echo '</section>';
@@ -64,7 +48,7 @@ defined( 'ABSPATH' ) || exit;
 							endif;
 							// wp_reset_postdata(); // reset the query
 							else:
-								echo '<p>'.__('Sorry, no posts matched your criteria.').'</p>';
+								echo '<p>' . esc_html__( 'Sorry, no posts matched your criteria.', 'sekolahane' ) . '</p>';
 							endif;
 						?>
 			</div>

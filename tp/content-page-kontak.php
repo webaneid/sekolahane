@@ -17,14 +17,14 @@ defined( 'ABSPATH' ) || exit;
 								<?php while( have_rows('about_ane','option') ): the_row();
 									$namaperusahaan = get_sub_field('company_name');
 								?>
-									<h3><?php echo $namaperusahaan ?></h3>
+									<h3><?php echo esc_html( (string) $namaperusahaan ); ?></h3>
 
 									<?php if( have_rows('contact_ane','option') ): ?>
 											<?php
 												while( have_rows('contact_ane','option') ): the_row();
 												$alamat = get_sub_field('kontak_alamat');
 													if( !empty( $alamat ) ):
-														echo '<p>'. $alamat .'</p>';
+														echo '<p>' . wp_kses_post( $alamat ) . '</p>';
 													endif;
 												endwhile; ?>
 
@@ -47,16 +47,16 @@ defined( 'ABSPATH' ) || exit;
 										$Web = get_sub_field('kontak_website');
 											if( !empty( $Phone ) ):
 										?>
-										<p>Telepon: <?= $Phone; ?></p>
+										<p>Telepon: <?php echo esc_html( (string) $Phone ); ?></p>
 										<?php
 											endif;
 											if( !empty( $mobile ) ):
 										?>
-										<p>Handphone: <?= $mobile; ?></p>
+										<p>Handphone: <?php echo esc_html( (string) $mobile ); ?></p>
 										<?php endif;
 											if( !empty( $Email ) ):
 										?>
-										<p>Email: <?= $Email; ?></p>
+										<p>Email: <?php echo esc_html( (string) $Email ); ?></p>
 
 										<?php endif; ?>
 								<?php endwhile; ?>
@@ -79,7 +79,7 @@ defined( 'ABSPATH' ) || exit;
 					if(!empty($title)):
 					?>
 					<div class="ane-title">
-						<h1><?php echo $title; ?></h1>
+						<h1><?php echo esc_html( (string) $title ); ?></h1>
 					</div>
 					<?php endif;?>
 
@@ -90,25 +90,25 @@ defined( 'ABSPATH' ) || exit;
 
 					  <?php // Loop through rows.
 					  while( have_rows('ane_cs','option') ) : the_row();
-					  $wa = get_sub_field('ane_whatsapp');
+					  $wa = preg_replace( '/[^0-9]/', '', (string) get_sub_field( 'ane_whatsapp' ) );
+					  $wa_url = 'https://wa.me/' . $wa;
 					  ?>
-					  <a href="https://wa.me/<?php echo $wa; ?>">
+					  <a href="<?php echo esc_url( $wa_url ); ?>">
 					  <li>
 						  <?php
 						  $image = get_sub_field('ane_image');
 						  $nama = get_sub_field('ane_nama');
 						  $area = get_sub_field('ane_area');
 
-						  if( $image ):
-							  $size = 'kotak';
-							  $thumb = $image['sizes'][ $size ];
+						  if( is_array( $image ) && isset( $image['sizes']['kotak'] ) ):
+							  $thumb = $image['sizes']['kotak'];
 						 	if( !empty( $thumb ) ):
 						  ?>
-						  <img src="<?php echo $thumb; ?>" alt="<?php echo $nama; ?>">
+						  <img src="<?php echo esc_url( $thumb ); ?>" alt="<?php echo esc_attr( (string) $nama ); ?>">
 					  	<?php endif; endif;?>
-						  <a href="https://wa.me/<?php echo $wa; ?>">
-						  <span><?php echo $nama; ?> </span><br/>
-						  <?php echo $area; ?>
+						  <a href="<?php echo esc_url( $wa_url ); ?>">
+						  <span><?php echo esc_html( (string) $nama ); ?> </span><br/>
+						  <?php echo esc_html( (string) $area ); ?>
 							</a>
 					  </li>
 					  </a>
@@ -124,13 +124,16 @@ defined( 'ABSPATH' ) || exit;
         </div>
         <?php
             $location = get_field('gmap', 'option');
-            if( !empty($location) ):
+            if( is_array( $location ) && ! empty( $location['lat'] ) && ! empty( $location['lng'] ) ):
+                $lat     = (string) $location['lat'];
+                $lng     = (string) $location['lng'];
+                $address = isset( $location['address'] ) ? (string) $location['address'] : '';
         ?>
         <div class="col-md-5">
             <div class="kontak-map">
                     <div class="acf-map">
-                        <div class="marker" data-lat="<?php echo $location['lat']; ?>" data-lng="<?php echo $location['lng']; ?>">
-                        <a class="directions" href="https://www.google.com/maps?saddr=My+Location&daddr=<?php echo $location['lat'] . ',' . $location['lng']; ?>"><?php _e('Get Directions to','roots'); ?> <?php echo $location['address']; ?></a> <!-- Output the title -->
+                        <div class="marker" data-lat="<?php echo esc_attr( $lat ); ?>" data-lng="<?php echo esc_attr( $lng ); ?>">
+                        <a class="directions" href="<?php echo esc_url( 'https://www.google.com/maps?saddr=My+Location&daddr=' . rawurlencode( $lat . ',' . $lng ) ); ?>"><?php esc_html_e( 'Get Directions to', 'sekolahane' ); ?> <?php echo esc_html( $address ); ?></a>
                         </div>
                     </div>
             </div>

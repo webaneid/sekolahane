@@ -11,10 +11,8 @@ parameters:
 			- vendor
 			- node_modules (?)
 			- dist (?)
-			- inc/Mobile_Detect.php
 	scanFiles:
 		- vendor/php-stubs/acf-pro-stubs/acf-pro-stubs.php
-		- inc/Mobile_Detect.php
 	tmpDir: .phpstan-cache
 	treatPhpDocTypesAsCertain: false
 	ignoreErrors:
