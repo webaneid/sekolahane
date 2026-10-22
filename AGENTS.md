@@ -89,8 +89,9 @@ docs/                 → dokumentasi (tidak ikut ZIP rilis)
 | Fase aktif & statusnya                      | `docs/PROGRESS.md`                                |
 | Naming, struktur file, commit, branch       | `docs/conventions.md`                             |
 | Escape/sanitize/nonce, checklist review     | `docs/architecture/architecture-security.md`      |
-| Gambaran theme (dibuat di Fase 01)          | `docs/architecture/architecture-overview.md`      |
-| Gap kode vs standar (dibuat di Fase 01)     | `docs/RETROFIT-GAPS.md`                           |
+| CI, versioning, auto-update GitHub release  | `docs/architecture/architecture-deployment.md`    |
+| Gambaran theme & kontrak DB                 | `docs/architecture/architecture-overview.md`      |
+| Gap kode vs standar                         | `docs/RETROFIT-GAPS.md`                           |
 | Kenapa suatu keputusan diambil              | `docs/decisions/` (ADR)                           |
 | Bug yang pernah terjadi & pencegahannya     | `docs/lessons-learned.md`                         |
 | Istilah domain                              | `docs/glossary.md`                                |

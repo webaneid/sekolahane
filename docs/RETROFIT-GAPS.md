@@ -92,10 +92,9 @@
 
 ## C. Performa & Database
 
-### GAP-11 — 🟡 Medium: `update_option()` ×9 Dijalankan di Setiap Request
+### GAP-11 — ✅ Selesai di Fase 02: `update_option()` ×9 Dijalankan di Setiap Request
 - **Lokasi:** `functions.php:16-24` (di dalam `after_setup_theme`).
-- **Masalah:** Memanggil `update_option()` untuk ukuran gambar `medium`, `large`, dan `thumbnail` pada hook `after_setup_theme` yang dieksekusi di **setiap request halaman**.
-- **Rencana Fix (Fase 03):** Pindahkan ke hook `after_switch_theme` (hanya berjalan sekali saat theme diaktifkan).
+- **Fix:** Dipindahkan ke fungsi `sekolahane_configure_image_sizes()` pada hook `after_switch_theme`.
 
 ### GAP-12 — 🟡 Medium: Query `$wpdb` Tahun Copyright Tanpa Cache & Aset Eksternal HTTP di Admin
 - **Lokasi:**
@@ -114,9 +113,9 @@
   - `inc/customizer.php` & `inc/color.php` — setting Customizer tidak di-load sementara sebagian `get_theme_mod()` masih dipanggil di template.
 - **Rencana Fix (Fase 04):** Hapus file yang murni duplikat (`post-view.php`, `option.php`) atau pisahkan modul `inc/sekolahane.php` yang terlalu besar (935 baris) ke file-file `inc/` yang jelas tanggung jawabnya; konfirmasi ke user apakah `customizer.php`/`color.php`/`single-iklan.php` masih ingin diaktifkan atau dipensiunkan.
 
-### GAP-14 — 🟡 Medium: Belum Ada Mekanisme Auto-Update & CI Release
-- **Lokasi:** Theme belum memiliki `inc/updater.php` dan `.github/workflows/`.
-- **Rencana Fix (Fase 02):** Tambahkan `inc/updater.php` standar Webane (sesuai ADR-0003, penyempurnaan dari `jalawarta`) dan workflow CI/release GitHub Actions (ADR-0002).
+### GAP-14 — ✅ Selesai di Fase 02: Belum Ada Mekanisme Auto-Update & CI Release
+- **Lokasi:** `inc/updater.php`, `.github/workflows/ci.yml`, `.github/workflows/release.yml`, `.releaserc.json`.
+- **Fix:** Dipasang sesuai ADR-0002 dan ADR-0003.
 
 ### GAP-15 — 🔵 Low: Text Domain Campur Aduk (8 Text Domain Berbeda)
 - **Lokasi:** Tersebar di template dan `inc/` (`sekolahane`, `anekabar`, `kabarane`, `anelogistik`, `rentcarane`, `roots`, `twentysixteen`, `webane-master`, `webane`).
