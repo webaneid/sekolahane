@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 get_header ();
 set_views(get_the_ID());
 ?>

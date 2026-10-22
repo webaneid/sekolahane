@@ -2,6 +2,7 @@
 	/*
 	* Template Name: Kelembagaan
 	*/
+	defined( 'ABSPATH' ) || exit;
 	get_header();
 ?>
 

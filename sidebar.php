@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 if ( ! is_active_sidebar( 'default-sidebar' ) ) {
 	return;
 }

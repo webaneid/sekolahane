@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('ane-mobile-cat'); ?>>
 <div class="container-fluid">
 	<div class="row">

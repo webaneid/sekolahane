@@ -1,8 +1,11 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('ane-page-kontak'); ?>>
 	<header class="entry-header">
 			<div class="ane-content">
 				<div class="ane-title">
-					<?php the_title( sprintf( '<h1 class="post-title general-title">', esc_url( get_permalink() ) ), '</h1>' ); ?>
+					<?php the_title( '<h1 class="post-title general-title">', '</h1>' ); ?>
 				</div>
 			</div>
             <div class="kontak-konten">

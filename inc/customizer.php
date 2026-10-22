@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 add_action('customize_register', 'webane_theme_customoze');
 function webane_theme_customoze($wp_customize){
      //Footer
@@ -8,25 +9,25 @@ function webane_theme_customoze($wp_customize){
       'capability' => 'edit_theme_options',
      ));
         $wp_customize->add_setting('footer_link_title', array(
-         'default'        => 'Link Penting',
-         'transport' => 'refresh',
+         'default'           => 'Link Penting',
+         'transport'         => 'refresh',
+         'sanitize_callback' => 'sanitize_text_field',
          ));
         $wp_customize->add_control('footer_link_title', array(
          'label'               => 'Footer Links Title',
           'section'            => 'footer_settings_section',
          'type'                => 'text',
-         'sanitize_callback'   => 'wp_filter_nohtml_kses'
         ));
         //title contacts
         $wp_customize->add_setting('footer_contact_title', array(
-         'default'        => 'Hubungi Kami',
-         'transport'      => 'refresh',
+         'default'           => 'Hubungi Kami',
+         'transport'         => 'refresh',
+         'sanitize_callback' => 'sanitize_text_field',
          ));
         $wp_customize->add_control('footer_contact_title', array(
          'label'   => 'Footer Contact Title',
           'section' => 'footer_settings_section',
          'type'    => 'text',
-         'sanitize_callback' => 'wp_filter_nohtml_kses'
         ));
         //warna footer 1
         $wp_customize->add_setting(

@@ -7,86 +7,60 @@
 
 ## Ringkasan Per Tingkat Keparahan
 
-| Level | Jumlah | Target Fase |
-|---|---|---|
-| 🔴 **Critical** | 1 | Fase 03 |
-| 🟠 **High** | 3 | Fase 03 |
-| 🟡 **Medium** | 10 | Fase 03 & Fase 04 |
-| 🔵 **Low / Clean-up** | 7 | Fase 04 |
+| Level | Jumlah | Status | Target Fase |
+|---|---|---|---|
+| 🔴 **Critical** | 1 | ✅ Selesai (1/1) | Fase 03 |
+| 🟠 **High** | 3 | ✅ Selesai (3/3) | Fase 03 |
+| 🟡 **Medium** | 10 | ✅ Selesai (9/10) — sisa `GAP-13` | Fase 03 & Fase 04 |
+| 🔵 **Low / Clean-up** | 7 | ✅ Selesai (1/7) — sisa 6 di Fase 04 | Fase 04 |
 
 ---
 
 ## A. Keamanan (Security)
 
-### GAP-01 — 🔴 Critical: Hardcoded Google Maps API Key di Kode Theme
-- **Lokasi:** `inc/sekolahane.php:19` (URL enqueue `googlemap`) dan `inc/sekolahane.php:28` (`acf_update_setting('google_api_key', ...)`).
-- **Masalah:** API key Google Maps tertulis langsung di source code dan diekspos ke semua situs pelanggan.
-- **Rencana Fix (Fase 03):** Baca key dari konstanta `SEKOLAHANE_GMAPS_API_KEY` atau ACF option (mis. `ane_gmaps_api_key`). Hanya enqueue script Google Maps jika key tersedia (dan idealnya hanya di halaman yang membutuhkan peta).
+### GAP-01 — ✅ Selesai di Fase 03: Hardcoded Google Maps API Key di Kode Theme
+- **Lokasi:** `inc/sekolahane.php`
+- **Fix:** Hardcoded key dihapus; diganti `sekolahane_get_google_maps_api_key()` (konstanta `SEKOLAHANE_GMAPS_API_KEY` atau ACF option `ane_google_maps_api_key`). Script Google Maps hanya di-enqueue jika key tersedia dan hanya di halaman kontak.
 
-### GAP-02 — 🟠 High: Output Tidak Di-escape (322 titik menurut PHPCS)
-- **Lokasi:** Tersebar di template root, `tp/`, `header.php`, `footer.php`, `inc/sekolahane.php`, dan `inc/widgets.php`.
-- **Contoh nyata:**
-  - `header.php:22`: `echo $link['url']` dan `echo $link['title']` dari ACF option tanpa `esc_url()` / `esc_html()`.
-  - `inc/widgets.php:54-86, 147-208`: variabel widget (`$title`, `$post_tag`, `$number`) di-echo mentah di atribut `<input value="...">`.
-  - `inc/sekolahane.php:808`: `$avatar = '<img alt="' . $alt . '" src="' . $avatar_url . '" ...'` tanpa `esc_attr()` / `esc_url()`.
-- **Rencana Fix (Fase 03):** Escape seluruh output di `header.php`, `footer.php`, `inc/`, dan template utama sesuai tabel di `architecture-security.md`.
+### GAP-02 — ✅ Selesai di Fase 03: Output Escaping & Tutup Celah Stored XSS
+- **Lokasi:** `header.php`, `footer.php`, `author.php`, `search.php`, `searchform.php`, `inc/sekolahane.php`, `inc/widgets.php`, `inc/color.php`, `inc/single-iklan.php`, dan `tp/**/*.php`.
+- **Fix:** Seluruh output dinamis di-escape (`esc_html`, `esc_attr`, `esc_url`, `wp_kses_post`), dan `remove_filter( 'pre_user_description', 'wp_filter_kses' )` dihapus.
 
-### GAP-03 — 🟠 High: Tidak Ada Guard `ABSPATH` di File `inc/`
-- **Lokasi:** Seluruh file di `inc/*.php` (`sekolahane.php`, `custompost.php`, `widgets.php`, dll) kecuali sepotong cek di tengah `inc/widgets.php:51`.
-- **Masalah:** Jika file diakses langsung via HTTP, PHP akan mengeksekusi fungsi seperti `add_action()` di luar konteks WordPress dan membocorkan path server lewat pesan fatal error.
-- **Rencana Fix (Fase 03):** Tambahkan `defined( 'ABSPATH' ) || exit;` di baris paling atas setiap file `inc/*.php`.
+### GAP-03 — ✅ Selesai di Fase 03: Guard `ABSPATH` di Seluruh File PHP & Anti-Webshell Scanner
+- **Lokasi:** Seluruh 84 file PHP (`inc/*.php`, root `*.php`, `tp/**/*.php`) + `bin/security-scan.sh`.
+- **Fix:** Dipasang `defined( 'ABSPATH' ) || exit;` di 100% file PHP theme dan diverifikasi otomatis oleh `composer security:scan` di CI.
 
-### GAP-04 — 🟡 Medium: Deregister jQuery Bawaan WP & Ganti dengan jQuery 3.3.1 CDN Tanpa SRI
-- **Lokasi:** `inc/sekolahane.php:12-14` (`wp_deregister_script('jquery')` → Cloudflare CDN jQuery 3.3.1).
-- **Masalah:**
-  1. jQuery 3.3.1 memiliki CVE XSS yang sudah diperbaiki di jQuery ≥ 3.5.0 (yang sudah dibawa WordPress 6.0+).
-  2. Mengganti jQuery inti WordPress sering merusak kompatibilitas plugin.
-  3. Seluruh aset CDN (`inc/sekolahane.php:5-18`) dimuat tanpa atribut Subresource Integrity (SRI) dan versi Bootstrap CSS (4.4.1) tidak sama dengan JS-nya (4.3.1).
-- **Rencana Fix (Fase 03/04):** Gunakan jQuery bawaan WordPress atau bundel lokal/SRI, dan samakan versi Bootstrap.
+### GAP-04 — ✅ Selesai di Fase 03: Hapus Deregister jQuery WP & Samakan Versi Bootstrap
+- **Lokasi:** `inc/sekolahane.php` (`ane_load_css_and_js`).
+- **Fix:** `wp_deregister_script( 'jquery' )` dihapus sehingga theme memakai jQuery aman bawaan WordPress; versi Bootstrap CSS & JS diseragamkan ke `4.4.1`.
 
-### GAP-05 — 🟡 Medium: Endpoint AJAX `nopriv` Post Views Tanpa Validasi Status Post
-- **Lokasi:** `inc/sekolahane.php:882-903` (`musi_increment_views`).
-- **Masalah:** Meskipun `$_GET['postviews_id']` sudah di-cast dengan `intval()`, handler tidak mengecek apakah post tersebut benar-benar ada dan berstatus `publish`, sehingga sembarang angka `postviews_id` akan membuat baris post meta `musi_views` baru di tabel `wp_postmeta`.
-- **Rencana Fix (Fase 03):** Cek `get_post_status( $post_id ) === 'publish'` sebelum menulis meta, dan gunakan `absint( wp_unslash( $_GET['postviews_id'] ) )`.
+### GAP-05 — ✅ Selesai di Fase 03: Validasi Post Status pada Endpoint AJAX `nopriv` Post Views
+- **Lokasi:** `inc/sekolahane.php` (`musi_increment_views`).
+- **Fix:** Menggunakan `absint( wp_unslash( $_GET['postviews_id'] ) )` dan mengecek `'publish' === get_post_status( $post_id )` sebelum menulis post meta `musi_views`.
 
-### GAP-06 — 🟡 Medium: Hardcoded Facebook App ID & Duplikasi `<script>` SDK Mentah
-- **Lokasi:** `header.php:12` dan `inc/sekolahane.php:382-391` (`fungsi_komen_facebook_webane`).
-- **Masalah:** SDK Facebook dimuat dua kali dengan `<script>` mentah, App ID di-hardcode, dan di `inc/sekolahane.php:388` terdapat bug `Undefined variable: $appid` (lihat GAP-08).
-- **Rencana Fix (Fase 03):** Pindahkan App ID ke ACF option (opsional), muat hanya jika fitur komentar FB diaktifkan, dan perbaiki variabel `$appid`.
+### GAP-06 — ✅ Selesai di Fase 03: Facebook App ID via Option & Perbaikan `$appid`
+- **Lokasi:** `header.php` dan `inc/sekolahane.php` (`fungsi_komen_facebook_webane`).
+- **Fix:** Menggunakan helper `sekolahane_get_fb_app_id()` (konstanta `SEKOLAHANE_FB_APP_ID` atau ACF option `ane_fb_app_id`), di-escape dengan `rawurlencode()` + `esc_url()`.
 
 ---
 
-## B. Bug & Logic Error (Tertangkap PHPStan Level 3)
+## B. Bug & Logic Error (Tertangkap PHPStan Level 3 — Kini 0 Error!)
 
-### GAP-07 — 🟠 High: Pemanggilan `get_the_terms()` dengan 3 Argumen (Signature Salah)
-- **Lokasi:** `tp/single-guru.php:61` dan `tp/single-guru.php:92`.
-- **Masalah:** `get_the_terms( $post->ID, 'pelajaran', ', ' )` — fungsi WordPress `get_the_terms()` hanya menerima 2 parameter (`$post`, `$taxonomy`). Argumen ketiga diabaikan dan menunjukkan niat awal memakai `get_the_term_list()`.
-- **Rencana Fix (Fase 03):** Perbaiki pemanggilan sesuai fungsi yang dimaksud tanpa mengubah output HTML.
+### GAP-07 — ✅ Selesai di Fase 03: Pemanggilan `get_the_terms()` dengan 3 Argumen
+- **Lokasi:** `tp/single-guru.php`
+- **Fix:** Dihapus argumen ke-3 yang tidak valid dan ditambahkan pengecekan `is_array()` sebelum `foreach` dan `wp_list_pluck()`.
 
-### GAP-08 — 🟡 Medium: Variabel Tidak Terdefinisi di Beberapa Template & Helper
-- **Lokasi (tercatat di `phpstan-baseline.neon`):**
-  - `inc/sekolahane.php:388` — `Undefined variable: $appid` di `fungsi_komen_facebook_webane()`.
-  - `inc/sekolahane.php:414,416` — `$author_details` diappend dengan `.=` sebelum diinisialisasi (`$author_details = ''`).
-  - `inc/sekolahane.php:593,598` — `$month_name` di breadcrumbs arsip bulan tidak diinisialisasi jika kondisi bulan tidak cocok.
-  - `footer.php:96` — `$judul` mungkin tidak terdefinisi.
-  - `tp/page-contact.php:28` (`$gambar`), `tp/section/guru-v2.php:20` (`$urlhome`), `tp/single-guru.php:10` (`$imgurl`), dan `inc/widgets.php` (variabel `$instance` tidak diberi nilai default ketika kosong).
-- **Rencana Fix (Fase 03):** Inisialisasi seluruh variabel dengan nilai default yang aman sebelum dipakai (menghilangkan PHP Warning di PHP 8.x).
+### GAP-08 — ✅ Selesai di Fase 03: Variabel Tidak Terdefinisi di Template & Helper
+- **Lokasi:** `inc/sekolahane.php`, `inc/widgets.php`, `footer.php`, `tp/page-contact.php`, `tp/section/guru-v2.php`, `tp/single-guru.php`.
+- **Fix:** Semua variabel diinisialisasi dengan aman; `extract()` di `inc/widgets.php` diganti `wp_parse_args( (array) $instance, $this->get_default_instance() )`.
 
-### GAP-09 — 🟡 Medium: Pemanggilan Fungsi & Template Part yang Tidak Ada
-- **Lokasi:**
-  - `tp/page-contact.php:58`: memanggil `panggil_sosial_media()` yang tidak pernah didefinisikan di mana pun (fatal error jika `tp/page-contact.php` dipakai).
-  - `functions.php:3`: `require get_template_directory() . '/inc/back-compat.php'` — file tidak ada.
-  - `get_template_part( 'tp/content', 'none' )` dipanggil di 9 file archive/search/tag/category/index, tetapi `tp/content-none.php` tidak ada (WordPress gagal diam-diam dan menampilkan halaman kosong saat tidak ada post).
-  - `get_template_part( 'tp/home', 'client' )` dipanggil di `tp/section/testimoni.php:35`, tetapi `tp/home-client.php` tidak ada.
-- **Rencana Fix (Fase 03/04):** Buat `tp/content-none.php` sederhana, bersihkan/amankan referensi ke file/fungsi yang tidak ada.
+### GAP-09 — ✅ Selesai di Fase 03: Pemanggilan Fungsi & Template Part yang Tidak Ada
+- **Lokasi:** `tp/page-contact.php`, `tp/content-none.php`.
+- **Fix:** Dibuat `tp/content-none.php` dan diganti `panggil_sosial_media()` menjadi `get_template_part( 'tp/content', 'sosmed' )`.
 
-### GAP-10 — 🟡 Medium: Properti `WP_Term::$cat_name` dan `sprintf()` Tanpa Placeholder
-- **Lokasi (`phpstan-baseline.neon`):**
-  - 8 template (`tp/content*.php`, `tp/single*.php`) mengakses `$category[0]->cat_name` pada hasil `get_the_terms()` (yang mengembalikan `WP_Term` dengan properti `->name`, bukan `->cat_name`; `cat_name` hanya ada di `get_the_category()`).
-  - 9 template memanggil `sprintf( esc_html__( '...', 'sekolahane' ), ... )` dengan string terjemahan tanpa placeholder `%s`.
-  - `inc/sekolahane.php:856`: `remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 )` memakai 4 parameter (seharusnya maksimal 3).
-  - `inc/widgets.php:211`: `Webane_Posts_Widget::form()` tidak mengembalikan nilai.
-- **Rencana Fix (Fase 04):** Rapikan semua item di atas dan hapus dari `phpstan-baseline.neon`.
+### GAP-10 — ✅ Selesai di Fase 03: Properti `WP_Term::$cat_name`, `sprintf()` Tanpa Placeholder, & TypeError PHP 8
+- **Lokasi:** `tp/content*.php`, `tp/single*.php`, `inc/sekolahane.php`, `inc/widgets.php`, `inc/Mobile_Detect.php`.
+- **Fix:** Seluruh 36 error di `phpstan-baseline.neon` telah diperbaiki hingga baseline kosong (`ignoreErrors: []`).
 
 ---
 
@@ -96,11 +70,9 @@
 - **Lokasi:** `functions.php:16-24` (di dalam `after_setup_theme`).
 - **Fix:** Dipindahkan ke fungsi `sekolahane_configure_image_sizes()` pada hook `after_switch_theme`.
 
-### GAP-12 — 🟡 Medium: Query `$wpdb` Tahun Copyright Tanpa Cache & Aset Eksternal HTTP di Admin
-- **Lokasi:**
-  - `inc/sekolahane.php:747-766`: `webane_load_dynamic_copyright_year()` menjalankan query `SELECT YEAR(min(post_date_gmt))...` setiap kali dipanggil tanpa transient.
-  - `inc/sekolahane.php:674, 713, 731`: Halaman login & dashboard admin memuat gambar dari `4.bp.blogspot.com` dan RSS feed `http://webane.com/feed/` (HTTP non-TLS, memperlambat loading wp-admin).
-- **Rencana Fix (Fase 04):** Simpan hasil tahun copyright di transient (di-clear saat `save_post`), dan bersihkan aset eksternal lawas di admin.
+### GAP-12 — ✅ Selesai di Fase 03: Cache Transient Query `$wpdb` Tahun Copyright & HTTPS di Admin
+- **Lokasi:** `inc/sekolahane.php` (`webane_load_dynamic_copyright_year`, `dashboard_custom_feed_output`).
+- **Fix:** Hasil query disimpan di transient `sekolahane_copyright_year` (`DAY_IN_SECONDS`) dan di-clear saat `save_post`; URL feed dashboard diubah ke `https://`.
 
 ---
 
@@ -121,10 +93,9 @@
 - **Lokasi:** Tersebar di template dan `inc/` (`sekolahane`, `anekabar`, `kabarane`, `anelogistik`, `rentcarane`, `roots`, `twentysixteen`, `webane-master`, `webane`).
 - **Rencana Fix (Fase 04):** Seragamkan seluruh fungsi terjemahan ke `'sekolahane'`.
 
-### GAP-16 — 🔵 Low: Versi Enqueue `main.min.css` Hardcoded `'1.0.6'` & `sekolahane.js` Tanpa Versi
-- **Lokasi:** `inc/sekolahane.php:10, 20`.
-- **Masalah:** Ketika theme diupdate ke versi baru, browser pengunjung tetap menyimpan cache CSS/JS lama.
-- **Rencana Fix (Fase 04):** Gunakan konstanta `SEKOLAHANE_VERSION` atau `filemtime()` seperti di `jalawarta`.
+### GAP-16 — ✅ Selesai di Fase 03: Versi Enqueue `main.min.css` & `sekolahane.js` Menggunakan `SEKOLAHANE_VERSION`
+- **Lokasi:** `inc/sekolahane.php` (`ane_load_css_and_js`).
+- **Fix:** Menggunakan konstanta `SEKOLAHANE_VERSION` agar cache browser otomatis di-bust setiap kali rilis versi baru.
 
 ### GAP-17 — 🔵 Low: Penggunaan `wp_reset_query()` Setelah `WP_Query`
 - **Lokasi:** `inc/sekolahane.php:196, 220`, `tp/single-guru.php:84, 115`, `tp/single-ekstrakurikuler.php:54`.

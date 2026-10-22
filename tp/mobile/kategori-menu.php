@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div class="ane-mobile-list">
 <?php if( have_rows('ane_menu_kategori','option') ): ?>
     <nav class="ane-mobile-nav">
@@ -7,7 +10,7 @@
                 $icon = get_sub_field('ane_icon');
             ?>
         <li>
-            <a href="<?php echo get_category_link($kategori->term_id); ?>"><i class="fa <?= $icon ?>"></i><span><?php echo esc_html( $kategori->name ); ?></span></a>
+            <a href="<?php echo esc_url( get_category_link( $kategori->term_id ) ); ?>"><i class="fa <?php echo esc_attr( (string) $icon ); ?>"></i><span><?php echo esc_html( $kategori->name ); ?></span></a>
         </li>
         <?php endwhile; ?>
         </ul>

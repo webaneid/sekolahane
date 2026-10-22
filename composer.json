@@ -34,6 +34,7 @@
         "lint:fix": "phpcbf",
         "analyse": "phpstan analyse --memory-limit=1G",
         "analyse:baseline": "phpstan analyse --memory-limit=1G --generate-baseline",
+        "security:scan": "bash bin/security-scan.sh",
         "dist:check": "bash bin/check-dist.sh"
     },
     "scripts-descriptions": {
@@ -42,6 +43,7 @@
         "lint:fix": "Perbaiki otomatis pelanggaran format yang bisa diperbaiki",
         "analyse": "Analisis statis PHPStan",
         "analyse:baseline": "Rekam ulang baseline PHPStan (hanya saat retrofit/keputusan sadar)",
+        "security:scan": "Scan anti-webshell, fungsi berbahaya, hardcoded secret, dan guard ABSPATH di seluruh file PHP",
         "dist:check": "Pastikan paket ZIP rilis bersih dari semua file .md, folder docs/AI, dan tooling dev"
     }
 }

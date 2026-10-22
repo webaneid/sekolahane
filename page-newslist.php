@@ -2,6 +2,7 @@
 	/*
 	* Template Name: Blog Type
 	*/
+	defined( 'ABSPATH' ) || exit;
 	get_header();
 ?>
 <div id="primary" class="content-area">

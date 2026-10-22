@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('ane-page-default'); ?>>
 <div class="container-fluid">
 	<div class="row">
@@ -22,7 +25,7 @@
 				<div class="entry-content">
 					<div class="ane-content">
 						<div class="ane-title">
-							<?php the_title( sprintf( '<h1 class="post-title general-title">', esc_url( get_permalink() ) ), '</h1>' ); ?>
+							<?php the_title( '<h1 class="post-title general-title">', '</h1>' ); ?>
 						</div>
 
 						<?php the_content();?>
@@ -51,7 +54,7 @@
 							<div class="testimoni-slider owl-carousel">
 								 <?php while ($second_query->have_posts() ) : $second_query->the_post();
 								 	get_template_part( 'tp/content', 'ekstrakurikuler' );
-								endwhile; wp_reset_query(); ?>
+								endwhile; wp_reset_postdata(); ?>
 							</div>
 					 	<?php endif; ?>
 

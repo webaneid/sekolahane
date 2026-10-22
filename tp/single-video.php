@@ -1,13 +1,16 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('ane-post-single'); ?>>
 	<header class="entry-header">
 				<div class="ane-kategori">
 						<?php $categories = get_the_category();
 							foreach ($categories as $category){
-							echo '<a class="post-cat" href="' . get_category_link($category->term_id) . '">' . $category->cat_name . '</a>';
+							echo '<a class="post-cat" href="' . esc_url( get_category_link($category->term_id) ) . '">' . esc_html( $category->name ) . '</a>';
 							}
 						?>
 				</div>
-				<?php the_title( sprintf( '<h1 class="post-title">', esc_url( get_permalink() ) ), '</h1>' );
+				<?php the_title( '<h1 class="post-title">', '</h1>' );
 				$tanggal = get_the_date( 'l, j F Y' );
 				?>
 				<div class="ane-meta">
@@ -60,12 +63,12 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="related-post">
-							<?php echo ane_related_post(); ?>
+							<?php ane_related_post(); ?>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="newest-post">
-							<?php echo ane_newest_posts(); ?>
+							<?php ane_newest_posts(); ?>
 
 						</div>
 

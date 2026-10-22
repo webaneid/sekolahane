@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div class="breadcrumb">
     <div class="container">
         <div class="row">

@@ -2,6 +2,7 @@
 	/*
 	* Template Name: Profil Lembaga
 	*/
+	defined( 'ABSPATH' ) || exit;
 	get_header();
 ?>
 

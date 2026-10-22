@@ -1,4 +1,7 @@
-<?php get_header ();?>
+<?php
+defined( 'ABSPATH' ) || exit;
+get_header();
+?>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
 		<?php panggil_breadcrumb ();?>

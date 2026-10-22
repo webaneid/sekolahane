@@ -2,6 +2,7 @@
 	/*
 	* Template Name: Contact Us
 	*/
+	defined( 'ABSPATH' ) || exit;
 	get_header();
 ?>
 <div id="primary" class="content-area">

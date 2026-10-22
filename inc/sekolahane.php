@@ -1,935 +1,1239 @@
 <?php
-// 01. load css and js
-function ane_load_css_and_js(){
-	wp_enqueue_style( 'FontAne', get_template_directory_uri() . '/css/FontAne.css');
-	wp_enqueue_style( 'FontsAwsome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' );
-	wp_enqueue_style( 'Google-Fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,800,900', false );
-	wp_enqueue_style( 'magnific-popup','https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css' );
-	wp_enqueue_style( 'OwlCarouse','https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css' );
-    wp_enqueue_style( 'bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');
-	wp_enqueue_style( 'sekolahane-css', get_template_directory_uri() . '/css/main.min.css', array(), '1.0.6');
+/**
+ * Fungsi utama theme Sekolah Ane (enqueue, helper tampilan, breadcrumbs, views, ACF options).
+ *
+ * @package Sekolahane
+ */
 
-	wp_deregister_script( 'jquery' );
-	wp_register_script( 'jquery' ,'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js');
+defined( 'ABSPATH' ) || exit;
+
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals
+
+/**
+ * Ambil Google Maps API Key dari konstanta wp-config.php atau ACF option.
+ *
+ * @return string API key atau string kosong jika belum dikonfigurasi.
+ */
+function sekolahane_get_google_maps_api_key() {
+	if ( defined( 'SEKOLAHANE_GMAPS_API_KEY' ) && is_string( SEKOLAHANE_GMAPS_API_KEY ) ) {
+		$key = trim( SEKOLAHANE_GMAPS_API_KEY );
+		if ( '' !== $key ) {
+			return $key;
+		}
+	}
+
+	if ( function_exists( 'get_field' ) ) {
+		$acf_key = get_field( 'ane_google_maps_api_key', 'option' );
+		if ( is_string( $acf_key ) && '' !== trim( $acf_key ) ) {
+			return trim( $acf_key );
+		}
+	}
+
+	return '';
+}
+
+/**
+ * Ambil Facebook App ID dari konstanta wp-config.php atau ACF option.
+ *
+ * @return string Facebook App ID atau string kosong.
+ */
+function sekolahane_get_fb_app_id() {
+	if ( defined( 'SEKOLAHANE_FB_APP_ID' ) && is_string( SEKOLAHANE_FB_APP_ID ) ) {
+		$app_id = trim( SEKOLAHANE_FB_APP_ID );
+		if ( '' !== $app_id ) {
+			return $app_id;
+		}
+	}
+
+	if ( function_exists( 'get_field' ) ) {
+		$acf_app_id = get_field( 'ane_fb_app_id', 'option' );
+		if ( is_string( $acf_app_id ) && '' !== trim( $acf_app_id ) ) {
+			return trim( $acf_app_id );
+		}
+	}
+
+	return '';
+}
+
+/**
+ * Enqueue stylesheet dan script front-end theme.
+ *
+ * @return void
+ */
+function ane_load_css_and_js() {
+	$ver = defined( 'SEKOLAHANE_VERSION' ) ? SEKOLAHANE_VERSION : '3.2.1';
+
+	wp_enqueue_style( 'FontAne', get_template_directory_uri() . '/css/FontAne.css', array(), $ver );
+	wp_enqueue_style( 'FontsAwsome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
+	wp_enqueue_style( 'Google-Fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,800,900', array(), null );
+	wp_enqueue_style( 'magnific-popup', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', array(), '1.1.0' );
+	wp_enqueue_style( 'OwlCarouse', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css', array(), '2.2.1' );
+	wp_enqueue_style( 'bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', array(), '4.4.1' );
+	wp_enqueue_style( 'sekolahane-css', get_template_directory_uri() . '/css/main.min.css', array(), $ver );
+
 	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'magnific', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js', array( 'jquery' ), '1.1.0', true );
+	wp_enqueue_script( 'OwlCarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js', array( 'jquery' ), '2.2.1', true );
+	wp_enqueue_script( 'bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js', array( 'jquery' ), '4.4.1', true );
 
-	wp_enqueue_script( 'magnific', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js' );
-	wp_enqueue_script( 'OwlCarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js' );
-	wp_enqueue_script( 'bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js');
-	wp_enqueue_script( 'googlemap', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBddpckvgjXaGHbHLkaPaCVQh7A0j44lj0', array('jquery'), true );
-	wp_enqueue_script( 'sekolahane-js', get_template_directory_uri() . '/js/sekolahane.js');
+	$gmaps_key = sekolahane_get_google_maps_api_key();
+	if ( '' !== $gmaps_key ) {
+		wp_enqueue_script(
+			'googlemap',
+			'https://maps.googleapis.com/maps/api/js?key=' . rawurlencode( $gmaps_key ),
+			array( 'jquery' ),
+			null,
+			true
+		);
+	}
+
+	wp_enqueue_script( 'sekolahane-js', get_template_directory_uri() . '/js/sekolahane.js', array( 'jquery' ), $ver, true );
 }
 add_action( 'wp_enqueue_scripts', 'ane_load_css_and_js' );
-/*
-	1. Google
-*/
+
+/**
+ * Konfigurasi Google Maps API key untuk field Google Map ACF.
+ *
+ * @return void
+ */
 function ane_google_map_init() {
-
-	acf_update_setting('google_api_key', 'AIzaSyBddpckvgjXaGHbHLkaPaCVQh7A0j44lj0');
+	$gmaps_key = sekolahane_get_google_maps_api_key();
+	if ( '' !== $gmaps_key && function_exists( 'acf_update_setting' ) ) {
+		acf_update_setting( 'google_api_key', $gmaps_key );
+	}
 }
+add_action( 'acf/init', 'ane_google_map_init' );
 
-add_action('acf/init', 'ane_google_map_init');
-
-// 02. excerpt
-function new_excerpt_length($length) {
+/**
+ * Batasi panjang kata excerpt.
+ *
+ * @param int $length Panjang default.
+ * @return int
+ */
+function new_excerpt_length( $length ) {
 	return 15;
 }
-add_filter('excerpt_length', 'new_excerpt_length', 15 );
-function change_excerpt( $text )
-{
-    $pos = strrpos( $text, '[');
-    if ($pos === false)
-    {
-        return $text;
-    }
+add_filter( 'excerpt_length', 'new_excerpt_length', 15 );
 
-    return rtrim (substr($text, 0, $pos) );
+/**
+ * Bersihkan bracket trailing pada excerpt.
+ *
+ * @param string $text Teks excerpt.
+ * @return string
+ */
+function change_excerpt( $text ) {
+	$pos = strrpos( $text, '[' );
+	if ( false === $pos ) {
+		return $text;
+	}
+
+	return rtrim( substr( $text, 0, $pos ) );
 }
-add_filter('get_the_excerpt', 'change_excerpt');
+add_filter( 'get_the_excerpt', 'change_excerpt' );
 
-// 03. Gallery options
-add_filter('the_content', 'webane_popup_gallery');
-function webane_popup_gallery($content) {
-       global $post;
-       $pattern ="/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
-       $replacement = '<a$1href=$2$3.$4$5 class="gallery-popup" title="'.$post->post_title.'"$6>';
-       $content = preg_replace($pattern, $replacement, $content);
-       return $content;
+/**
+ * Tambahkan class `gallery-popup` pada tautan gambar di dalam konten post.
+ *
+ * @param string $content Isi post.
+ * @return string
+ */
+function webane_popup_gallery( $content ) {
+	global $post;
+	$post_title  = ( is_object( $post ) && isset( $post->post_title ) ) ? esc_attr( $post->post_title ) : '';
+	$pattern     = "/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+	$replacement = '<a$1href=$2$3.$4$5 class="gallery-popup" title="' . $post_title . '"$6>';
+	$replaced    = preg_replace( $pattern, $replacement, $content );
+
+	return is_string( $replaced ) ? $replaced : $content;
 }
+add_filter( 'the_content', 'webane_popup_gallery' );
 
+/**
+ * Render shortcode caption gambar.
+ *
+ * @param array<string, mixed> $attr    Atribut shortcode.
+ * @param string|null          $content Konten di dalam shortcode.
+ * @return string
+ */
 function sekolahane_caption( $attr, $content = null ) {
-    $output = apply_filters( 'img_caption_shortcode', '', $attr, $content );
-    if ( $output != '' )
-        return $output;
+	$output = apply_filters( 'img_caption_shortcode', '', $attr, $content );
+	if ( '' !== $output ) {
+		return $output;
+	}
 
-    extract( shortcode_atts ( array(
-    'id' => '',
-    'align' => 'alignnone',
-    'width'=> '',
-    'caption' => ''
-    ), $attr ) );
+	$atts = shortcode_atts(
+		array(
+			'id'      => '',
+			'align'   => 'alignnone',
+			'width'   => '',
+			'caption' => '',
+		),
+		$attr
+	);
 
-    if ( 1 > (int) $width || empty( $caption ) )
-        return $content;
+	$width   = (int) $atts['width'];
+	$caption = (string) $atts['caption'];
+	if ( 1 > $width || '' === $caption ) {
+		return (string) $content;
+	}
 
-    if ( $id ) $id = 'id="' . $id . '" ';
+	$id_attr = '' !== (string) $atts['id'] ? 'id="' . esc_attr( (string) $atts['id'] ) . '" ' : '';
+	$align   = esc_attr( (string) $atts['align'] );
 
-    return '<figure ' . $id . 'class="wp-caption ' . $align . '" style="width: ' . $width . 'px">'
-. do_shortcode( $content ) . '<figcaption class="wp-caption-text">' . $caption . '</figcaption></figure>';
+	return '<figure ' . $id_attr . 'class="wp-caption ' . $align . '" style="width: ' . $width . 'px">'
+		. do_shortcode( (string) $content )
+		. '<figcaption class="wp-caption-text">' . wp_kses_post( $caption ) . '</figcaption></figure>';
 }
-
 add_shortcode( 'wp_caption', 'sekolahane_caption' );
 add_shortcode( 'caption', 'sekolahane_caption' );
-// 04-b. thumbnail error
-function sekolahane_dummy_tumbnail ()
-{
-	$dummythumb = get_theme_mod( 'dummythumb', get_template_directory_uri().'/img/dummy-thumbnail.jpg' );
 
-    return $dummythumb;
+/**
+ * URL fallback dummy thumbnail.
+ *
+ * @return string
+ */
+function sekolahane_dummy_tumbnail() {
+	return (string) get_theme_mod( 'dummythumb', get_template_directory_uri() . '/img/dummy-thumbnail.jpg' );
 }
 
-// embeded video
-function ane_get_embedded_media($type = array())
-{
-    $content = do_shortcode(apply_filters('the_content', get_the_content()));
-    $embed = get_media_embedded_in_content($content, $type);
-    if (in_array('audio', $type)):
-        $output = str_replace('?visual=true', '?visual=false', $embed[0]); else:
-        $output = $embed[0];
-    endif;
+/**
+ * Ambil embed media pertama dari konten post.
+ *
+ * @param array<int, string> $type Jenis media yang dicari.
+ * @return string
+ */
+function ane_get_embedded_media( $type = array() ) {
+	$content = do_shortcode( apply_filters( 'the_content', get_the_content() ) );
+	$embed   = get_media_embedded_in_content( $content, $type );
 
-    return $output;
-}
-// Youtube Thumbnail Image
-function ane_get_youtube_thumbnail($url, $size = ''){
-    $thumbBaseUri = 'https://img.youtube.com/vi/';
-    $id = '';
-    $size = $size ? $size.'default.jpg': 'default.jpg';
-    if(preg_match('/iframe/', $url)){
-        $id = preg_replace('/[\s\S]*\/embed\/|"[\s\S]*|\?[\s\S]*/', '', $url);
-    }
-    elseif(preg_match('/youtu\.be/', $url) || $embed = preg_match('/embed/', $url)){
-        $id = preg_replace("/^((?![^\/]+$).)*/", '', $url);
-    }
-    else{
-        $id = preg_replace("/^((?![^\?v]+$).)*=|&[^\&]*/", '', $url);
-    }
+	if ( empty( $embed ) || ! isset( $embed[0] ) ) {
+		return '';
+	}
 
-    return "$thumbBaseUri$id/$size";
+	if ( in_array( 'audio', $type, true ) ) {
+		return str_replace( '?visual=true', '?visual=false', $embed[0] );
+	}
+
+	return (string) $embed[0];
 }
 
-//Dummy images
-function ane_dummy_tumbnail ()
-{
-	$dummythumb = get_theme_mod( 'dummythumb', get_template_directory_uri().'/img/no-image.jpg' );
+/**
+ * Bangun URL thumbnail YouTube dari URL/iframe video.
+ *
+ * @param string $url  URL atau kode iframe YouTube.
+ * @param string $size Prefix ukuran thumbnail (mis. mq, hq, maxres).
+ * @return string
+ */
+function ane_get_youtube_thumbnail( $url, $size = '' ) {
+	$thumb_base_uri = 'https://img.youtube.com/vi/';
+	$id             = '';
+	$size_file      = '' !== $size ? $size . 'default.jpg' : 'default.jpg';
+	$url            = (string) $url;
 
-    return $dummythumb;
-}
-function ane_dummy_kotak ()
-{
-	$dummythumb = get_theme_mod( 'dummythumb', get_template_directory_uri().'/img/no-image-kotak.jpg' );
+	if ( preg_match( '/iframe/', $url ) ) {
+		$id = (string) preg_replace( '/[\s\S]*\/embed\/|"[\s\S]*|\?[\s\S]*/', '', $url );
+	} elseif ( preg_match( '/youtu\.be/', $url ) || preg_match( '/embed/', $url ) ) {
+		$id = (string) preg_replace( '/^((?![^\/]+$).)*\//', '', $url );
+	} else {
+		$id = (string) preg_replace( '/^((?![^\?v]+$).)*=|&[^\&]*/', '', $url );
+	}
 
-    return $dummythumb;
+	return $thumb_base_uri . $id . '/' . $size_file;
 }
-// paginasi
-function ane_post_pagination( \WP_Query $wp_query = null, $echo = true ) {
+
+/**
+ * URL gambar placeholder landscape.
+ *
+ * @return string
+ */
+function ane_dummy_tumbnail() {
+	return (string) get_theme_mod( 'dummythumb', get_template_directory_uri() . '/img/no-image.jpg' );
+}
+
+/**
+ * URL gambar placeholder persegi (kotak).
+ *
+ * @return string
+ */
+function ane_dummy_kotak() {
+	return (string) get_theme_mod( 'dummythumb', get_template_directory_uri() . '/img/no-image-kotak.jpg' );
+}
+
+/**
+ * Tampilkan atau kembalikan HTML navigasi paginasi arsip.
+ *
+ * @param \WP_Query|null $wp_query Objek query kustom (opsional).
+ * @param bool           $echo     True untuk langsung echo.
+ * @return string|null
+ */
+function ane_post_pagination( ?\WP_Query $wp_query = null, $echo = true ) {
 	if ( null === $wp_query ) {
 		global $wp_query;
 	}
-	$pages = paginate_links( [
-			'base'         => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+
+	if ( ! $wp_query instanceof \WP_Query ) {
+		return null;
+	}
+
+	$pages = paginate_links(
+		array(
+			'base'         => str_replace( '999999999', '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
 			'format'       => '?paged=%#%',
 			'current'      => max( 1, get_query_var( 'paged' ) ),
-			'total'        => $wp_query->max_num_pages,
+			'total'        => (int) $wp_query->max_num_pages,
 			'type'         => 'array',
 			'show_all'     => false,
 			'end_size'     => 3,
 			'mid_size'     => 1,
 			'prev_next'    => true,
-			'prev_text'    => __( '<i class="fa fa-chevron-left"></i>' ),
-			'next_text'    => __( '<i class="fa fa-chevron-right"></i>' ),
+			'prev_text'    => '<i class="fa fa-chevron-left"></i>',
+			'next_text'    => '<i class="fa fa-chevron-right"></i>',
 			'add_args'     => false,
-			'add_fragment' => ''
-		]
+			'add_fragment' => '',
+		)
 	);
+
 	if ( is_array( $pages ) ) {
 		$pagination = '<div class="ane-paginasi"><ul>';
 		foreach ( $pages as $page ) {
-			$pagination .= '<li>' . str_replace( 'webane', 'webane', $page ) . '</li>';
+			$pagination .= '<li>' . $page . '</li>';
 		}
 		$pagination .= '</ul></div>';
+
 		if ( $echo ) {
-			echo $pagination;
+			echo wp_kses_post( $pagination );
 		} else {
 			return $pagination;
 		}
 	}
+
 	return null;
 }
 
-// related post
-function ane_related_post ()
-{
+/**
+ * Tampilkan daftar post terkait berdasarkan tag pertama.
+ *
+ * @return void
+ */
+function ane_related_post() {
 	global $post;
-    $tags = wp_get_post_tags( $post->ID);
-    $all_tags = $tags[0]->term_id;
-    if ($tags) {
-        $args=array(
-			'tag__in' => array($all_tags),
-			'post__not_in' => array($post->ID),
-			'posts_per_page'=>5,
-			'caller_get_posts'=>1,
-            'orderby' => 'rand',
+	if ( ! is_object( $post ) || empty( $post->ID ) ) {
+		return;
+	}
+
+	$tags = wp_get_post_tags( $post->ID );
+	if ( ! empty( $tags ) && isset( $tags[0]->term_id ) ) {
+		$all_tags = $tags[0]->term_id;
+		$args     = array(
+			'tag__in'             => array( $all_tags ),
+			'post__not_in'        => array( $post->ID ),
+			'posts_per_page'      => 5,
+			'ignore_sticky_posts' => 1,
+			'orderby'             => 'rand',
 		);
 
-        $related_query = new WP_Query($args);
-        if( $related_query ->have_posts() ) { ?>
-            <span><?php _e( 'Post Terkait', 'anelogistik' ); ?></span>
-            <div class="isi-konten-terkait">
-                <?php while ($related_query ->have_posts()) : $related_query ->the_post();
-
-                        get_template_part( 'tp/content','list' );
-
-                endwhile;?>
-            </div>
-        <?php }
-        wp_reset_query();
-    }
+		$related_query = new WP_Query( $args );
+		if ( $related_query->have_posts() ) {
+			?>
+			<span><?php esc_html_e( 'Post Terkait', 'sekolahane' ); ?></span>
+			<div class="isi-konten-terkait">
+				<?php
+				while ( $related_query->have_posts() ) :
+					$related_query->the_post();
+					get_template_part( 'tp/content', 'list' );
+				endwhile;
+				?>
+			</div>
+			<?php
+		}
+		wp_reset_postdata();
+	}
 }
 
-//newest post
-function ane_newest_posts ()
-{
-	global $post;
-    $args=array(
-        'posts_per_page'=>5,
-        'caller_get_posts'=>1,
-    );
+/**
+ * Tampilkan 5 post terbaru.
+ *
+ * @return void
+ */
+function ane_newest_posts() {
+	$args = array(
+		'posts_per_page'      => 5,
+		'ignore_sticky_posts' => 1,
+	);
 
-    $newest_query = new WP_Query($args);
-    if( $newest_query ->have_posts() ) { ?>
-        <span><?php _e( 'Konten Terbaru', 'sekolahane' ); ?></span>
-        <div class="isi-konten">
-            <?php while ($newest_query ->have_posts()) : $newest_query ->the_post();
-
-                    get_template_part( 'tp/content','list' );
-
-            endwhile;?>
-        </div>
-    <?php }
-    wp_reset_query();
+	$newest_query = new WP_Query( $args );
+	if ( $newest_query->have_posts() ) {
+		?>
+		<span><?php esc_html_e( 'Konten Terbaru', 'sekolahane' ); ?></span>
+		<div class="isi-konten">
+			<?php
+			while ( $newest_query->have_posts() ) :
+				$newest_query->the_post();
+				get_template_part( 'tp/content', 'list' );
+			endwhile;
+			?>
+		</div>
+		<?php
+	}
+	wp_reset_postdata();
 }
 
-// next and prev posts
-function ane_prev_next_post()
-{
-    global $post;
+/**
+ * Kembalikan HTML navigasi post sebelumnya dan berikutnya.
+ *
+ * @return string
+ */
+function ane_prev_next_post() {
+	$prev_post = get_previous_post( true );
+	$prev_img  = ane_dummy_kotak();
+	if ( $prev_post instanceof WP_Post && has_post_thumbnail( $prev_post ) ) {
+		$prev_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $prev_post ), 'kotak' );
+		if ( is_array( $prev_thumb ) && ! empty( $prev_thumb[0] ) ) {
+			$prev_img = $prev_thumb[0];
+		}
+	}
 
-    $prev_post = get_previous_post(true);
-    if ( has_post_thumbnail($prev_post) ) {
-    $prev_thumbImg = wp_get_attachment_image_src( get_post_thumbnail_id($prev_post), 'kotak');
-    $prev_img = $prev_thumbImg['0'];
-    } else {
-        $prev_img = ane_dummy_kotak();
-    }
+	$next_post = get_next_post( true );
+	$next_img  = ane_dummy_kotak();
+	if ( $next_post instanceof WP_Post && has_post_thumbnail( $next_post ) ) {
+		$next_thumb = wp_get_attachment_image_src( get_post_thumbnail_id( $next_post ), 'kotak' );
+		if ( is_array( $next_thumb ) && ! empty( $next_thumb[0] ) ) {
+			$next_img = $next_thumb[0];
+		}
+	}
 
-    $next_post = get_next_post(true);
-    if ( has_post_thumbnail($next_post) ) {
-    $next_thumbImg = wp_get_attachment_image_src( get_post_thumbnail_id($next_post), 'kotak');
-    $next_img = $next_thumbImg['0'];
-    } else {
-        $next_img = ane_dummy_kotak();
-    }
-    $next_title = esc_html( get_the_title($next_post) );
-    $prev_title = esc_html( get_the_title($prev_post) );
+	$content  = '<div class="row">';
+	$content .= '<div class="col-md-6">';
+	if ( $prev_post instanceof WP_Post ) {
+		$prev_url   = esc_url( get_permalink( $prev_post->ID ) );
+		$prev_title = esc_html( get_the_title( $prev_post ) );
+		$prev_alt   = esc_attr( get_the_title( $prev_post ) );
 
-    $content = '<div class="row">';
-    $content .= '<div class="col-md-6">';
-    if (!empty( $prev_post )){
-    $content .= '
+		$content .= '
+				<div class="nav-header-prev">
+					<span><i class="fa fa-chevron-left"></i> Prev Post</span>
+				</div>
+				<article class="ane-konten-nav">
+					<div class="entry-header">
+						<a href="' . $prev_url . '">
+							<div class="ane-image">
+								<img src="' . esc_url( $prev_img ) . '" alt="' . $prev_alt . '" title="' . $prev_alt . '">
+							</div>
+						</a>
+					</div>
+					<div class="entry-content">
+						<a href="' . $prev_url . '">' . $prev_title . '</a>
+					</div>
+				</article>';
+	}
+	$content .= '</div>';
+	$content .= '<div class="col-md-6">';
+	if ( $next_post instanceof WP_Post ) {
+		$next_url   = esc_url( get_permalink( $next_post->ID ) );
+		$next_title = esc_html( get_the_title( $next_post ) );
+		$next_alt   = esc_attr( get_the_title( $next_post ) );
 
-                <div class="nav-header-prev">
-                    <span><i class="fa fa-chevron-left"></i> Prev Post</span>
-                </div>
-                <article class="ane-konten-nav">
-                    <div class="entry-header">
-                        <a href="'. get_permalink( $prev_post->ID ) .'">
-                            <div class="ane-image">
-                                <img src="'.$prev_img.'" alt="'. $prev_post->post_title. '" title="'. $prev_post->post_title. '">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <a href="'. get_permalink( $prev_post->ID) .'">
-                        '. $prev_post->post_title. '</a>
-                    </div>
-                </article>
+		$content .= '
+				<div class="nav-header-prev text-right">
+					<span>Next Post <i class="fa fa-chevron-right"></i></span>
+				</div>
+				<article class="ane-konten-nav nav-next">
+					<div class="entry-header">
+						<a href="' . $next_url . '">
+							<div class="ane-image">
+								<img src="' . esc_url( $next_img ) . '" alt="' . $next_alt . '" title="' . $next_alt . '">
+							</div>
+						</a>
+					</div>
+					<div class="entry-content">
+						<a href="' . $next_url . '">' . $next_title . '</a>
+					</div>
+				</article>';
+	}
+	$content .= '</div>';
+	$content .= '</div>';
 
-                ';
-    }
-    $content .= '</div>';
-    $content .= '<div class="col-md-6">';
-    if (!empty( $next_post )) {
-    $content .= '
-                <div class="nav-header-prev text-right">
-                    <span>Next Post <i class="fa fa-chevron-right"></i></span>
-                </div>
-                <article class="ane-konten-nav nav-next">
-                    <div class="entry-header">
-                        <a href="'. get_permalink( $next_post->ID ) .'">
-                            <div class="ane-image">
-                                <img src="'.$next_img.'" alt="'. $next_post->post_title. '" title="'. $next_post->post_title. '">
-                            </div>
-                        </a>
-                    </div>
-                    <div class="entry-content">
-                        <a href="'. get_permalink( $next_post->ID ) .'">
-                        '. $next_post->post_title. '</a>
-                    </div>
-                </article>
-
-                ';
-    }
-    $content .= '</div>';
-    $content .= '</div>';
-    return $content;
-    
+	return $content;
 }
 
-// times ago
-function times_ago($seconds = 1, $time=false){
-	$time = "";
-	$d = $seconds;
-	//$seconds = (int)strtotime($seconds);
-		if ( ! is_numeric($seconds)) $seconds = 1;
-		if ( ! is_numeric($time)) $time = current_time('timestamp', $gmt = 0);
-		//if ( ! is_numeric($time)) $time = time()+25200;
-		if ($time <= $seconds) $seconds = 1;
-		else $seconds = $time - $seconds;
-		$str = '';
-		$years = floor($seconds / 31536000);
-		$months = floor($seconds / 2628000);
-		$weeks = floor($seconds / 604800);
-		$days = floor($seconds / 86400);
-		$hours = floor($seconds / 3600);
-	    $minutes = floor($seconds / 60);
-		if ($years > 5) :
-			$str = date_i18n( get_option('date_format'), strtotime(get_the_time("Y-m-d")));
-			if($time) :
-				$str .= " ". esc_html(get_the_time( )) ;
-			endif;
-		elseif ($years > 0) :
-			$str =  sprintf( _n( '%s tahun lalu', '%s tahun lalu', $years, 'musi' ), $years );
-		elseif ($months > 0) :
-			$str =  sprintf( _n( '%s bulan lalu', '%s bulan lalu', $months, 'musi' ), $months );
-		elseif ($weeks > 0) :
-			$str =  sprintf( _n( '%s minggu lalu', '%s minggu lalu', $weeks, 'musi' ), $weeks );
-		elseif ($days > 0) :
-			$str =  sprintf( _n( '%s hari lalu', '%s hari lalu', $days, 'musi' ), $days );
-		elseif ($hours > 0) :
-			$str =  sprintf( _n( '%s jam lalu', '%s jam lalu', $hours, 'musi' ), $hours );
-		elseif ($minutes > 0) :
-			$str =  sprintf( _n( '%s menit lalu', '%s menit lalu', $minutes, 'musi' ), $minutes );
-		else :
-			$str =  sprintf( _n( '%s detik lalu', '%s detik lalu', $seconds, 'musi' ), $seconds );
-		endif;
-	return (trim($str));
-}
-function ane_load_times_ago()
-{
-	$timestamp = esc_attr( get_the_time( 'U' ) );
+/**
+ * Format selisih waktu relatif ("... yang lalu").
+ *
+ * @param int|string $seconds Timestamp post.
+ * @param int|bool   $time    Timestamp pembanding.
+ * @return string
+ */
+function times_ago( $seconds = 1, $time = false ) {
+	if ( ! is_numeric( $seconds ) ) {
+		$seconds = 1;
+	}
+	$now = (int) current_time( 'timestamp', 0 );
+	if ( $now <= (int) $seconds ) {
+		$diff = 1;
+	} else {
+		$diff = $now - (int) $seconds;
+	}
 
-    return '
+	$years   = (int) floor( $diff / 31536000 );
+	$months  = (int) floor( $diff / 2628000 );
+	$weeks   = (int) floor( $diff / 604800 );
+	$days    = (int) floor( $diff / 86400 );
+	$hours   = (int) floor( $diff / 3600 );
+	$minutes = (int) floor( $diff / 60 );
+
+	if ( $years > 5 ) {
+		$str  = date_i18n( (string) get_option( 'date_format' ), (int) strtotime( (string) get_the_time( 'Y-m-d' ) ) );
+		$str .= ' ' . esc_html( (string) get_the_time() );
+	} elseif ( $years > 0 ) {
+		/* translators: %s: jumlah tahun */
+		$str = sprintf( _n( '%s tahun lalu', '%s tahun lalu', $years, 'sekolahane' ), $years );
+	} elseif ( $months > 0 ) {
+		/* translators: %s: jumlah bulan */
+		$str = sprintf( _n( '%s bulan lalu', '%s bulan lalu', $months, 'sekolahane' ), $months );
+	} elseif ( $weeks > 0 ) {
+		/* translators: %s: jumlah minggu */
+		$str = sprintf( _n( '%s minggu lalu', '%s minggu lalu', $weeks, 'sekolahane' ), $weeks );
+	} elseif ( $days > 0 ) {
+		/* translators: %s: jumlah hari */
+		$str = sprintf( _n( '%s hari lalu', '%s hari lalu', $days, 'sekolahane' ), $days );
+	} elseif ( $hours > 0 ) {
+		/* translators: %s: jumlah jam */
+		$str = sprintf( _n( '%s jam lalu', '%s jam lalu', $hours, 'sekolahane' ), $hours );
+	} elseif ( $minutes > 0 ) {
+		/* translators: %s: jumlah menit */
+		$str = sprintf( _n( '%s menit lalu', '%s menit lalu', $minutes, 'sekolahane' ), $minutes );
+	} else {
+		/* translators: %s: jumlah detik */
+		$str = sprintf( _n( '%s detik lalu', '%s detik lalu', $diff, 'sekolahane' ), $diff );
+	}
+
+	return trim( $str );
+}
+
+/**
+ * Kembalikan elemen HTML waktu relatif post.
+ *
+ * @return string
+ */
+function ane_load_times_ago() {
+	$timestamp = (int) get_the_time( 'U' );
+
+	return '
 	<div class="meta-time">
 		<i class="fa fa-clock-o"></i>
-		'. times_ago($timestamp) . '
+		' . esc_html( times_ago( $timestamp ) ) . '
 	</div>
 	';
 }
-// fungsi share sosmed
-function fungsi_share_webane()
-{
+
+/**
+ * Kembalikan tombol berbagi media sosial untuk post saat ini.
+ *
+ * @return string
+ */
+function fungsi_share_webane() {
 	global $post;
-	$content = '<div class="social-share-buttons mt-20">';
+	$post_id   = ( is_object( $post ) && isset( $post->ID ) ) ? $post->ID : get_the_ID();
+	$title     = rawurlencode( wp_strip_all_tags( get_the_title( $post_id ) ) );
+	$permalink = (string) get_permalink( $post_id );
+	$enc_url   = rawurlencode( $permalink );
 
-	$title = get_the_title();
-	$permalink = get_permalink($post->ID);
+	$twitter_handler = get_option( 'twitter_handler' );
+	$via             = ! empty( $twitter_handler ) ? '&via=' . rawurlencode( (string) $twitter_handler ) : '';
 
-	$twitterHandler = (get_option('twitter_handler') ? '&amp;via='.esc_attr(get_option('twitter_handler')) : '');
+	$twitter  = 'https://twitter.com/intent/tweet?text=Hey!%20Read%20this:%20' . $title . '&url=' . $enc_url . $via;
+	$whatsapp = 'https://api.whatsapp.com/send?text=' . $title . '%20' . $enc_url;
+	$linkedin = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $enc_url;
 
-	$twitter = 'https://twitter.com/intent/tweet?text=Hey! Read this: '.$title.'&amp;url='.$permalink.$twitterHandler.'';
-	$facebook = 'https://www.facebook.com/sharer/sharer.php?u='.$permalink;
-	$google = 'https://plus.google.com/share?url='.$permalink;
-	$whatsapp = 'whatsapp://send?text=Share:'.$permalink;
-	$linkedin = 'http://www.linkedin.com/shareArticle?mini=true&url='.$permalink;
-
-	$content .= '<ul>';
-	$content .= '<li><div class="fb-like" data-href="'.$permalink.'" data-width="" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div></li>';
-
-	$content .= '<li><a class="twitter" href="'.$twitter.'" target="_blank" rel="nofollow"><i class="fa fa-twitter"></i></a></li>';
-	$content .= '<li><a class="whatsapp" href="'.$whatsapp.'" target="_blank" rel="nofollow"><i class="fa fa-whatsapp"></i></a></li>';
-	$content .= '<li><a class="linkedin" href="'.$linkedin.'" target="_blank" rel="nofollow"><i class="fa fa-linkedin"></i></a></li>';
+	$content  = '<div class="social-share-buttons mt-20"><ul>';
+	$content .= '<li><div class="fb-like" data-href="' . esc_url( $permalink ) . '" data-width="" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div></li>';
+	$content .= '<li><a class="twitter" href="' . esc_url( $twitter ) . '" target="_blank" rel="nofollow noopener"><i class="fa fa-twitter"></i></a></li>';
+	$content .= '<li><a class="whatsapp" href="' . esc_url( $whatsapp ) . '" target="_blank" rel="nofollow noopener"><i class="fa fa-whatsapp"></i></a></li>';
+	$content .= '<li><a class="linkedin" href="' . esc_url( $linkedin ) . '" target="_blank" rel="nofollow noopener"><i class="fa fa-linkedin"></i></a></li>';
 	$content .= '</ul></div><!-- .webane-share -->';
 
 	return $content;
 }
 
-// fungsi komen facebook
-function fungsi_komen_facebook_webane()
-{
-    global $post;
-$content = '';
-$content .= '<script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v5.0&appId=150033455013036&autoLogAppEvents=1"></script>';
-$content .='<div id="fb-root">
-				<script>(function(d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) return;
-				js = d.createElement(s); js.id = id;
-				js.src = "//connect.facebook.net/id_ID/sdk.js#xfbml=1'.$appid.'&version=v2.3";
-				fjs.parentNode.insertBefore(js, fjs);
-				}(document, "script", "facebook-jssdk"));</script>
-				<div class="fb-comments" data-href="'.get_permalink().'" data-numposts="10" data-width="100%">
-				</div>
-			</div>';
-return $content;
+/**
+ * Kembalikan blok komentar Facebook untuk halaman single.
+ *
+ * @return string
+ */
+function fungsi_komen_facebook_webane() {
+	$fb_app_id = sekolahane_get_fb_app_id();
+	$appid_qs  = '' !== $fb_app_id ? '&appId=' . rawurlencode( $fb_app_id ) : '';
+	$sdk_url   = 'https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v5.0' . $appid_qs . '&autoLogAppEvents=1';
+
+	$content = '<div id="fb-root"></div>';
+	// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+	$content .= '<script async defer crossorigin="anonymous" src="' . esc_url( $sdk_url ) . '"></script>';
+	$content .= '<div class="fb-comments" data-href="' . esc_url( (string) get_permalink() ) . '" data-numposts="10" data-width="100%"></div>';
+
+	return $content;
 }
 
-// --== adding author bio ==-
-
+/**
+ * Tambahkan kotak profil penulis di akhir artikel single.
+ *
+ * @param string $content Konten post.
+ * @return string
+ */
 function sekolahane_author_info_box( $content ) {
-global $post;
+	global $post;
 
-if ( is_single() && isset( $post->post_author ) ) {
-$display_name = get_the_author_meta( 'display_name', $post->post_author );
-if ( empty( $display_name ) )
-$display_name = get_the_author_meta( 'nickname', $post->post_author );
-$user_description = get_the_author_meta( 'user_description', $post->post_author );
-$user_website = get_the_author_meta('url', $post->post_author);
-$user_posts = get_author_posts_url( get_the_author_meta( 'ID' , $post->post_author));
+	if ( is_single() && is_object( $post ) && isset( $post->post_author ) ) {
+		$author_id    = (int) $post->post_author;
+		$display_name = get_the_author_meta( 'display_name', $author_id );
+		if ( empty( $display_name ) ) {
+			$display_name = get_the_author_meta( 'nickname', $author_id );
+		}
 
-if ( ! empty( $display_name ) )
-	$author_details = '<h2 class="author_name">Penulis: ' . $display_name . '</h2>';
+		$user_description = get_the_author_meta( 'user_description', $author_id );
+		$user_website     = get_the_author_meta( 'url', $author_id );
+		$user_posts       = get_author_posts_url( (int) get_the_author_meta( 'ID', $author_id ) );
 
-if ( ! empty( $user_description ) )
-$author_details .= '<div class="author_details">' . get_avatar( get_the_author_meta('user_email') , 90 ) . nl2br( $user_description ). '</div>';
+		$author_details = '';
+		if ( ! empty( $display_name ) ) {
+			$author_details .= '<h2 class="author_name">Penulis: ' . esc_html( $display_name ) . '</h2>';
+		}
 
-$author_details .= '<div class="author_links"><a href="'. $user_posts .'">Semua tulisan ' . $display_name . '</a>';
+		if ( ! empty( $user_description ) ) {
+			$author_details .= '<div class="author_details">'
+				. get_avatar( get_the_author_meta( 'user_email', $author_id ), 90 )
+				. wp_kses_post( nl2br( $user_description ) )
+				. '</div>';
+		}
 
-if ( ! empty( $user_website ) ) {
+		$author_details .= '<div class="author_links"><a href="' . esc_url( $user_posts ) . '">Semua tulisan ' . esc_html( $display_name ) . '</a>';
 
-$author_details .= ' | <a href="' . $user_website .'" target="_blank" rel="nofollow">Website</a></div>';
+		if ( ! empty( $user_website ) ) {
+			$author_details .= ' | <a href="' . esc_url( $user_website ) . '" target="_blank" rel="nofollow noopener">Website</a></div>';
+		} else {
+			$author_details .= '</div>';
+		}
 
-} else {
+		$content .= '<footer class="author_bio_section">' . $author_details . '</footer>';
+	}
 
-$author_details .= '</div>';
+	return $content;
+}
+add_filter( 'the_content', 'sekolahane_author_info_box' );
+
+/**
+ * Bangun HTML jejak breadcrumbs.
+ *
+ * @return string
+ */
+function fungsi_breadcrumbs_webane() {
+	$home_link        = esc_url( home_url( '/' ) );
+	$home_text        = '<i class="fa fa-home"></i>';
+	$link_before      = '<li class="parent-page">';
+	$link_after       = '</li>';
+	$link_attr        = ' rel="v:url" property="v:title"';
+	$link             = $link_before . '<a' . $link_attr . ' href="%1$s">%2$s</a>' . $link_after;
+	$delimiter        = '';
+	$before           = '<li>';
+	$after            = '</li>';
+	$page_addon       = '';
+	$breadcrumb_trail = '';
+	$category_links   = '';
+
+	$wp_the_query   = $GLOBALS['wp_the_query'];
+	$queried_object = $wp_the_query->get_queried_object();
+
+	if ( is_singular() && $queried_object instanceof WP_Post ) {
+		$post_object    = sanitize_post( $queried_object );
+		$title          = apply_filters( 'the_title', $post_object->post_title );
+		$parent         = (int) $post_object->post_parent;
+		$post_type      = $post_object->post_type;
+		$post_id        = $post_object->ID;
+		$post_link      = $before . wp_kses_post( $title ) . $after;
+		$parent_string  = '';
+		$post_type_link = '';
+
+		if ( 'post' === $post_type ) {
+			$categories = get_the_category( $post_id );
+			if ( ! empty( $categories ) ) {
+				$category    = $categories[0];
+				$cat_parents = get_category_parents( $category, true, $delimiter );
+				if ( is_string( $cat_parents ) ) {
+					$category_links = str_replace( '<a', $link_before . '<a' . $link_attr, $cat_parents );
+					$category_links = str_replace( '</a>', '</a>' . $link_after, $category_links );
+				}
+			}
+		}
+
+		if ( ! in_array( $post_type, array( 'post', 'page', 'attachment' ), true ) ) {
+			$post_type_object = get_post_type_object( $post_type );
+			$archive_link     = esc_url( (string) get_post_type_archive_link( $post_type ) );
+			if ( is_object( $post_type_object ) && isset( $post_type_object->labels->singular_name ) ) {
+				$post_type_link = sprintf( $link, $archive_link, esc_html( $post_type_object->labels->singular_name ) );
+			}
+		}
+
+		if ( 0 !== $parent ) {
+			$parent_links = array();
+			while ( $parent ) {
+				$post_parent = get_post( $parent );
+				if ( ! $post_parent instanceof WP_Post ) {
+					break;
+				}
+				$parent_links[] = sprintf( $link, esc_url( (string) get_permalink( $post_parent->ID ) ), esc_html( get_the_title( $post_parent->ID ) ) );
+				$parent         = (int) $post_parent->post_parent;
+			}
+			$parent_links  = array_reverse( $parent_links );
+			$parent_string = implode( $delimiter, $parent_links );
+		}
+
+		if ( '' !== $parent_string ) {
+			$breadcrumb_trail = $parent_string . $delimiter . $post_link;
+		} else {
+			$breadcrumb_trail = $post_link;
+		}
+
+		if ( '' !== $post_type_link ) {
+			$breadcrumb_trail = $post_type_link . $delimiter . $breadcrumb_trail;
+		}
+
+		if ( '' !== $category_links ) {
+			$breadcrumb_trail = $category_links . $breadcrumb_trail;
+		}
+	}
+
+	if ( is_archive() ) {
+		if ( is_category() || is_tag() || is_tax() ) {
+			$term_object = get_term( $queried_object );
+			if ( $term_object instanceof WP_Term ) {
+				$taxonomy           = $term_object->taxonomy;
+				$term_name          = esc_html( $term_object->name );
+				$term_parent        = (int) $term_object->parent;
+				$taxonomy_object    = get_taxonomy( $taxonomy );
+				$tax_label          = ( is_object( $taxonomy_object ) && isset( $taxonomy_object->labels->singular_name ) ) ? esc_html( $taxonomy_object->labels->singular_name ) : '';
+				$current_term_link  = $before . $tax_label . ': ' . $term_name . $after;
+				$parent_term_string = '';
+
+				if ( 0 !== $term_parent ) {
+					$parent_term_links = array();
+					while ( $term_parent ) {
+						$term = get_term( $term_parent, $taxonomy );
+						if ( ! $term instanceof WP_Term ) {
+							break;
+						}
+						$term_link           = get_term_link( $term );
+						$parent_term_links[] = sprintf( $link, esc_url( is_string( $term_link ) ? $term_link : '' ), esc_html( $term->name ) );
+						$term_parent         = (int) $term->parent;
+					}
+					$parent_term_links  = array_reverse( $parent_term_links );
+					$parent_term_string = implode( $delimiter, $parent_term_links );
+				}
+
+				if ( '' !== $parent_term_string ) {
+					$breadcrumb_trail = $parent_term_string . $delimiter . $current_term_link;
+				} else {
+					$breadcrumb_trail = $current_term_link;
+				}
+			}
+		} elseif ( is_author() && is_object( $queried_object ) && isset( $queried_object->data->display_name ) ) {
+			$breadcrumb_trail = esc_html__( 'Author archive for ', 'sekolahane' ) . $before . esc_html( $queried_object->data->display_name ) . $after;
+		} elseif ( is_date() ) {
+			$year       = isset( $wp_the_query->query_vars['year'] ) ? (int) $wp_the_query->query_vars['year'] : 0;
+			$monthnum   = isset( $wp_the_query->query_vars['monthnum'] ) ? (int) $wp_the_query->query_vars['monthnum'] : 0;
+			$day        = isset( $wp_the_query->query_vars['day'] ) ? (int) $wp_the_query->query_vars['day'] : 0;
+			$month_name = '';
+
+			if ( $monthnum ) {
+				$date_time = DateTime::createFromFormat( '!m', (string) $monthnum );
+				if ( $date_time instanceof DateTime ) {
+					$month_name = $date_time->format( 'F' );
+				}
+			}
+
+			if ( is_year() ) {
+				$breadcrumb_trail = $before . esc_html( (string) $year ) . $after;
+			} elseif ( is_month() ) {
+				$year_link        = sprintf( $link, esc_url( get_year_link( $year ) ), esc_html( (string) $year ) );
+				$breadcrumb_trail = $year_link . $delimiter . $before . esc_html( $month_name ) . $after;
+			} elseif ( is_day() ) {
+				$year_link        = sprintf( $link, esc_url( get_year_link( $year ) ), esc_html( (string) $year ) );
+				$month_link       = sprintf( $link, esc_url( get_month_link( $year, $monthnum ) ), esc_html( $month_name ) );
+				$breadcrumb_trail = $year_link . $delimiter . $month_link . $delimiter . $before . esc_html( (string) $day ) . $after;
+			}
+		} elseif ( is_post_type_archive() ) {
+			$post_type = isset( $wp_the_query->query_vars['post_type'] ) ? $wp_the_query->query_vars['post_type'] : '';
+			if ( is_array( $post_type ) ) {
+				$post_type = reset( $post_type );
+			}
+			$post_type_object = get_post_type_object( (string) $post_type );
+			if ( is_object( $post_type_object ) && isset( $post_type_object->labels->singular_name ) ) {
+				$breadcrumb_trail = $before . esc_html( $post_type_object->labels->singular_name ) . $after;
+			}
+		}
+	}
+
+	if ( is_search() ) {
+		$breadcrumb_trail = esc_html__( 'Pencarian untuk: ', 'sekolahane' ) . $before . get_search_query() . $after;
+	}
+
+	if ( is_404() ) {
+		$breadcrumb_trail = $before . esc_html__( 'Error 404', 'sekolahane' ) . $after;
+	}
+
+	if ( is_paged() ) {
+		$current_page = get_query_var( 'paged' ) ? (int) get_query_var( 'paged' ) : (int) get_query_var( 'page' );
+		/* translators: %s: nomor halaman */
+		$page_addon = $before . sprintf( esc_html__( ' ( Page %s )', 'sekolahane' ), number_format_i18n( $current_page ) ) . $after;
+	}
+
+	$breadcrumb_output_link = '<ul>';
+	if ( is_home() || is_front_page() ) {
+		if ( is_paged() ) {
+			$breadcrumb_output_link .= '<li class="parent-page"> <a href="' . $home_link . '">' . $home_text . '</a></li>';
+			$breadcrumb_output_link .= $page_addon;
+		}
+	} else {
+		$breadcrumb_output_link .= '<li><a href="' . $home_link . '" rel="v:url" property="v:title">' . $home_text . '</a></li>';
+		$breadcrumb_output_link .= $delimiter;
+		$breadcrumb_output_link .= $breadcrumb_trail;
+		$breadcrumb_output_link .= $page_addon;
+	}
+	$breadcrumb_output_link .= '</ul><!-- .breadcrumbs -->';
+
+	return $breadcrumb_output_link;
 }
 
-$content = $content . '<footer class="author_bio_section" >' . $author_details . '</footer>';
-}
-return $content;
-}
-
-add_action( 'the_content', 'sekolahane_author_info_box' );
-remove_filter('pre_user_description', 'wp_filter_kses');
-
-function fungsi_breadcrumbs_webane()
-{
-    // Set variables for later use
-    $here_text        = __( 'You are currently here!' );
-    $home_link        = home_url('/');
-    $home_text        = __( '<i class="fa fa-home"></i>' );
-    $link_before      = '<li class="parent-page">';
-    $link_after       = '</li>';
-    $link_attr        = ' rel="v:url" property="v:title"';
-    $link             = $link_before . '<a' . $link_attr . ' href="%1$s">%2$s</a>' . $link_after;
-    $delimiter        = '';              // Delimiter between crumbs
-    $before           = '<li>'; // Tag before the current crumb
-    $after            = '</li>';                // Tag after the current crumb
-    $page_addon       = '';                       // Adds the page number if the query is paged
-    $breadcrumb_trail = '';
-    $category_links   = '';
-
-    /**
-     * Set our own $wp_the_query variable. Do not use the global variable version due to
-     * reliability
-     */
-    $wp_the_query   = $GLOBALS['wp_the_query'];
-    $queried_object = $wp_the_query->get_queried_object();
-
-    // Handle single post requests which includes single pages, posts and attatchments
-    if ( is_singular() )
-    {
-        /**
-         * Set our own $post variable. Do not use the global variable version due to
-         * reliability. We will set $post_object variable to $GLOBALS['wp_the_query']
-         */
-        $post_object = sanitize_post( $queried_object );
-
-        // Set variables
-        $title          = apply_filters( 'the_title', $post_object->post_title );
-        $parent         = $post_object->post_parent;
-        $post_type      = $post_object->post_type;
-        $post_id        = $post_object->ID;
-        $post_link      = $before . $title . $after;
-        $parent_string  = '';
-        $post_type_link = '';
-
-        if ( 'post' === $post_type )
-        {
-            // Get the post categories
-            $categories = get_the_category( $post_id );
-            if ( $categories ) {
-                // Lets grab the first category
-                $category  = $categories[0];
-
-                $category_links = get_category_parents( $category, true, $delimiter );
-                $category_links = str_replace( '<a',   $link_before . '<a' . $link_attr, $category_links );
-                $category_links = str_replace( '</a>', '</a>' . $link_after,             $category_links );
-            }
-        }
-
-        if ( !in_array( $post_type, ['post', 'page', 'attachment'] ) )
-        {
-            $post_type_object = get_post_type_object( $post_type );
-            $archive_link     = esc_url( get_post_type_archive_link( $post_type ) );
-
-            $post_type_link   = sprintf( $link, $archive_link, $post_type_object->labels->singular_name );
-        }
-
-        // Get post parents if $parent !== 0
-        if ( 0 !== $parent )
-        {
-            $parent_links = [];
-            while ( $parent ) {
-                $post_parent = get_post( $parent );
-
-                $parent_links[] = sprintf( $link, esc_url( get_permalink( $post_parent->ID ) ), get_the_title( $post_parent->ID ) );
-
-                $parent = $post_parent->post_parent;
-            }
-
-            $parent_links = array_reverse( $parent_links );
-
-            $parent_string = implode( $delimiter, $parent_links );
-        }
-
-        // Lets build the breadcrumb trail
-        if ( $parent_string ) {
-            $breadcrumb_trail = $parent_string . $delimiter . $post_link;
-        } else {
-            $breadcrumb_trail = $post_link;
-        }
-
-        if ( $post_type_link )
-            $breadcrumb_trail = $post_type_link . $delimiter . $breadcrumb_trail;
-
-        if ( $category_links )
-            $breadcrumb_trail = $category_links . $breadcrumb_trail;
-    }
-
-    // Handle archives which includes category-, tag-, taxonomy-, date-, custom post type archives and author archives
-    if( is_archive() )
-    {
-        if (    is_category()
-             || is_tag()
-             || is_tax()
-        ) {
-            // Set the variables for this section
-            $term_object        = get_term( $queried_object );
-            $taxonomy           = $term_object->taxonomy;
-            $term_id            = $term_object->term_id;
-            $term_name          = $term_object->name;
-            $term_parent        = $term_object->parent;
-            $taxonomy_object    = get_taxonomy( $taxonomy );
-            $current_term_link  = $before . $taxonomy_object->labels->singular_name . ': ' . $term_name . $after;
-            $parent_term_string = '';
-
-            if ( 0 !== $term_parent )
-            {
-                // Get all the current term ancestors
-                $parent_term_links = [];
-                while ( $term_parent ) {
-                    $term = get_term( $term_parent, $taxonomy );
-
-                    $parent_term_links[] = sprintf( $link, esc_url( get_term_link( $term ) ), $term->name );
-
-                    $term_parent = $term->parent;
-                }
-
-                $parent_term_links  = array_reverse( $parent_term_links );
-                $parent_term_string = implode( $delimiter, $parent_term_links );
-            }
-
-            if ( $parent_term_string ) {
-                $breadcrumb_trail = $parent_term_string . $delimiter . $current_term_link;
-            } else {
-                $breadcrumb_trail = $current_term_link;
-            }
-
-        } elseif ( is_author() ) {
-
-            $breadcrumb_trail = __( 'Author archive for ') .  $before . $queried_object->data->display_name . $after;
-
-        } elseif ( is_date() ) {
-            // Set default variables
-            $year     = $wp_the_query->query_vars['year'];
-            $monthnum = $wp_the_query->query_vars['monthnum'];
-            $day      = $wp_the_query->query_vars['day'];
-
-            // Get the month name if $monthnum has a value
-            if ( $monthnum ) {
-                $date_time  = DateTime::createFromFormat( '!m', $monthnum );
-                $month_name = $date_time->format( 'F' );
-            }
-
-            if ( is_year() ) {
-
-                $breadcrumb_trail = $before . $year . $after;
-
-            } elseif( is_month() ) {
-
-                $year_link        = sprintf( $link, esc_url( get_year_link( $year ) ), $year );
-
-                $breadcrumb_trail = $year_link . $delimiter . $before . $month_name . $after;
-
-            } elseif( is_day() ) {
-
-                $year_link        = sprintf( $link, esc_url( get_year_link( $year ) ),             $year       );
-                $month_link       = sprintf( $link, esc_url( get_month_link( $year, $monthnum ) ), $month_name );
-
-                $breadcrumb_trail = $year_link . $delimiter . $month_link . $delimiter . $before . $day . $after;
-            }
-
-        } elseif ( is_post_type_archive() ) {
-
-            $post_type        = $wp_the_query->query_vars['post_type'];
-            $post_type_object = get_post_type_object( $post_type );
-
-            $breadcrumb_trail = $before . $post_type_object->labels->singular_name . $after;
-
-        }
-    }
-
-    // Handle the search page
-    if ( is_search() ) {
-        $breadcrumb_trail = __( 'Pencarian untuk: ' ) . $before . get_search_query() . $after;
-    }
-
-    // Handle 404's
-    if ( is_404() ) {
-        $breadcrumb_trail = $before . __( 'Error 404' ) . $after;
-    }
-
-    // Handle paged pages
-    if ( is_paged() ) {
-        $current_page = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : get_query_var( 'page' );
-        $page_addon   = $before . sprintf( __( ' ( Page %s )' ), number_format_i18n( $current_page ) ) . $after;
-    }
-
-    $breadcrumb_output_link  = '';
-    $breadcrumb_output_link .= '<ul>';
-    if (    is_home()
-         || is_front_page()
-    ) {
-        // Do not show breadcrumbs on page one of home and frontpage
-        if ( is_paged() ) {
-            $breadcrumb_output_link .= '<li class="parent-page"> <a href="' . $home_link . '">' . $home_text . '</a></li>';
-            $breadcrumb_output_link .= $page_addon;
-        }
-    } else {
-        $breadcrumb_output_link .= '<li><a href="' . $home_link . '" rel="v:url" property="v:title">' . $home_text . '</a></li>';
-        $breadcrumb_output_link .= $delimiter;
-        $breadcrumb_output_link .= $breadcrumb_trail;
-        $breadcrumb_output_link .= $page_addon;
-    }
-    $breadcrumb_output_link .= '</ul><!-- .breadcrumbs -->';
-
-    return $breadcrumb_output_link;
-}
-
+/**
+ * Tampilkan pembungkus section breadcrumbs.
+ *
+ * @return void
+ */
 function panggil_breadcrumb() {
-global $webane;
-?>
-   <div class="breadcrumb-area pt-15 pb-15">
-       <div class="container">
-           <div class="row">
-               <div class="col-lg-12">
-                   <!--=======  breadcrumb container  =======-->
+	?>
+	<div class="breadcrumb-area pt-15 pb-15">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb-container">
+						<?php echo wp_kses_post( fungsi_breadcrumbs_webane() ); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?php
+}
 
-                   <div class="breadcrumb-container">
-                       <?php echo fungsi_breadcrumbs_webane(); ?>
-                   </div>
-
-               </div>
-           </div>
-       </div>
-   </div>
-<?php }
-
-// default logo on login form
-function webane_load_login_form_logo() { ?>
-    <style type="text/css">
-        .login {background: #73ab01;}
-        #login h1 a, .login h1 a {
-            background-image: url(https://4.bp.blogspot.com/-jF3KjigDQCY/W7-WgeouSoI/AAAAAAAAAYc/zLuvSenN5oI7fuC_TnDIf14n9FUW40tXwCLcBGAs/s1600/login.png);
-        }
-        #login {
-            background-color: #fff;
-            width: 100%;
-            overflow: hidden;
-            -webkit-box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
-        }
-        #login .button-primary {
-            margin-top: 10px; display: block; width: 100%; background:#73ab01; color:#fff; border-color:#fff;
-        }
-        #login input[type="text"], #login input[type="password"] {border:0; border-bottom: 1px solid #73ab01}
-
-    </style>
-<?php }
+/**
+ * Kustomisasi tampilan form login wp-login.php.
+ *
+ * @return void
+ */
+function webane_load_login_form_logo() {
+	?>
+	<style type="text/css">
+		.login {background: #73ab01;}
+		#login h1 a, .login h1 a {
+			background-image: url(https://4.bp.blogspot.com/-jF3KjigDQCY/W7-WgeouSoI/AAAAAAAAAYc/zLuvSenN5oI7fuC_TnDIf14n9FUW40tXwCLcBGAs/s1600/login.png);
+		}
+		#login {
+			background-color: #fff;
+			width: 100%;
+			overflow: hidden;
+			-webkit-box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
+			box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
+		}
+		#login .button-primary {
+			margin-top: 10px; display: block; width: 100%; background:#73ab01; color:#fff; border-color:#fff;
+		}
+		#login input[type="text"], #login input[type="password"] {border:0; border-bottom: 1px solid #73ab01}
+	</style>
+	<?php
+}
 add_action( 'login_enqueue_scripts', 'webane_load_login_form_logo' );
 
 /**
- * Create the function to output the contents of your Dashboard Widget.
+ * Placeholder dashboard widget.
+ *
+ * @return void
  */
 function wpexplorer_dashboard_widget_function() {
-    https://webane.com/rss/
-	echo "Hello there, I'm a great Dashboard Widget. Edit me!";
-}
-add_action('wp_dashboard_setup', 'my_dashboard_widgets');
-function my_dashboard_widgets() {
-     global $wp_meta_boxes;
-     unset(
-          $wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins'],
-          $wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'],
-          $wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']
-     );
-     wp_add_dashboard_widget( 'dashboard_custom_feed', 'Greating From Webane' , 'dashboard_custom_feed_output' );
+	echo esc_html__( "Hello there, I'm a great Dashboard Widget. Edit me!", 'sekolahane' );
 }
 
-function dashboard_custom_feed_output() {
-     echo '<div class="rss-widget">';
-     wp_widget_rss_output(array(
-          'url' => 'http://webane.com/feed/',
-          'title' => 'Webane Indonesia',
-          'items' => 10,
-          'show_summary' => 0,
-          'show_author' => 0,
-          'show_date' => 1,
-          'target'    => '_blank',
-     ));
-     echo '</div>';
+/**
+ * Sesuaikan widget di halaman Dashboard wp-admin.
+ *
+ * @return void
+ */
+function my_dashboard_widgets() {
+	global $wp_meta_boxes;
+	unset(
+		$wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins'],
+		$wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'],
+		$wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']
+	);
+	wp_add_dashboard_widget( 'dashboard_custom_feed', 'Greating From Webane', 'dashboard_custom_feed_output' );
 }
-// Custom Admin footer
-function wpexplorer_remove_footer_admin () {
-	echo '<span id="footer-thankyou">Designed with love by <a href="http://webane.com/" target="_blank" rel="nofollow">Webane Indonesia</a> Powered By Wordpress</span>';
+add_action( 'wp_dashboard_setup', 'my_dashboard_widgets' );
+
+/**
+ * Tampilkan RSS feed Webane di widget dashboard.
+ *
+ * @return void
+ */
+function dashboard_custom_feed_output() {
+	echo '<div class="rss-widget">';
+	wp_widget_rss_output(
+		array(
+			'url'          => 'https://webane.com/feed/',
+			'title'        => 'Webane Indonesia',
+			'items'        => 10,
+			'show_summary' => 0,
+			'show_author'  => 0,
+			'show_date'    => 1,
+		)
+	);
+	echo '</div>';
+}
+
+/**
+ * Ubah teks kredit di footer wp-admin.
+ *
+ * @return string
+ */
+function wpexplorer_remove_footer_admin() {
+	return '<span id="footer-thankyou">Designed with love by <a href="https://webane.com/" target="_blank" rel="nofollow noopener">Webane Indonesia</a> Powered By WordPress</span>';
 }
 add_filter( 'admin_footer_text', 'wpexplorer_remove_footer_admin' );
-// fungsi iklan webane
-function webane_ads_on_admin()
-{
+
+/**
+ * Tampilkan banner informasi Webane di wp-admin.
+ *
+ * @return void
+ */
+function webane_ads_on_admin() {
 	$imageku = 'https://4.bp.blogspot.com/-J2K6WKNTj2E/W7-WgY1y9uI/AAAAAAAAAYg/GSYOwtOOJEEydFWCbxxfTGK5XtAM1cI7wCLcBGAs/s1600/webane-indonesia-ads.jpg';
-	$output = '<a href="https://webane.com"><img style="width:100%;" src="'.$imageku.'"></a>';
+	$output  = '<a href="https://webane.com"><img style="width:100%;" src="' . esc_url( $imageku ) . '" alt="Webane Indonesia"></a>';
 
-	add_settings_error('webane_ads_on_admin', esc_attr( 'settings_updated' ), $output, 'notice-warning');
-
+	add_settings_error( 'webane_ads_on_admin', esc_attr( 'settings_updated' ), $output, 'notice-warning' );
 	settings_errors( 'webane_ads_on_admin' );
 }
 add_action( 'admin_notices', 'webane_ads_on_admin' );
-// Fungsi design by
-function webane_load_designed_by()
-{
-$webane_site = 'https://webane.com';
-$content = '| Designed with love by <a href="'.$webane_site.'" target="_blank" rel="nofollow" title="Web Design Webane Indonesia" alt="Web Design Webane Indonesia" rel="nofollow">Webane Indonesia</a>';
-return $content;
+
+/**
+ * Kembalikan HTML kredit desain di footer front-end.
+ *
+ * @return string
+ */
+function webane_load_designed_by() {
+	$webane_site = 'https://webane.com';
+	return '| Designed with love by <a href="' . esc_url( $webane_site ) . '" target="_blank" rel="nofollow noopener" title="Web Design Webane Indonesia">Webane Indonesia</a>';
 }
-// year copyright
+
+/**
+ * Ambil rentang tahun publikasi post untuk copyright footer (di-cache transient 1 hari).
+ *
+ * @return string
+ */
 function webane_load_dynamic_copyright_year() {
+	$cached = get_transient( 'sekolahane_copyright_year' );
+	if ( false !== $cached && is_string( $cached ) ) {
+		return $cached;
+	}
+
 	global $wpdb;
-	$copyright_dates = $wpdb->get_results("
-	SELECT
-	YEAR(min(post_date_gmt)) AS firstdate,
-	YEAR(max(post_date_gmt)) AS lastdate
-	FROM
-	$wpdb->posts
-	WHERE
-	post_status = 'publish'
-	");
+	$copyright_dates = $wpdb->get_results(
+		"SELECT YEAR(min(post_date_gmt)) AS firstdate, YEAR(max(post_date_gmt)) AS lastdate FROM $wpdb->posts WHERE post_status = 'publish'"
+	);
+
 	$output = '';
-	if($copyright_dates) {
-		$copyright = "&copy; " . $copyright_dates[0]->firstdate;
-		if($copyright_dates[0]->firstdate != $copyright_dates[0]->lastdate) {
-		$copyright .= '-' . $copyright_dates[0]->lastdate;
+	if ( ! empty( $copyright_dates ) && isset( $copyright_dates[0]->firstdate ) ) {
+		$copyright = '&copy; ' . (int) $copyright_dates[0]->firstdate;
+		if ( $copyright_dates[0]->firstdate !== $copyright_dates[0]->lastdate ) {
+			$copyright .= '-' . (int) $copyright_dates[0]->lastdate;
 		}
 		$output = $copyright;
 	}
+
+	set_transient( 'sekolahane_copyright_year', $output, DAY_IN_SECONDS );
+
 	return $output;
 }
 
 /**
- * Use ACF image field as avatar
- * @author Mike Hemberger
- * @link http://thestizmedia.com/acf-pro-simple-local-avatars/
- * @uses ACF Pro image field (tested return value set as Array )
+ * Gunakan field gambar ACF (`gravatar_ane`) sebagai avatar profil user.
+ *
+ * @param string     $avatar      Tag `<img>` avatar default.
+ * @param int|string $id_or_email ID user, objek komentar, atau alamat email.
+ * @param int        $size        Ukuran dimensi avatar dalam piksel.
+ * @param string     $default     URL default avatar.
+ * @param string     $alt         Atribut alt gambar.
+ * @return string
  */
-add_filter('get_avatar', 'sekolahane_acf_profile_avatar', 10, 5);
 function sekolahane_acf_profile_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
-    $user = '';
+	$user = false;
 
-    // Get user by id or email
-    if ( is_numeric( $id_or_email ) ) {
-        $id   = (int) $id_or_email;
-        $user = get_user_by( 'id' , $id );
-    } elseif ( is_object( $id_or_email ) ) {
-        if ( ! empty( $id_or_email->user_id ) ) {
-            $id   = (int) $id_or_email->user_id;
-            $user = get_user_by( 'id' , $id );
-        }
-    } else {
-        $user = get_user_by( 'email', $id_or_email );
-    }
-    if ( ! $user ) {
-        return $avatar;
-    }
-    // Get the user id
-    $user_id = $user->ID;
-    // Get the file id
-    $image_id = get_user_meta($user_id, 'gravatar_ane', true); // CHANGE TO YOUR FIELD NAME
-    // Bail if we don't have a local avatar
-    if ( ! $image_id ) {
-        return $avatar;
-    }
-    // Get the file size
-    $image_url  = wp_get_attachment_image_src( $image_id, 'kotak' ); // Set image size by name
-    // Get the file url
-    $avatar_url = $image_url[0];
-    // Get the img markup
-    $avatar = '<img alt="' . $alt . '" src="' . $avatar_url . '" class="avatar avatar-' . $size . '" height="' . $size . '" width="' . $size . '"/>';
-    // Return our new avatar
-    return $avatar;
+	if ( is_numeric( $id_or_email ) ) {
+		$user = get_user_by( 'id', (int) $id_or_email );
+	} elseif ( is_object( $id_or_email ) ) {
+		if ( ! empty( $id_or_email->user_id ) ) {
+			$user = get_user_by( 'id', (int) $id_or_email->user_id );
+		}
+	} elseif ( is_string( $id_or_email ) ) {
+		$user = get_user_by( 'email', $id_or_email );
+	}
+
+	if ( ! $user instanceof WP_User ) {
+		return $avatar;
+	}
+
+	$image_id = get_user_meta( $user->ID, 'gravatar_ane', true );
+	if ( empty( $image_id ) ) {
+		return $avatar;
+	}
+
+	$image_url = wp_get_attachment_image_src( (int) $image_id, 'kotak' );
+	if ( ! is_array( $image_url ) || empty( $image_url[0] ) ) {
+		return $avatar;
+	}
+
+	$avatar_url = $image_url[0];
+	$size_int   = absint( $size );
+
+	return '<img alt="' . esc_attr( (string) $alt ) . '" src="' . esc_url( $avatar_url ) . '" class="avatar avatar-' . esc_attr( (string) $size_int ) . '" height="' . esc_attr( (string) $size_int ) . '" width="' . esc_attr( (string) $size_int ) . '"/>';
 }
+add_filter( 'get_avatar', 'sekolahane_acf_profile_avatar', 10, 5 );
 
-//post view =====
-function get_views($postID = ''){
-	if($GLOBALS ):
-		if($postID =='') :
-			global $post;
-			$postID = $post->ID ;
-		endif;
-		$count_key = 'musi_views';
-	    	$count = get_post_meta($postID, $count_key, true);
-		$count = @number_format($count);
-	    	if($count==''):
-	        	delete_post_meta($postID, $count_key);
-	        	add_post_meta($postID, $count_key, '0');
-	        	$count = 0;
-	    	endif;
-			$count_views =  sprintf( _n( '%s view', '%s views', $count, 'musi' ), $count );
-    		return $count_views;
-    	else:
-    		return false;
-    	endif;
-}
+/**
+ * Ambil jumlah pembaca (views) suatu post.
+ *
+ * @param int|string $post_id ID post (opsional).
+ * @return string|false
+ */
+function get_views( $post_id = '' ) {
+	if ( empty( $post_id ) ) {
+		global $post;
+		$post_id = ( is_object( $post ) && isset( $post->ID ) ) ? $post->ID : get_the_ID();
+	}
 
-function set_views($postID = '') {
-	if( $GLOBALS && (!defined('WP_CACHE') || !WP_CACHE) ) :
-		if($postID =='') :
-			global $post;
-			$postID = $post->ID ;
-		endif;
-	    	$count_key = 'musi_views';
-	    	$count = get_post_meta($postID, $count_key, true);
-		if($count==''):
-			$count = 0;
-			delete_post_meta($postID, $count_key);
-			add_post_meta($postID, $count_key, '0');
-		else:
-			$count++;
-			update_post_meta($postID, $count_key, $count);
-		endif;
-	else:
+	$post_id = (int) $post_id;
+	if ( $post_id <= 0 ) {
 		return false;
-	endif;
+	}
+
+	$count_key = 'musi_views';
+	$raw_count = get_post_meta( $post_id, $count_key, true );
+
+	if ( '' === $raw_count || false === $raw_count ) {
+		delete_post_meta( $post_id, $count_key );
+		add_post_meta( $post_id, $count_key, '0' );
+		$count_num = 0;
+	} else {
+		$count_num = (int) $raw_count;
+	}
+
+	$formatted = number_format_i18n( $count_num );
+
+	/* translators: %s: jumlah pembaca */
+	return sprintf( _n( '%s view', '%s views', $count_num, 'sekolahane' ), $formatted );
 }
 
-// Remove issues with prefetching adding extra views
-remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+/**
+ * Tambah +1 jumlah pembaca post (ketika WP_CACHE tidak aktif).
+ *
+ * @param int|string $post_id ID post (opsional).
+ * @return bool|void
+ */
+function set_views( $post_id = '' ) {
+	if ( defined( 'WP_CACHE' ) && WP_CACHE ) {
+		return false;
+	}
 
-add_filter('manage_posts_columns', 'musi_column_views');
-add_action('manage_posts_custom_column', 'musi_custom_column_views',5,2);
+	if ( empty( $post_id ) ) {
+		global $post;
+		$post_id = ( is_object( $post ) && isset( $post->ID ) ) ? $post->ID : get_the_ID();
+	}
 
-function musi_column_views($defaults){
-   	$defaults['musi_post_views'] = __('Views');
-   	return $defaults;
+	$post_id = (int) $post_id;
+	if ( $post_id <= 0 ) {
+		return false;
+	}
+
+	$count_key = 'musi_views';
+	$count     = get_post_meta( $post_id, $count_key, true );
+	if ( '' === $count || false === $count ) {
+		delete_post_meta( $post_id, $count_key );
+		add_post_meta( $post_id, $count_key, '0' );
+	} else {
+		$next = (int) $count + 1;
+		update_post_meta( $post_id, $count_key, $next );
+	}
 }
 
-function musi_custom_column_views($column_name, $id){
-	if($column_name === 'musi_post_views'):
-        	echo get_views(get_the_ID());
-    	endif;
-}
+// Hindari prefetching browser menambah jumlah views secara tidak sengaja.
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10 );
 
-add_action('wp_enqueue_scripts', 'musi_postview_cache_count_enqueue');
+/**
+ * Tambahkan kolom Views pada tabel daftar Posts di wp-admin.
+ *
+ * @param array<string, string> $defaults Kolom tabel.
+ * @return array<string, string>
+ */
+function musi_column_views( $defaults ) {
+	$defaults['musi_post_views'] = __( 'Views', 'sekolahane' );
+	return $defaults;
+}
+add_filter( 'manage_posts_columns', 'musi_column_views' );
+
+/**
+ * Tampilkan isi kolom Views di tabel daftar Posts wp-admin.
+ *
+ * @param string $column_name Nama kolom.
+ * @param int    $id          ID post.
+ * @return void
+ */
+function musi_custom_column_views( $column_name, $id ) {
+	if ( 'musi_post_views' === $column_name ) {
+		echo esc_html( (string) get_views( $id ) );
+	}
+}
+add_action( 'manage_posts_custom_column', 'musi_custom_column_views', 5, 2 );
+
+/**
+ * Enqueue script penghitung post views via AJAX saat WP_CACHE aktif.
+ *
+ * @return void
+ */
 function musi_postview_cache_count_enqueue() {
 	global $post;
-	if ( is_single() && (defined('WP_CACHE') && WP_CACHE) && $GLOBALS) :
-		wp_register_script('musi-postviews-cache', get_template_directory_uri() . '/js/postviews-cache.js', array( 'jquery' ) );
-		wp_localize_script('musi-postviews-cache', 'postViewsCache', array('admin_ajax_url' => admin_url('admin-ajax.php', (is_ssl() ? 'https' : 'http')), 'post_id' => $post->ID));
-		wp_enqueue_script('musi-postviews-cache');
-	endif;
+	if ( is_single() && ( defined( 'WP_CACHE' ) && WP_CACHE ) && is_object( $post ) && isset( $post->ID ) ) {
+		$ver = defined( 'SEKOLAHANE_VERSION' ) ? SEKOLAHANE_VERSION : '3.2.1';
+		wp_register_script( 'musi-postviews-cache', get_template_directory_uri() . '/js/postviews-cache.js', array( 'jquery' ), $ver, true );
+		wp_localize_script(
+			'musi-postviews-cache',
+			'postViewsCache',
+			array(
+				'admin_ajax_url' => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
+				'post_id'        => (int) $post->ID,
+			)
+		);
+		wp_enqueue_script( 'musi-postviews-cache' );
+	}
 }
+add_action( 'wp_enqueue_scripts', 'musi_postview_cache_count_enqueue' );
 
-add_action('wp_ajax_postviews', 'musi_increment_views');
-add_action('wp_ajax_nopriv_postviews', 'musi_increment_views');
+/**
+ * Handler AJAX untuk menambah jumlah pembaca ketika halaman di-cache.
+ *
+ * @return void
+ */
 function musi_increment_views() {
-	global $wpdb;
-	if(!empty($_GET['postviews_id']) && (defined('WP_CACHE') && WP_CACHE) && $GLOBALS):
-		$post_id = intval($_GET['postviews_id']);
-		if($post_id > 0) :
+	if ( ! empty( $_GET['postviews_id'] ) && ( defined( 'WP_CACHE' ) && WP_CACHE ) ) {
+		$post_id = absint( wp_unslash( $_GET['postviews_id'] ) );
+		if ( $post_id > 0 && 'publish' === get_post_status( $post_id ) ) {
 			$count_key = 'musi_views';
-			$count = get_post_meta($post_id, $count_key, true);
-			if($count==''):
-				$count = 0;
-				delete_post_meta($post_id, $count_key);
-				add_post_meta($post_id, $count_key, '0');
-			else:
-				$count++;
-				update_post_meta($post_id, $count_key, $count);
-			endif;
-		endif;
-	endif;
+			$count     = get_post_meta( $post_id, $count_key, true );
+			if ( '' === $count || false === $count ) {
+				delete_post_meta( $post_id, $count_key );
+				add_post_meta( $post_id, $count_key, '0' );
+			} else {
+				$next = (int) $count + 1;
+				update_post_meta( $post_id, $count_key, $next );
+			}
+		}
+	}
 	exit();
 }
+add_action( 'wp_ajax_postviews', 'musi_increment_views' );
+add_action( 'wp_ajax_nopriv_postviews', 'musi_increment_views' );
 
-// acf option -====
+// Daftarkan halaman ACF Options.
+if ( function_exists( 'acf_add_options_page' ) ) {
+	acf_add_options_page(
+		array(
+			'page_title' => 'Webane General Information',
+			'menu_title' => 'Webane Settings',
+			'menu_slug'  => 'webane-theme-general-settings',
+			'capability' => 'edit_posts',
+			'redirect'   => false,
+		)
+	);
 
-if( function_exists('acf_add_options_page') ) {
+	acf_add_options_sub_page(
+		array(
+			'page_title'  => 'Your Banners Settings',
+			'menu_title'  => 'Your Banners',
+			'parent_slug' => 'webane-theme-general-settings',
+		)
+	);
 
-	acf_add_options_page(array(
-		'page_title' 	=> 'Webane General Information',
-		'menu_title'	=> 'Webane Settings',
-		'menu_slug' 	=> 'webane-theme-general-settings',
-		'capability'	=> 'edit_posts',
-		'redirect'		=> false
-	));
+	acf_add_options_sub_page(
+		array(
+			'page_title'  => 'Customer Care',
+			'menu_title'  => 'Customer Care',
+			'parent_slug' => 'webane-theme-general-settings',
+		)
+	);
 
-	acf_add_options_sub_page(array(
-		'page_title' 	=> 'Your Banners Settings',
-		'menu_title'	=> 'Your Banners',
-		'parent_slug'	=> 'webane-theme-general-settings',
-	));
-
-	acf_add_options_sub_page(array(
-		'page_title' 	=> 'Customer Care',
-		'menu_title'	=> 'Customer Care',
-		'parent_slug'	=> 'webane-theme-general-settings',
-	));
-
-	acf_add_options_sub_page(array(
-		'page_title' 	=> 'Mobile Menu',
-		'menu_title'	=> 'Mobile Menu',
-		'parent_slug'	=> 'webane-theme-general-settings',
-	));
-
-
+	acf_add_options_sub_page(
+		array(
+			'page_title'  => 'Mobile Menu',
+			'menu_title'  => 'Mobile Menu',
+			'parent_slug' => 'webane-theme-general-settings',
+		)
+	);
 }
+
+/**
+ * Daftarkan field API Keys (Google Maps & Facebook App ID) di Webane Settings.
+ *
+ * @return void
+ */
+function sekolahane_register_api_keys_fields() {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+		return;
+	}
+
+	acf_add_local_field_group(
+		array(
+			'key'                   => 'group_sekolahane_api_keys',
+			'title'                 => __( 'Integrasi & API Key', 'sekolahane' ),
+			'fields'                => array(
+				array(
+					'key'       => 'field_sekolahane_api_tab',
+					'label'     => __( 'API & Integrasi', 'sekolahane' ),
+					'type'      => 'tab',
+					'placement' => 'top',
+				),
+				array(
+					'key'          => 'field_sekolahane_gmaps_key',
+					'label'        => __( 'Google Maps API Key', 'sekolahane' ),
+					'name'         => 'ane_google_maps_api_key',
+					'type'         => 'password',
+					'instructions' => __( 'Opsional. Isi jika ingin menampilkan peta lokasi Google Maps, atau definisikan konstanta SEKOLAHANE_GMAPS_API_KEY di wp-config.php.', 'sekolahane' ),
+				),
+				array(
+					'key'          => 'field_sekolahane_fb_app_id',
+					'label'        => __( 'Facebook App ID', 'sekolahane' ),
+					'name'         => 'ane_fb_app_id',
+					'type'         => 'text',
+					'instructions' => __( 'Opsional. Isi untuk integrasi komentar Facebook, atau definisikan konstanta SEKOLAHANE_FB_APP_ID di wp-config.php.', 'sekolahane' ),
+				),
+			),
+			'location'              => array(
+				array(
+					array(
+						'param'    => 'options_page',
+						'operator' => '==',
+						'value'    => 'webane-theme-general-settings',
+					),
+				),
+			),
+			'menu_order'            => 98,
+			'style'                 => 'default',
+			'label_placement'       => 'top',
+			'instruction_placement' => 'label',
+		)
+	);
+}
+add_action( 'acf/init', 'sekolahane_register_api_keys_fields' );

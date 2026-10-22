@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 /**
  * Mobile Detect Library
  * Motto: "Every business should have a mobile detection script to detect mobile readers"
@@ -682,7 +683,7 @@ class Mobile_Detect
      *                          from the $headers array instead.
      */
     public function __construct(
-        array $headers = null,
+        ?array $headers = null,
         $userAgent = null
     ) {
         $this->setHttpHeaders($headers);

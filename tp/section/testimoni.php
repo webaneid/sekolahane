@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <section class="home-testimoni">
 	<div class="container">
 		<div class="row justify-content-center">
@@ -6,14 +9,14 @@
                     <?php
                         $judul = get_sub_field('ane_title');
                         if( !empty( $judul ) ){
-							echo '<h2>'. esc_attr($judul) .'</h2>';
+							echo '<h2>' . wp_kses_post( $judul ) . '</h2>';
 						}
 						else {
 							echo '<h2>Testi<span>moni</span></h2>';
 						}
                         $deskripsi  = get_sub_field('ane_deskripsi');
                         if( !empty( $deskripsi ) ) {
-							echo '<p>'. esc_attr($deskripsi) .'</p>';
+							echo '<p>' . esc_html( $deskripsi ) . '</p>';
 						}
                     ?>
                 </div>

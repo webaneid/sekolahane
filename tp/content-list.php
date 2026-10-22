@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('ane-konten-lis'); ?>>
 	<header class="entry-header">
 		<?php if ( has_post_thumbnail() ) {
@@ -18,7 +21,7 @@
 		 		   <div class="content-category">
 		 			   <?php $categories = get_the_category();
 		 				   foreach ($categories as $category){
-		 				   echo '<a href="' . get_category_link($category->term_id) . '">' . $category->cat_name . '</a>';
+		 				   echo '<a href="' . esc_url( get_category_link($category->term_id) ) . '">' . esc_html( $category->name ) . '</a>';
 		 				   }
 		 			   ?>
 		 		   </div>

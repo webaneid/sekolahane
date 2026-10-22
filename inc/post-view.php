@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 function get_views($postID = ''){
 	if($GLOBALS ):
 		if($postID =='') :
@@ -42,7 +43,7 @@ function set_views($postID = '') {
 }
 
 // Remove issues with prefetching adding extra views
-remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10 );
 
 add_filter('manage_posts_columns', 'musi_column_views');
 add_action('manage_posts_custom_column', 'musi_custom_column_views',5,2);

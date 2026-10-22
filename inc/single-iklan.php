@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 
 add_filter( 'the_content', 'sekolahane_iklan_single_post_google' );
 function sekolahane_iklan_single_post_google( $content ) {
@@ -20,44 +21,25 @@ function sekolahane_iklan_single_post_google( $content ) {
 add_filter( 'the_content', 'sekolahane_iklan_single_post_umum' );
 function sekolahane_iklan_single_post_umum( $content ) {
 	while( have_rows('banner_post','option') ): the_row();
-	$banner = esc_attr (get_sub_field('iklan_image') );
-    $url = esc_attr (get_sub_field('url_iklan') );
-	$nama = esc_attr (get_sub_field('iklan_nama') );
-    $akhir = ceil((strtotime(get_sub_field('iklan_berakhir', 'option')) - time())/(60*60*24));
-	$mulai = ceil((strtotime(get_sub_field('iklan_mulai')) - time())/(60*60*24));
-	$today = ceil((strtotime(date('Y-m-d')) - time())/(60*60*24));
+	$banner = esc_url( (string) get_sub_field( 'iklan_image' ) );
+    $url = esc_url( (string) get_sub_field( 'url_iklan' ) );
+	$nama_attr = esc_attr( (string) get_sub_field( 'iklan_nama' ) );
+	$nama_html = esc_html( (string) get_sub_field( 'iklan_nama' ) );
+    $akhir = ceil((strtotime((string) get_sub_field('iklan_berakhir', 'option')) - time())/(60*60*24));
+	$mulai = ceil((strtotime((string) get_sub_field('iklan_mulai')) - time())/(60*60*24));
+	$today = ceil((strtotime(gmdate('Y-m-d')) - time())/(60*60*24));
 	$online  = $akhir - $today;
 
-	if ($mulai == 0) {
-        $ad_code = '
-		<div class="post-banner" style="display: block">
-		<a href="' .$url. '" target="_blank" alt="'. $nama .'" 	title="'. $nama .'">
-		<img class="img-fluid" src="' .$banner. '" alt="'. $nama .'" title="'. $nama .'">
+	$display_style = ( 0 == $mulai || $online >= 0 ) ? 'block' : 'none';
+	$ad_code = '
+		<div class="post-banner" style="display: ' . $display_style . '">
+		<a href="' . $url . '" target="_blank" rel="noopener noreferrer" alt="' . $nama_attr . '" title="' . $nama_attr . '">
+		<img class="img-fluid" src="' . $banner . '" alt="' . $nama_attr . '" title="' . $nama_attr . '">
 		</a>
-		<div class="post-banner-info">'. $nama .'</div>
+		<div class="post-banner-info">' . $nama_html . '</div>
 		</div>
 		';
-    }
-    elseif ($online >= 0){
-		$ad_code = '
-		<div class="post-banner" style="display: block">
-		<a href="' .$url. '" target="_blank" alt="'. $nama .'" 	title="'. $nama .'">
-		<img class="img-fluid" src="' .$banner. '" alt="'. $nama .'" title="'. $nama .'">
-		</a>
-		<div class="post-banner-info">'. $nama .'</div>
-		</div>
-		';
-    }
-    else {
-		$ad_code = '
-		<div class="post-banner" style="display: none">
-		<a href="' .$url. '" target="_blank" alt="'. $nama .'" 	title="'. $nama .'">
-		<img class="img-fluid" src="' .$banner. '" alt="'. $nama .'" title="'. $nama .'">
-		</a>
-		<div class="post-banner-info">'. $nama .'</div>
-		</div>
-		';
-    }
+
     if ( is_singular('post') && ! is_admin() ) {
         return prefix_insert_after_paragraph( $ad_code, 2, $content );
     }

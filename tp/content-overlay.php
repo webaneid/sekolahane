@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('ane-konten-overlay'); ?>>
 	<?php if ( has_post_thumbnail() ) {
 	$thumbImg = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'medium');
@@ -18,7 +21,7 @@
 				<ul>
 					<li><?php $categories = get_the_category();
 						foreach ($categories as $category){
-						echo '<a class="post-cat" href="' . get_category_link($category->term_id) . '">' . $category->cat_name . '</a>';
+						echo '<a class="post-cat" href="' . esc_url( get_category_link($category->term_id) ) . '">' . esc_html( $category->name ) . '</a>';
 						}
 						$timestamp = esc_attr( get_the_time( 'U' ) );
 					?></li>

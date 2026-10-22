@@ -44,5 +44,8 @@ jobs:
       - name: Run PHPStan
         run: composer analyse
 
+      - name: Run Anti-Webshell & Security Scan
+        run: composer security:scan
+
       - name: Verify clean distribution package (no .md, docs, or AI folders)
         run: composer dist:check

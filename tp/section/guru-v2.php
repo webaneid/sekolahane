@@ -1,23 +1,26 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 	<section class="home-guru">
 		<div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 post-tengah">
                     <div class="home-title text-left">
                         <?php
-                            $judul = get_sub_field('ane_title');
+                            $urlhome = home_url();
+                            $judul   = get_sub_field('ane_title');
                             if( !empty( $judul ) ){
-    							echo '<h2>'. $judul .'</h2>';
+    							echo '<h2>'. esc_html( (string) $judul ) .'</h2>';
     						}
     						else {
     							echo '<h2>Dewan <span>Guru</span></h2>';
     						}
                             $deskripsi  = get_sub_field('ane_deskripsi');
                             if( !empty( $deskripsi ) ) {
-    							echo '<p>'. esc_attr($deskripsi) .'</p>';
-							$urlhome = home_url();
+    							echo '<p>'. esc_html( (string) $deskripsi ) .'</p>';
 							}
                         ?>
-						<a href="<?php echo $urlhome; ?>/guru" alt="Semua Guru">
+						<a href="<?php echo esc_url( $urlhome . '/guru' ); ?>" alt="Semua Guru">
 						<button class="btn btn-primary" type="button" name="button"><?php _e('Semua Guru','sekolahane'); ?></button>
 						</a>
                     </div>

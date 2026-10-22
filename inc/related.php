@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 function panggil_konten_terkait() {
 	global $post; ?>
 <div class="konten-terkait">

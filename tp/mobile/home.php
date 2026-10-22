@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('landing-page'); ?>>
 	<?php
 	if( have_rows('home_content') ):

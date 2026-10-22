@@ -1,4 +1,7 @@
-<?php get_header ();?>
+<?php
+defined( 'ABSPATH' ) || exit;
+get_header();
+?>
 <div id="primary" class="content-area">
 	<main id="main" class="site-main" role="main">
 		<?php panggil_breadcrumb ();?>
@@ -7,12 +10,12 @@
 
 			<div class="author_bio_section">
 			    <?php
-
-			    $display_name = get_the_author_meta ( 'display_name');
-				if ( ! empty( $display_name ) )
-					echo '<h2 class="author_name">' . $display_name . '</h2>';
-			    echo '<div class="author_details">' . get_avatar( get_the_author_meta('user_email') , 90 ) . nl2br( $user_description = get_the_author_meta ( 'user_description') ). '</div>';
-
+			    $display_name = get_the_author_meta( 'display_name' );
+				if ( ! empty( $display_name ) ) {
+					echo '<h2 class="author_name">' . esc_html( $display_name ) . '</h2>';
+				}
+				$user_description = get_the_author_meta( 'user_description' );
+			    echo '<div class="author_details">' . get_avatar( get_the_author_meta( 'user_email' ), 90 ) . wp_kses_post( nl2br( (string) $user_description ) ) . '</div>';
 			    ?>
 			</div>
 

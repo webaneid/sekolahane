@@ -2,6 +2,7 @@
 	/*
 	* Template Name: Mobile Category
 	*/
+	defined( 'ABSPATH' ) || exit;
 	get_header();
 ?>
 

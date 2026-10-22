@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
     $homekategori = get_sub_field('home_sliding_kategori');
     $judul = get_sub_field('custom_title');
 ?>
@@ -9,12 +10,12 @@
                 <div class="section-title">
                     <div class="section-title-item">
                         <?php if(!empty($judul)): ?>
-                            <a href="<?php echo get_category_link($homekategori->term_id); ?>"><h1><?php echo esc_html( $judul ); ?></h1></a>
+                            <a href="<?php echo esc_url( get_category_link( $homekategori->term_id ) ); ?>"><h1><?php echo esc_html( $judul ); ?></h1></a>
                         <?php else: ?>
-                            <a href="<?php echo get_category_link($homekategori->term_id); ?>"><h1><?php echo esc_html( $homekategori->name ); ?></h1></a>
+                            <a href="<?php echo esc_url( get_category_link( $homekategori->term_id ) ); ?>"><h1><?php echo esc_html( $homekategori->name ); ?></h1></a>
                         <?php endif; ?>
                     </div>
-                    <a class="lainnya" href="<?php echo get_category_link($homekategori->term_id); ?>"><?php _e('Lainnya','anekabar') ?> <i class="ane-chevron-right-alt-2"></i></a>
+                    <a class="lainnya" href="<?php echo esc_url( get_category_link( $homekategori->term_id ) ); ?>"><?php esc_html_e( 'Lainnya', 'sekolahane' ); ?> <i class="ane-chevron-right-alt-2"></i></a>
                 </div>
 
 				<div class="owl-carousel dot-style2" id="home-sliding">

@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('landing-page ane-page-profil'); ?>>
 <div class="container-fluid">
 	<div class="row">
@@ -14,9 +17,9 @@
             <div class="container">
                 <div class="isi">
                     <div class="text-isi">
-                        <?php the_title( sprintf( '<h1 class="post-title general-title">', esc_url( get_permalink() ) ), '</h1>' );
+                        <?php the_title( '<h1 class="post-title general-title">', '</h1>' );
                         $headline = get_field ('ane_headline');
-                            echo '<p>'.$headline.'</p>';
+                            echo '<p>'.esc_html( (string) $headline ).'</p>';
                         ?>
                     </div>
                 </div>
