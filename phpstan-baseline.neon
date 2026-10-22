@@ -1,0 +1,217 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Variable \$judul might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: footer.php
+
+		-
+			message: '#^Function remove_action invoked with 4 parameters, 2\-3 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: inc/post-view.php
+
+		-
+			message: '#^Function remove_action invoked with 4 parameters, 2\-3 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: inc/sekolahane.php
+
+		-
+			message: '#^Undefined variable\: \$appid$#'
+			identifier: variable.undefined
+			count: 1
+			path: inc/sekolahane.php
+
+		-
+			message: '#^Variable \$author_details might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: inc/sekolahane.php
+
+		-
+			message: '#^Variable \$month_name might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: inc/sekolahane.php
+
+		-
+			message: '#^Method Webane_Posts_Widget\:\:form\(\) should return string\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: inc/widgets.php
+
+		-
+			message: '#^Variable \$category might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: inc/widgets.php
+
+		-
+			message: '#^Variable \$number might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: inc/widgets.php
+
+		-
+			message: '#^Variable \$order might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: inc/widgets.php
+
+		-
+			message: '#^Variable \$orderby might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: inc/widgets.php
+
+		-
+			message: '#^Variable \$post_tag might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: inc/widgets.php
+
+		-
+			message: '#^Variable \$title might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: inc/widgets.php
+
+		-
+			message: '#^Variable \$type might not be defined\.$#'
+			identifier: variable.undefined
+			count: 7
+			path: inc/widgets.php
+
+		-
+			message: '#^Access to an undefined property WP_Term\:\:\$cat_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tp/content-gallery.php
+
+		-
+			message: '#^Access to an undefined property WP_Term\:\:\$cat_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tp/content-klasik.php
+
+		-
+			message: '#^Access to an undefined property WP_Term\:\:\$cat_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tp/content-list.php
+
+		-
+			message: '#^Access to an undefined property WP_Term\:\:\$cat_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tp/content-overlay.php
+
+		-
+			message: '#^Call to sprintf contains 0 placeholders, 1 value given\.$#'
+			identifier: argument.sprintf
+			count: 1
+			path: tp/content-page-kontak.php
+
+		-
+			message: '#^Call to sprintf contains 0 placeholders, 1 value given\.$#'
+			identifier: argument.sprintf
+			count: 1
+			path: tp/content-page.php
+
+		-
+			message: '#^Call to sprintf contains 0 placeholders, 1 value given\.$#'
+			identifier: argument.sprintf
+			count: 1
+			path: tp/content-testimoni.php
+
+		-
+			message: '#^Access to an undefined property WP_Term\:\:\$cat_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tp/content-video.php
+
+		-
+			message: '#^Access to an undefined property WP_Term\:\:\$cat_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tp/content.php
+
+		-
+			message: '#^Function panggil_sosial_media not found\.$#'
+			identifier: function.notFound
+			count: 1
+			path: tp/page-contact.php
+
+		-
+			message: '#^Variable \$gambar might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: tp/page-contact.php
+
+		-
+			message: '#^Call to sprintf contains 0 placeholders, 1 value given\.$#'
+			identifier: argument.sprintf
+			count: 1
+			path: tp/pages/kelembagaan.php
+
+		-
+			message: '#^Call to sprintf contains 0 placeholders, 1 value given\.$#'
+			identifier: argument.sprintf
+			count: 1
+			path: tp/pages/profil.php
+
+		-
+			message: '#^Variable \$urlhome might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: tp/section/guru-v2.php
+
+		-
+			message: '#^Call to sprintf contains 0 placeholders, 1 value given\.$#'
+			identifier: argument.sprintf
+			count: 1
+			path: tp/single-ekstrakurikuler.php
+
+		-
+			message: '#^Call to sprintf contains 0 placeholders, 1 value given\.$#'
+			identifier: argument.sprintf
+			count: 1
+			path: tp/single-guru.php
+
+		-
+			message: '#^Function get_the_terms invoked with 3 parameters, 2 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: tp/single-guru.php
+
+		-
+			message: '#^Variable \$imgurl might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: tp/single-guru.php
+
+		-
+			message: '#^Access to an undefined property WP_Term\:\:\$cat_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tp/single-video.php
+
+		-
+			message: '#^Call to sprintf contains 0 placeholders, 1 value given\.$#'
+			identifier: argument.sprintf
+			count: 1
+			path: tp/single-video.php
+
+		-
+			message: '#^Access to an undefined property WP_Term\:\:\$cat_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tp/single.php
+
+		-
+			message: '#^Call to sprintf contains 0 placeholders, 1 value given\.$#'
+			identifier: argument.sprintf
+			count: 1
+			path: tp/single.php

@@ -1,0 +1,32 @@
+# File/folder yang TIDAK ikut ZIP rilis (dipakai CI, lihat ADR-0002).
+# Satu pola per baris, relatif terhadap root theme.
+.git
+.github
+.gitignore
+.gitattributes
+.distignore
+.claude
+.agents
+bin
+.vscode
+.idea
+.DS_Store
+docs
+AGENTS.md
+CLAUDE.md
+README.md
+composer.json
+composer.lock
+phpcs.xml.dist
+phpstan.neon.dist
+phpstan-baseline.neon
+.phpcs-cache
+.phpstan-cache
+vendor
+node_modules
+package.json
+package-lock.json
+.releaserc.json
+dist
+*.map
+*.log
