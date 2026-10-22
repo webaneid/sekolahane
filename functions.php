@@ -67,7 +67,7 @@ endif;
 add_action( 'after_setup_theme', 'sekolahane_theme_setup' );
 
 /**
- * Set ukuran gambar default WordPress hanya saat theme diaktifkan (bukan tiap request).
+ * Set ukuran gambar default WordPress hanya saat theme diaktifkan atau saat upgrade versi.
  *
  * @return void
  */
@@ -81,8 +81,21 @@ function sekolahane_configure_image_sizes() {
 	update_option( 'thumbnail_size_w', 400 );
 	update_option( 'thumbnail_size_h', 225 );
 	update_option( 'thumbnail_crop', 1 );
+	update_option( 'sekolahane_image_sizes_ver', SEKOLAHANE_VERSION );
 }
 add_action( 'after_switch_theme', 'sekolahane_configure_image_sizes' );
+
+/**
+ * Pastikan ukuran & crop gambar tersetel satu kali setelah auto-update versi baru.
+ *
+ * @return void
+ */
+function sekolahane_maybe_upgrade_image_sizes() {
+	if ( get_option( 'sekolahane_image_sizes_ver' ) !== SEKOLAHANE_VERSION ) {
+		sekolahane_configure_image_sizes();
+	}
+}
+add_action( 'admin_init', 'sekolahane_maybe_upgrade_image_sizes' );
 
 /**
  * Daftarkan area widget sidebar.
@@ -147,3 +160,4 @@ require get_template_directory() . '/inc/sekolahane.php';
 require get_template_directory() . '/inc/custompost.php';
 require get_template_directory() . '/inc/widgets.php';
 require get_template_directory() . '/inc/updater.php';
+require get_template_directory() . '/inc/webp-converter.php';

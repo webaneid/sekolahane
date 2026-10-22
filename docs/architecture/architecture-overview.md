@@ -36,7 +36,7 @@ situs sekolah, madrasah, dan pesantren milik pelanggan Webane Indonesia.
 4. Hook `widgets_init` → `sekolahane_widgets()`: mendaftarkan sidebar
    `default-sidebar`.
 5. Filter penghapus query string versi WP pada aset & meta generator.
-6. `require` **4 file** di `inc/`:
+6. `require` **5 file** di `inc/`:
 
 ### File `inc/` (Seluruhnya Aktif)
 | File | Tanggung Jawab Aktual |
@@ -45,6 +45,7 @@ situs sekolah, madrasah, dan pesantren milik pelanggan Webane Indonesia.
 | `inc/custompost.php` | Mendaftarkan 3 Custom Post Type (`guru`, `ekstrakurikuler`, `testimoni`), 2 Custom Taxonomy untuk `guru` (`pelajaran`, `Kelas`), placeholder judul admin, dan menyertakan CPT ke RSS feed. |
 | `inc/widgets.php` | Class `Webane_Posts_Widget` (widget daftar post berdasarkan terbaru, populer, komentar terbanyak, format video, tag, atau kategori). |
 | `inc/updater.php` | Auto-updater GitHub Release (private/public repo) terintegrasi dengan halaman Appearance → Themes dan tab pengaturan Auto Update di General Settings ACF. |
+| `inc/webp-converter.php` | Konversi otomatis setiap gambar `.jpg`/`.jpeg`/`.png` yang diunggah (`wp_handle_upload` & `wp_handle_sideload`) menjadi `.webp`, menghapus file asli non-WebP, dan memastikan seluruh sub-size crop disimpan sebagai `.webp` (lihat ADR-0004). |
 
 ---
 
