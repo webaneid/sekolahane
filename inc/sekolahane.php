@@ -66,25 +66,30 @@ function ane_load_css_and_js() {
 	wp_enqueue_style( 'FontAne', get_template_directory_uri() . '/css/FontAne.css', array(), $ver );
 	wp_enqueue_style( 'FontsAwsome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
 	wp_enqueue_style( 'Google-Fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,800,900', array(), null );
-	wp_enqueue_style( 'magnific-popup', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', array(), '1.1.0' );
 	wp_enqueue_style( 'OwlCarouse', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css', array(), '2.2.1' );
 	wp_enqueue_style( 'bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', array(), '4.4.1' );
+
+	if ( is_singular() ) {
+		wp_enqueue_style( 'magnific-popup', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', array(), '1.1.0' );
+		wp_enqueue_script( 'magnific', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js', array( 'jquery' ), '1.1.0', true );
+	}
+
 	wp_enqueue_style( 'sekolahane-css', get_template_directory_uri() . '/css/main.min.css', array(), $ver );
 
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'magnific', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js', array( 'jquery' ), '1.1.0', true );
 	wp_enqueue_script( 'OwlCarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js', array( 'jquery' ), '2.2.1', true );
-	wp_enqueue_script( 'bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js', array( 'jquery' ), '4.4.1', true );
 
-	$gmaps_key = sekolahane_get_google_maps_api_key();
-	if ( '' !== $gmaps_key ) {
-		wp_enqueue_script(
-			'googlemap',
-			'https://maps.googleapis.com/maps/api/js?key=' . rawurlencode( $gmaps_key ),
-			array( 'jquery' ),
-			null,
-			true
-		);
+	if ( is_page_template( 'page-kontak.php' ) ) {
+		$gmaps_key = sekolahane_get_google_maps_api_key();
+		if ( '' !== $gmaps_key ) {
+			wp_enqueue_script(
+				'googlemap',
+				'https://maps.googleapis.com/maps/api/js?key=' . rawurlencode( $gmaps_key ),
+				array( 'jquery' ),
+				null,
+				true
+			);
+		}
 	}
 
 	wp_enqueue_script( 'sekolahane-js', get_template_directory_uri() . '/js/sekolahane.js', array( 'jquery' ), $ver, true );
@@ -1098,20 +1103,17 @@ add_action( 'manage_posts_custom_column', 'musi_custom_column_views', 5, 2 );
 function musi_postview_cache_count_enqueue() {
 	global $post;
 	if ( is_single() && ( defined( 'WP_CACHE' ) && WP_CACHE ) && is_object( $post ) && isset( $post->ID ) ) {
-		$ver = defined( 'SEKOLAHANE_VERSION' ) ? SEKOLAHANE_VERSION : '3.2.1';
-		wp_register_script( 'musi-postviews-cache', get_template_directory_uri() . '/js/postviews-cache.js', array( 'jquery' ), $ver, true );
 		wp_localize_script(
-			'musi-postviews-cache',
+			'sekolahane-js',
 			'postViewsCache',
 			array(
 				'admin_ajax_url' => admin_url( 'admin-ajax.php', ( is_ssl() ? 'https' : 'http' ) ),
 				'post_id'        => (int) $post->ID,
 			)
 		);
-		wp_enqueue_script( 'musi-postviews-cache' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'musi_postview_cache_count_enqueue' );
+add_action( 'wp_enqueue_scripts', 'musi_postview_cache_count_enqueue', 20 );
 
 /**
  * Handler AJAX untuk menambah jumlah pembaca ketika halaman di-cache.

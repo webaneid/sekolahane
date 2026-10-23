@@ -11,3 +11,4 @@
 | 03 | Security fix Critical/High & bug PHP 8.x | Done | `phases/phase-03-security-dan-bugfix.md` |
 | 04 | Pembersihan (`wp_is_mobile`, hapus fungsi/file ganda, text domain) | Done | `phases/phase-04-pembersihan-dan-optimasi.md` |
 | 05 | Auto-convert upload gambar ke WebP & auto-crop sub-sizes | Done | `phases/phase-05-auto-convert-webp.md` |
+| 06 | Optimasi & konsolidasi JavaScript (1 file `js/sekolahane.js` & conditional enqueue) | Done | `phases/phase-06-optimasi-javascript.md` |
