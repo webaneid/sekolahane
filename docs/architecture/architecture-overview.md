@@ -121,7 +121,7 @@ Parent menu slug: `webane-theme-general-settings` ("Webane Settings", capability
 
 ## 5. Aset Front-End (`css/`, `js/`, `fonts/`)
 Dimuat di `ane_load_css_and_js()` (`inc/sekolahane.php`):
-- **CSS Lokal:** `css/FontAne.css`, `css/main.min.css`.
-- **CSS CDN:** Font Awesome 4.7.0, Google Fonts `Poppins`, Owl Carousel 2.2.1, Bootstrap 4.4.1, serta Magnific Popup 1.1.0 (hanya saat `is_singular()`).
-- **JS CDN:** jQuery 3.3.1, Owl Carousel 2.2.1, Magnific Popup 1.1.0 (hanya saat `is_singular()`), serta Google Maps JS API (hanya saat `is_page_template( 'page-kontak.php' )` dan API key ACF terisi).
-- **JS Lokal:** Hanya 1 file tunggal `js/sekolahane.js` (mencakup WhatsApp popup `.cc-contactpop`, Owl Carousel, Magnific Popup `.gallery-popup`, MeanMenu `#mobile-menu-active`, Google Maps `.acf-map`, dan AJAX `postViewsCache`).
+- **CSS Lokal (1 File Produksi):** Hanya `css/main.min.css` (sudah memaketkan `FontAne` icon font + subset Bootstrap super ringan Reboot/Grid/Utilities + seluruh style theme; `css/main.css` disimpan sebagai sumber dev dan dikecualikan lewat `.distignore`).
+- **CSS CDN:** Font Awesome 4.7.0, Google Fonts `Poppins` (`display=swap`), Owl Carousel 2.2.1, serta Magnific Popup 1.1.0 (hanya saat `is_singular()`).
+- **JS CDN:** jQuery, Owl Carousel 2.2.1, Magnific Popup 1.1.0 (hanya saat `is_singular()`), serta Google Maps JS API (hanya saat `is_page_template( 'page-kontak.php' )` dan API key ACF terisi).
+- **JS Lokal (1 File Produksi):** Hanya `js/sekolahane.js` (mencakup WhatsApp popup `.cc-contactpop`, Owl Carousel, Magnific Popup `.gallery-popup`, MeanMenu `#mobile-menu-active`, Google Maps `.acf-map`, dan AJAX `postViewsCache`).

@@ -63,11 +63,9 @@ function sekolahane_get_fb_app_id() {
 function ane_load_css_and_js() {
 	$ver = defined( 'SEKOLAHANE_VERSION' ) ? SEKOLAHANE_VERSION : '3.2.1';
 
-	wp_enqueue_style( 'FontAne', get_template_directory_uri() . '/css/FontAne.css', array(), $ver );
 	wp_enqueue_style( 'FontsAwsome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
-	wp_enqueue_style( 'Google-Fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,800,900', array(), null );
+	wp_enqueue_style( 'Google-Fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,800,900&display=swap', array(), null );
 	wp_enqueue_style( 'OwlCarouse', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css', array(), '2.2.1' );
-	wp_enqueue_style( 'bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css', array(), '4.4.1' );
 
 	if ( is_singular() ) {
 		wp_enqueue_style( 'magnific-popup', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', array(), '1.1.0' );

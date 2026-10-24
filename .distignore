@@ -29,8 +29,9 @@ phpstan-baseline.neon
 phpunit.xml
 phpunit.xml.dist
 
-# 5. Output build & file sementara
+# 5. Output build & file sementara (hanya css/main.min.css yang masuk rilis)
 dist
+css/main.css
 *.map
 *.log
 *.zip
