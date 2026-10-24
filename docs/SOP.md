@@ -35,8 +35,13 @@ fase yang kecil dan jelas = risiko rilis yang kecil dan jelas.
 ```bash
 composer lint
 composer analyse
+composer css:check
 ```
 - Nol pelanggaran BARU pada file yang diubah.
+- **Khusus perubahan CSS / Redesign (`docs/architecture/architecture-css.md`):**
+  1. Utamakan pakai class Grid/Utility yang sudah ada di Bagian `[02]`–`[04]` `css/main.css` sebelum membuat class baru.
+  2. Edit pada blok bagian (`[01]`–`[12]`) yang sesuai di `css/main.css` — JANGAN menumpuk style override di bagian bawah file.
+  3. Setiap kali menghapus/mengganti class di template PHP, **wajib hapus CSS class lama yang tidak lagi dipakai** dan jalankan `composer css:check` (compile `css/main.min.css` + pastikan `0 dead CSS rules`).
 - Cek manual di situs lokal: halaman yang terdampak, desktop + mobile,
   dengan `WP_DEBUG` dan `WP_DEBUG_LOG` aktif → tidak ada notice/warning baru
   di `wp-content/debug.log`.

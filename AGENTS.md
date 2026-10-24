@@ -59,8 +59,10 @@ jadi **setiap rilis berdampak ke semua situs itu** (lihat Auto-Update).
 ```bash
 composer lint        # php -l + PHPCS (WordPress Coding Standards)
 composer analyse     # PHPStan
+composer css:check   # Compile css/main.css -> css/main.min.css + audit 0 dead CSS
 ```
-- File yang DIUBAH/DIBUAT di task ini wajib lolos keduanya.
+- File yang DIUBAH/DIBUAT di task ini wajib lolos ketiganya.
+- Setiap perubahan tampilan/redesign: **utamakan pakai class grid/utility yang sudah ada**, ganti langsung pada blok bagian `[01]`–`[12]` di `css/main.css` (jangan menumpuk override di bawah), dan **wajib hapus CSS class lama yang tidak lagi dipakai** (`composer css:check` wajib `0 dead CSS rules`).
 - Kode lama yang belum disentuh boleh masih melanggar (dicatat di baseline),
   tapi jangan menambah pelanggaran baru.
 - Perubahan tampilan → cek manual di situs lokal (desktop + mobile).
@@ -68,11 +70,13 @@ composer analyse     # PHPStan
 ## Struktur Theme [theme]
 ```
 functions.php         → setup theme, require file inc/
-inc/                  → logika PHP (enqueue, helper, CPT, widget, updater)
+inc/                  → logika PHP (enqueue, helper, CPT, widget, updater, webp)
 tp/                   → template part (get_template_part('tp/...'))
   section/ pages/ news/ mobile/
 *.php (root)          → template hierarchy WordPress
-css/ js/ fonts/ img/  → aset (css/main.min.css hasil compile)
+css/                  → css/main.css (source dev) & css/main.min.css (1 file rilis)
+js/                   → js/sekolahane.js (1 file JS tunggal)
+img/                  → gambar statis theme
 docs/                 → dokumentasi (tidak ikut ZIP rilis)
 ```
 
@@ -88,6 +92,7 @@ docs/                 → dokumentasi (tidak ikut ZIP rilis)
 | Alur kerja per fase                         | `docs/SOP.md`                                     |
 | Fase aktif & statusnya                      | `docs/PROGRESS.md`                                |
 | Naming, struktur file, commit, branch       | `docs/conventions.md`                             |
+| Struktur 12 bagian CSS & SOP Redesign       | `docs/architecture/architecture-css.md`           |
 | Escape/sanitize/nonce, checklist review     | `docs/architecture/architecture-security.md`      |
 | CI, versioning, auto-update GitHub release  | `docs/architecture/architecture-deployment.md`    |
 | Gambaran theme & kontrak DB                 | `docs/architecture/architecture-overview.md`      |

@@ -35,6 +35,7 @@
         "analyse": "phpstan analyse --memory-limit=1G",
         "analyse:baseline": "phpstan analyse --memory-limit=1G --generate-baseline",
         "security:scan": "bash bin/security-scan.sh",
+        "css:check": "python3 bin/css-audit.py",
         "dist:check": "bash bin/check-dist.sh"
     },
     "scripts-descriptions": {
@@ -44,6 +45,7 @@
         "analyse": "Analisis statis PHPStan",
         "analyse:baseline": "Rekam ulang baseline PHPStan (hanya saat retrofit/keputusan sadar)",
         "security:scan": "Scan anti-webshell, fungsi berbahaya, hardcoded secret, dan guard ABSPATH di seluruh file PHP",
+        "css:check": "Compile css/main.css -> css/main.min.css dan audit 0 dead CSS rules",
         "dist:check": "Pastikan paket ZIP rilis bersih dari semua file .md, folder docs/AI, dan tooling dev"
     }
 }

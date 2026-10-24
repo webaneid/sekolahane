@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Inline SVG Icons (.ane-icon & .ane-svg)
+   [01] Inline SVG Icons (.ane-icon & .ane-svg)
    ========================================================================== */
 .ane-icon {
   display: inline-flex;
@@ -17,7 +17,7 @@
 }
 
 /* ==========================================================================
-   Bootstrap Lightweight Subset (Reboot + 12-Col Grid + Utilities)
+   [02] Bootstrap Lightweight Subset (Reboot + 12-Col Grid + Utilities)
    ========================================================================== */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -306,7 +306,7 @@ figure {
 .lh-1 { line-height: 1 !important; }
 
 /* ==========================================================================
-   Sekolah Ane Theme Styles
+   [03] Base Typography, Layout Wrappers & Global Components
    ========================================================================== */
 * {
   box-sizing: border-box;
@@ -965,6 +965,9 @@ select:after {
     margin-bottom: 65px;
   }
 }
+/* ==========================================================================
+   [04] Buttons, Social Media & Breadcrumbs
+   ========================================================================== */
 .btn {
   transition: background-color 0.5s;
   border-radius: 25px;
@@ -1137,6 +1140,9 @@ select:after {
   }
 }
 
+/* ==========================================================================
+   [05] Header, Desktop Navigation & Mobile MeanMenu
+   ========================================================================== */
 .ane-header {
   display: block;
   width: 100%;
@@ -1480,6 +1486,9 @@ select:after {
   }
 }
 
+/* ==========================================================================
+   [06] Landing Page Sections (.landing-page)
+   ========================================================================== */
 .landing-page .home-title {
   display: block;
   width: 100%;
@@ -1872,6 +1881,9 @@ select:after {
   }
 }
 
+/* ==========================================================================
+   [07] Hero Big Slider & Featured Box (.home-slider, .section-featured)
+   ========================================================================== */
 .home-slider {
   width: 100%;
   display: block;
@@ -2121,6 +2133,9 @@ select:after {
   }
 }
 
+/* ==========================================================================
+   [08] Single Post Layout & Post Cards (.ane-post-single, .ane-konten-*)
+   ========================================================================== */
 .ane-post-single {
   display: block;
   width: 100%;
@@ -2599,6 +2614,9 @@ select:after {
   }
 }
 
+/* ==========================================================================
+   [09] Rich Article Content & Gutenberg Blocks (.ane-content)
+   ========================================================================== */
 .ane-content {
   color: #130c2f;
 }
@@ -3049,6 +3067,9 @@ select:after {
   background-color: inherit;
 }
 
+/* ==========================================================================
+   [10] Custom Page Templates (.ane-page-default, .ane-page-profil, .ane-page-kontak)
+   ========================================================================== */
 .ane-page-default {
   display: block;
   width: 100%;
@@ -3381,6 +3402,9 @@ select:after {
   }
 }
 
+/* ==========================================================================
+   [11] Archives, Right Sidebar & CPT Cards (Guru, Testimoni, Ekstrakurikuler)
+   ========================================================================== */
 .judul-arsip {
   margin-bottom: 80px;
 }
@@ -3730,6 +3754,9 @@ select:after {
   }
 }
 
+/* ==========================================================================
+   [12] Floating Customer Care, Footer & Mobile Bottom Navigation
+   ========================================================================== */
 .cc-contactpop {
   background: rgba(255, 255, 255, 0.8);
   color: #fff;
