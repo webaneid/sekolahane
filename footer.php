@@ -67,27 +67,27 @@ $judul = ! empty( $nama ) ? (string) $nama : get_bloginfo( 'name' );
 
 										if ( '' !== $alamat ) :
 											?>
-											<li><i class="ane-lokasi"></i> <?php echo esc_html( $alamat ); ?></li>
+											<li><?php echo sekolahane_icon( 'lokasi' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $alamat ); ?></li>
 											<?php
 										endif;
 										if ( '' !== $phone ) :
 											?>
-											<li><i class="ane-telepon"></i> <?php echo esc_html( $phone ); ?></li>
+											<li><?php echo sekolahane_icon( 'telepon' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $phone ); ?></li>
 											<?php
 										endif;
 										if ( '' !== $mobile ) :
 											?>
-											<li><i class="ane-handphone"></i> <?php echo esc_html( $mobile ); ?></li>
+											<li><?php echo sekolahane_icon( 'handphone' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $mobile ); ?></li>
 											<?php
 										endif;
 										if ( '' !== $email ) :
 											?>
-											<li><i class="ane-email"></i> <?php echo esc_html( $email ); ?></li>
+											<li><?php echo sekolahane_icon( 'email' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $email ); ?></li>
 											<?php
 										endif;
 										if ( '' !== $web ) :
 											?>
-											<li><a href="<?php echo esc_url( $url ); ?>" title="<?php echo esc_attr( $web ); ?>"> <i class="ane-laptop"></i> <?php echo esc_html( $web ); ?></a></li>
+											<li><a href="<?php echo esc_url( $url ); ?>" title="<?php echo esc_attr( $web ); ?>"> <?php echo sekolahane_icon( 'laptop' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $web ); ?></a></li>
 											<?php
 										endif;
 									endwhile;

@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
 						$sekolahane_link_title = isset( $sekolahane_link['title'] ) ? (string) $sekolahane_link['title'] : '';
 						?>
 						<div class="kiri">
-							<a href="<?php echo esc_url( (string) $sekolahane_link['url'] ); ?>" class="ane-topbutton"><i class="ane-buku"></i> <?php echo esc_html( $sekolahane_link_title ); ?></a>
+							<a href="<?php echo esc_url( (string) $sekolahane_link['url'] ); ?>" class="ane-topbutton"><?php echo sekolahane_icon( 'buku' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $sekolahane_link_title ); ?></a>
 						</div>
 					<?php endif; ?>
 				</div>

@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
                                     <a href="<?php echo esc_url( get_category_link( $ColumnCat->term_id ) ); ?>"><h1><?php echo esc_html( $ColumnCat->name ); ?></h1></a>
                                 <?php endif; ?>
                             </div>
-                            <a class="lainnya" href="<?php echo esc_url( get_category_link( $ColumnCat->term_id ) ); ?>"><?php esc_html_e( 'Lainnya', 'sekolahane' ); ?> <i class="ane-chevron-right-alt-2"></i></a>
+                            <a class="lainnya" href="<?php echo esc_url( get_category_link( $ColumnCat->term_id ) ); ?>"><?php esc_html_e( 'Lainnya', 'sekolahane' ); ?> <?php echo sekolahane_icon( 'chevron-right-alt-2' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
                         </div>
                         <div class="kepalanya">
                             <?php $the_query = new WP_Query(array('post_type' => 'post','cat' => get_cat_ID(''. $ColumnCat->name .''),  'posts_per_page' => 1));

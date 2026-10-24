@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
                             <a href="<?php echo esc_url( get_category_link( $homekategori->term_id ) ); ?>"><h1><?php echo esc_html( $homekategori->name ); ?></h1></a>
                         <?php endif; ?>
                     </div>
-                    <a class="lainnya" href="<?php echo esc_url( get_category_link( $homekategori->term_id ) ); ?>"><?php esc_html_e( 'Lihat Lainnya', 'sekolahane' ); ?> <i class="ane-chevron-right-alt-2"></i></a>
+                    <a class="lainnya" href="<?php echo esc_url( get_category_link( $homekategori->term_id ) ); ?>"><?php esc_html_e( 'Lihat Lainnya', 'sekolahane' ); ?> <?php echo sekolahane_icon( 'chevron-right-alt-2' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
                 </div>
             </div>
         </div>
