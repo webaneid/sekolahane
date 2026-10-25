@@ -19,3 +19,4 @@
 | 11 | Auto-sync perubahan ACF JSON ke DB & redesign Hero Slider (`tp/section/big-slider.php`) | Done | `phases/phase-11-redesign-hero-slider.md` |
 | 12 | Redesign Top Header: Tanggal, WhatsApp Otomatis & Link Pendaftaran (`header.php`) | Done | `phases/phase-12-redesign-top-header.md` |
 | 13 | Redesign Fitur Sekolah: Pilihan Posisi (Menempel / Di Bawah Hero) & Desain (Default / Flat) (`tp/section/featured.php`) | Done | `phases/phase-13-redesign-section-featured.md` |
+| 14 | Redesign Section & Kartu Ekstrakurikuler + Tombol Semua Ekstrakurikuler (`tp/section/ekstra.php`, `tp/content-ekstrakurikuler.php`) | Done | `phases/phase-14-redesign-section-ekstrakurikuler.md` |
