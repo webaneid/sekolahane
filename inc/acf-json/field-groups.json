@@ -130,7 +130,7 @@
                     },
                     {
                         "key": "field_6032a54c5c366",
-                        "label": "Jabatan \/ Posisi",
+                        "label": "Jabatan / Posisi",
                         "name": "ane_area",
                         "aria-label": "",
                         "type": "text",
@@ -501,7 +501,7 @@
                             "id": ""
                         },
                         "default_value": "",
-                        "placeholder": "https:\/\/facebook.com\/webanecom",
+                        "placeholder": "https://facebook.com/webanecom",
                         "prepend": "",
                         "append": "",
                         "maxlength": ""
@@ -561,7 +561,7 @@
                             "id": ""
                         },
                         "default_value": "",
-                        "placeholder": "https:\/\/www.youtube.com\/channel\/UCy0bPAx6H7uceH0VSSoLftw",
+                        "placeholder": "https://www.youtube.com/channel/UCy0bPAx6H7uceH0VSSoLftw",
                         "prepend": "",
                         "append": "",
                         "maxlength": ""
@@ -642,7 +642,7 @@
                 "name": "ane_jabatan",
                 "aria-label": "",
                 "type": "text",
-                "instructions": "Cnth: Orang Tua \/ Wali Murid \/ Alumni",
+                "instructions": "Cnth: Orang Tua / Wali Murid / Alumni",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -1283,7 +1283,7 @@
                     "layout_5e3e5b55e3a51": {
                         "key": "layout_5e3e5b55e3a51",
                         "name": "home_cta",
-                        "label": "Banner Iklan\/Ajakan",
+                        "label": "Banner Iklan/Ajakan",
                         "display": "block",
                         "sub_fields": [
                             {
@@ -1450,7 +1450,7 @@
                                     "id": ""
                                 },
                                 "default_value": "",
-                                "placeholder": "https:\/\/webane.com"
+                                "placeholder": "https://webane.com"
                             },
                             {
                                 "key": "field_628542c0b5214",
@@ -1571,7 +1571,7 @@
                                 "collapsed": "",
                                 "min": 0,
                                 "max": 3,
-                                "layout": "table",
+                                "layout": "block",
                                 "button_label": "Tambah Slider",
                                 "sub_fields": [
                                     {
@@ -1584,7 +1584,7 @@
                                         "required": 0,
                                         "conditional_logic": 0,
                                         "wrapper": {
-                                            "width": "",
+                                            "width": "50",
                                             "class": "",
                                             "id": ""
                                         },
@@ -1606,11 +1606,11 @@
                                         "name": "ane_title",
                                         "aria-label": "",
                                         "type": "text",
-                                        "instructions": "",
+                                        "instructions": "Opsional. Kosongkan jika tidak ingin menampilkan judul.",
                                         "required": 0,
                                         "conditional_logic": 0,
                                         "wrapper": {
-                                            "width": "",
+                                            "width": "50",
                                             "class": "",
                                             "id": ""
                                         },
@@ -1627,11 +1627,11 @@
                                         "name": "ane_deskripsi",
                                         "aria-label": "",
                                         "type": "text",
-                                        "instructions": "",
+                                        "instructions": "Opsional. Kosongkan jika tidak ingin menampilkan deskripsi.",
                                         "required": 0,
                                         "conditional_logic": 0,
                                         "wrapper": {
-                                            "width": "",
+                                            "width": "50",
                                             "class": "",
                                             "id": ""
                                         },
@@ -1648,19 +1648,88 @@
                                         "name": "ane_link",
                                         "aria-label": "",
                                         "type": "link",
-                                        "instructions": "",
+                                        "instructions": "Opsional. Kosongkan jika tidak ingin menampilkan tombol.",
                                         "required": 0,
                                         "conditional_logic": 0,
                                         "wrapper": {
-                                            "width": "",
+                                            "width": "50",
                                             "class": "",
                                             "id": ""
                                         },
                                         "return_format": "array",
                                         "parent_repeater": "field_5e3dc0e9f8120"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_slider_align",
+                                        "label": "Posisi Teks",
+                                        "name": "ane_text_align",
+                                        "aria-label": "",
+                                        "type": "button_group",
+                                        "instructions": "Pilih posisi teks pada slide ini.",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "50",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "choices": {
+                                            "left": "Kiri",
+                                            "center": "Tengah",
+                                            "right": "Kanan"
+                                        },
+                                        "default_value": "left",
+                                        "return_format": "value",
+                                        "allow_null": 0,
+                                        "layout": "horizontal",
+                                        "parent_repeater": "field_5e3dc0e9f8120"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_slider_overlay",
+                                        "label": "Overlay Background",
+                                        "name": "ane_overlay",
+                                        "aria-label": "",
+                                        "type": "button_group",
+                                        "instructions": "Beri lapisan gelap agar teks terbaca jelas, atau biarkan warna gambar asli.",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "50",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "choices": {
+                                            "dark": "Overlay Gelap",
+                                            "none": "Asli (Tanpa Overlay)"
+                                        },
+                                        "default_value": "dark",
+                                        "return_format": "value",
+                                        "allow_null": 0,
+                                        "layout": "horizontal",
+                                        "parent_repeater": "field_5e3dc0e9f8120"
                                     }
                                 ],
                                 "rows_per_page": 20
+                            },
+                            {
+                                "key": "field_sekolahane_slider_curve",
+                                "label": "Marking Lengkungan Bawah Hero",
+                                "name": "ane_slider_curve",
+                                "aria-label": "",
+                                "type": "true_false",
+                                "instructions": "Tampilkan bentuk lengkungan dekoratif di bagian bawah Hero Slider (default: aktif).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "message": "",
+                                "default_value": 1,
+                                "ui_on_text": "Tampil",
+                                "ui_off_text": "Sembunyikan",
+                                "ui": 1
                             }
                         ],
                         "min": "",
@@ -1678,7 +1747,7 @@
                                 "name": "ane_featured",
                                 "aria-label": "",
                                 "type": "repeater",
-                                "instructions": "Tambah fitur sekolah, seperti sekolah SMP\/SMA\/SD atau bisa untuk kurikulum, fitur ini untuk menampilkan informasi penting dari sekolah.",
+                                "instructions": "Tambah fitur sekolah, seperti sekolah SMP/SMA/SD atau bisa untuk kurikulum, fitur ini untuk menampilkan informasi penting dari sekolah.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -1837,7 +1906,7 @@
                     "layout_5e3e5b55e3a51": {
                         "key": "layout_5e3e5b55e3a51",
                         "name": "home_cta",
-                        "label": "4. Banner Iklan\/Ajakan",
+                        "label": "4. Banner Iklan/Ajakan",
                         "display": "block",
                         "sub_fields": [
                             {
@@ -1937,7 +2006,7 @@
                                 "name": "ane_title",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Default Judul \"Dewan Guru\". Untuk Memvariasikan tampilan tambah <span> pada test tertentu contoh: Dewan <span>Guru<\/span>",
+                                "instructions": "Default Judul \"Dewan Guru\". Untuk Memvariasikan tampilan tambah <span> pada test tertentu contoh: Dewan <span>Guru</span>",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -1946,7 +2015,7 @@
                                     "id": ""
                                 },
                                 "default_value": "",
-                                "placeholder": "Dewan <span>Guru<\/span>",
+                                "placeholder": "Dewan <span>Guru</span>",
                                 "prepend": "",
                                 "append": "",
                                 "maxlength": ""
@@ -2345,7 +2414,7 @@
                                     "id": ""
                                 },
                                 "default_value": "",
-                                "placeholder": "https:\/\/webane.com"
+                                "placeholder": "https://webane.com"
                             },
                             {
                                 "key": "field_5dded22c5bfb6",
@@ -2434,7 +2503,7 @@
                 "name": "ane_mobile_menu",
                 "aria-label": "",
                 "type": "repeater",
-                "instructions": "Maksimal 4 - untuk icon silahkan pilih melalui tautan ini: https:\/\/fontawesome.com\/v4.7\/icons\/ lalu copy text: bagian fa-nama-icon, contoh icon bintang: fa-star",
+                "instructions": "Maksimal 4 - untuk icon silahkan pilih melalui tautan ini: https://fontawesome.com/v4.7/icons/ lalu copy text: bagian fa-nama-icon, contoh icon bintang: fa-star",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -2542,7 +2611,7 @@
                 "name": "ane_data_sekolah",
                 "aria-label": "",
                 "type": "repeater",
-                "instructions": "Misalnya: Jumlah Murid - 20 .. untuk icon silahkan pilih disini:\r\nhttps:\/\/fontawesome.com\/v4\/icons\/",
+                "instructions": "Misalnya: Jumlah Murid - 20 .. untuk icon silahkan pilih disini:\r\nhttps://fontawesome.com/v4/icons/",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -2651,7 +2720,7 @@
                                 "name": "ane_featured",
                                 "aria-label": "",
                                 "type": "repeater",
-                                "instructions": "Tambah fitur sekolah, seperti sekolah SMP\/SMA\/SD atau bisa untuk kurikulum, fitur ini untuk menampilkan informasi penting dari sekolah.",
+                                "instructions": "Tambah fitur sekolah, seperti sekolah SMP/SMA/SD atau bisa untuk kurikulum, fitur ini untuk menampilkan informasi penting dari sekolah.",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2828,7 +2897,7 @@
                                 "name": "ane_title",
                                 "aria-label": "",
                                 "type": "text",
-                                "instructions": "Default Judul \"Dewan Guru\". Untuk Memvariasikan tampilan tambah <span> pada test tertentu contoh: Dewan <span>Guru<\/span>",
+                                "instructions": "Default Judul \"Dewan Guru\". Untuk Memvariasikan tampilan tambah <span> pada test tertentu contoh: Dewan <span>Guru</span>",
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
@@ -2837,7 +2906,7 @@
                                     "id": ""
                                 },
                                 "default_value": "",
-                                "placeholder": "Dewan <span>Guru<\/span>",
+                                "placeholder": "Dewan <span>Guru</span>",
                                 "prepend": "",
                                 "append": "",
                                 "maxlength": ""
@@ -2995,7 +3064,7 @@
                                     "id": ""
                                 },
                                 "default_value": "",
-                                "placeholder": "https:\/\/webane.com"
+                                "placeholder": "https://webane.com"
                             },
                             {
                                 "key": "field_628554346f167",
@@ -3147,7 +3216,7 @@
                 "name": "ane_list_lembaga",
                 "aria-label": "",
                 "type": "repeater",
-                "instructions": "Maksimal 12 categori, untuk icon silahkan pilih melalui tautan ini: https:\/\/fontawesome.com\/v4.7\/icons\/ lalu copy text: bagian fa-nama-icon, contoh icon bintang: fa-star",
+                "instructions": "Maksimal 12 categori, untuk icon silahkan pilih melalui tautan ini: https://fontawesome.com/v4.7/icons/ lalu copy text: bagian fa-nama-icon, contoh icon bintang: fa-star",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {

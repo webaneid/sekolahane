@@ -88,6 +88,40 @@ function sekolahane_get_bundled_acf_groups() {
 }
 
 /**
+ * Hitung hash MD5 gabungan dari seluruh file JSON ACF di inc/acf-json/.
+ *
+ * Dipakai untuk mendeteksi perubahan skema JSON secara otomatis (saat pengembangan
+ * redesign maupun setelah auto-update theme) dan menyinkronkannya ke database
+ * hanya 1 kali per perubahan file.
+ *
+ * @return string Hash MD5 atau string kosong.
+ */
+function sekolahane_get_bundled_acf_hash() {
+	$json_dir = get_template_directory() . '/inc/acf-json';
+	if ( ! is_dir( $json_dir ) ) {
+		return '';
+	}
+
+	$files = glob( $json_dir . '/*.json' );
+	if ( ! is_array( $files ) || empty( $files ) ) {
+		return '';
+	}
+
+	sort( $files );
+	$combined = '';
+	foreach ( $files as $file ) {
+		if ( is_readable( $file ) ) {
+			$file_hash = md5_file( $file );
+			if ( is_string( $file_hash ) ) {
+				$combined .= basename( $file ) . ':' . $file_hash . ';';
+			}
+		}
+	}
+
+	return '' !== $combined ? md5( $combined ) : '';
+}
+
+/**
  * Cari ID post `acf-field-group` di database berdasarkan key group (mis. group_6032a4955792a).
  *
  * @param string $group_key Key unik ACF field group.
@@ -157,8 +191,37 @@ function sekolahane_import_acf_json_groups( $overwrite = false ) {
 		++$imported;
 	}
 
+	$hash = sekolahane_get_bundled_acf_hash();
+	if ( '' !== $hash ) {
+		update_option( 'sekolahane_acf_json_hash', $hash, true );
+	}
+
 	return $imported;
 }
+
+/**
+ * Otomatis perbarui Field Group ACF di database setiap kali file JSON di
+ * inc/acf-json/ mengalami perubahan (mis. penambahan field baru saat redesign).
+ *
+ * Hanya menulis ke database 1 kali ketika hash MD5 JSON berubah.
+ *
+ * @return void
+ */
+function sekolahane_maybe_sync_acf_json_on_change() {
+	if ( ! sekolahane_is_acf_active() || ! function_exists( 'acf_import_field_group' ) ) {
+		return;
+	}
+
+	$current_hash = sekolahane_get_bundled_acf_hash();
+	if ( '' === $current_hash ) {
+		return;
+	}
+
+	if ( get_option( 'sekolahane_acf_json_hash' ) !== $current_hash ) {
+		sekolahane_import_acf_json_groups( true );
+	}
+}
+add_action( 'acf/init', 'sekolahane_maybe_sync_acf_json_on_change', 15 );
 
 /**
  * Otomatis import Field Group ACF yang belum ada di DB saat theme diaktifkan.
