@@ -1742,6 +1742,52 @@
                         "display": "block",
                         "sub_fields": [
                             {
+                                "key": "field_sekolahane_featured_pos_home",
+                                "label": "Posisi terhadap Hero",
+                                "name": "ane_featured_position",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih apakah blok Fitur Sekolah menempel (naik) ke bagian bawah Hero atau terpisah di bawah Hero.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "overlap": "Menempel di Hero",
+                                    "below": "Di Bawah Hero"
+                                },
+                                "default_value": "overlap",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_featured_style_home",
+                                "label": "Gaya Desain Fitur",
+                                "name": "ane_featured_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Default (icon di atas & rata tengah) atau Flat Design (icon kecil di kiri dengan kotak warna utama & teks rata kiri).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "default": "Default",
+                                    "flat": "Flat Design"
+                                },
+                                "default_value": "default",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
                                 "key": "field_5e3e4f2be5e45",
                                 "label": "Fitur Sekolah",
                                 "name": "ane_featured",
@@ -2714,6 +2760,52 @@
                         "label": "1. Fitur Sekolah",
                         "display": "block",
                         "sub_fields": [
+                            {
+                                "key": "field_sekolahane_featured_pos_profil",
+                                "label": "Posisi terhadap Hero",
+                                "name": "ane_featured_position",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih apakah blok Fitur Sekolah menempel (naik) ke bagian bawah Hero atau terpisah di bawah Hero.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "overlap": "Menempel di Hero",
+                                    "below": "Di Bawah Hero"
+                                },
+                                "default_value": "overlap",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_featured_style_profil",
+                                "label": "Gaya Desain Fitur",
+                                "name": "ane_featured_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Default (icon di atas & rata tengah) atau Flat Design (icon kecil di kiri dengan kotak warna utama & teks rata kiri).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "default": "Default",
+                                    "flat": "Flat Design"
+                                },
+                                "default_value": "default",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
                             {
                                 "key": "field_62855434460eb",
                                 "label": "Fitur Sekolah",
