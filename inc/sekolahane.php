@@ -97,7 +97,11 @@ function sekolahane_icon( $name ) {
  * @return void
  */
 function ane_load_css_and_js() {
-	$ver = defined( 'SEKOLAHANE_VERSION' ) ? SEKOLAHANE_VERSION : '3.2.1';
+	$ver     = defined( 'SEKOLAHANE_VERSION' ) ? SEKOLAHANE_VERSION : '3.2.1';
+	$css_f   = get_template_directory() . '/css/main.min.css';
+	$js_f    = get_template_directory() . '/js/sekolahane.js';
+	$css_ver = file_exists( $css_f ) ? (string) filemtime( $css_f ) : $ver;
+	$js_ver  = file_exists( $js_f ) ? (string) filemtime( $js_f ) : $ver;
 
 	wp_enqueue_style( 'FontsAwsome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
 	wp_enqueue_style( 'Google-Fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,800,900&display=swap', array(), null );
@@ -108,7 +112,7 @@ function ane_load_css_and_js() {
 		wp_enqueue_script( 'magnific', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js', array( 'jquery' ), '1.1.0', true );
 	}
 
-	wp_enqueue_style( 'sekolahane-css', get_template_directory_uri() . '/css/main.min.css', array(), $ver );
+	wp_enqueue_style( 'sekolahane-css', get_template_directory_uri() . '/css/main.min.css', array(), $css_ver );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'OwlCarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js', array( 'jquery' ), '2.2.1', true );
@@ -126,7 +130,7 @@ function ane_load_css_and_js() {
 		}
 	}
 
-	wp_enqueue_script( 'sekolahane-js', get_template_directory_uri() . '/js/sekolahane.js', array( 'jquery' ), $ver, true );
+	wp_enqueue_script( 'sekolahane-js', get_template_directory_uri() . '/js/sekolahane.js', array( 'jquery' ), $js_ver, true );
 }
 add_action( 'wp_enqueue_scripts', 'ane_load_css_and_js' );
 

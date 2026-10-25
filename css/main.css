@@ -1314,11 +1314,11 @@ select:after {
   z-index: 99999;
   padding: 8px 6px;
   border-radius: 12px;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  background-color: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16);
 }
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li ul li {
   display: block;
@@ -1958,6 +1958,7 @@ select:after {
   width: 100%;
   display: block;
   position: relative;
+  z-index: 1;
   padding: 0;
   overflow: hidden;
   margin-bottom: 0;
