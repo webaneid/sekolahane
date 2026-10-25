@@ -1158,6 +1158,7 @@ select:after {
   width: 100%;
   height: auto;
   position: relative;
+  z-index: 9999;
 }
 .ane-header .atas {
   display: block;
@@ -1234,10 +1235,10 @@ select:after {
   position: absolute;
   left: 0;
   top: 44px;
-  z-index: 2;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 9999;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.55);
 }
 .ane-header .bawah .desktop-menu .custom-logo-link,
 .ane-header .bawah .desktop-menu .custom-logo,
@@ -1259,7 +1260,6 @@ select:after {
 }
 .ane-header .bawah .desktop-menu #main-menu {
   display: block;
-  width: 100%;
   height: auto;
   width: auto;
   padding: 0;
@@ -1275,8 +1275,10 @@ select:after {
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li {
   display: inline-block;
   position: relative;
-  padding-right: 12px;
-  padding-left: 12px;
+  padding-right: 14px;
+  padding-left: 14px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li:last-child {
   margin-right: 0;
@@ -1286,7 +1288,7 @@ select:after {
   padding-left: 0;
 }
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li a {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.2px;
   color: #160e06;
@@ -1301,28 +1303,32 @@ select:after {
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li ul {
   display: block;
   left: 0;
-  padding: 0px 0 0px;
   position: absolute;
-  top: 51px;
+  top: 100%;
+  margin-top: 8px;
   transform: rotateX(90deg);
   transform-origin: center top 0;
-  transition: all 0.5s ease 0s;
+  transition: all 0.25s ease;
   visibility: hidden;
-  width: 250px;
-  z-index: 999;
-  background: #FFFFFF;
-  padding: 10px;
-  border-radius: 0 0 10px 10px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.5);
+  min-width: 230px;
+  z-index: 99999;
+  padding: 8px 6px;
+  border-radius: 12px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background-color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li ul li {
   display: block;
   text-align: left;
   padding: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  margin: 0;
+  border-bottom: 1px solid rgba(22, 14, 6, 0.06);
   border-right: 0;
+  font-size: 14px;
+  line-height: 1.4;
 }
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li ul li:after {
   content: "";
@@ -1331,10 +1337,20 @@ select:after {
   border-bottom: 0;
 }
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li ul li a {
-  color: #130c2f !important;
+  display: block;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #160e06 !important;
+  opacity: 0.78;
+  transition: all 0.2s ease;
 }
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li ul li a:hover {
-  color: #c98b49 !important;
+  color: #160e06 !important;
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.55);
 }
 .ane-header .bawah .desktop-menu #main-menu ul.main-menu li:hover ul {
   transform: rotateX(0);
