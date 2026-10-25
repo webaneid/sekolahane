@@ -5,6 +5,14 @@
 
 ---
 
+## 2026-10-26 — `get_sub_field()` pada Flexible Content Layout Harus Dipanggil Sebelum `have_rows()` Repeater Anak
+**Masalah:** Pengaturan level layout (`ane_featured_position`, `ane_featured_style`) pada blok Flexible Content `home_featured` selalu menghasilkan string kosong `""` di `tp/section/featured.php` meskipun sudah dipilih `Di Bawah Hero` dan disimpan di WP Admin.
+**Root cause:** `get_sub_field( 'ane_featured_position' )` dipanggil di dalam blok `if ( have_rows( 'ane_featured' ) )`. Pada ACF Pro, memanggil `have_rows( 'ane_featured' )` langsung menggeser pointer `acf_get_loop( 'active' )` ke repeater anak (`ane_featured`), sehingga `get_sub_field()` mencari field di dalam repeater anak, bukan di layout induk (`home_featured`).
+**Fix:** Memindahkan pembacaan `get_sub_field( 'ane_featured_position' )` dan `get_sub_field( 'ane_featured_style' )` ke atas sebelum `if ( have_rows( 'ane_featured' ) )`.
+**Pencegahan:** Selalu baca dan simpan semua `get_sub_field()` milik layout Flexible Content ke variabel sebelum memanggil `have_rows()` pada sub-repeater di dalamnya.
+
+---
+
 ## 2026-10-23 — Celah Stored XSS & Fatal Error PHP 8.x pada Kode Theme Lama
 **Masalah:**
 1. Ditemukan `remove_filter( 'pre_user_description', 'wp_filter_kses' );` di `inc/sekolahane.php` ditambah output bio penulis tanpa escaping di `inc/sekolahane.php` dan `author.php` (Stored XSS).

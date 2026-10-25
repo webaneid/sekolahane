@@ -11,20 +11,21 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( have_rows( 'ane_featured' ) ) :
-	$sekolahane_pos_raw   = (string) get_sub_field( 'ane_featured_position' );
-	$sekolahane_pos_map   = array(
-		'overlap' => 'featured-pos-overlap',
-		'below'   => 'featured-pos-below',
-	);
-	$sekolahane_pos_class = isset( $sekolahane_pos_map[ $sekolahane_pos_raw ] ) ? $sekolahane_pos_map[ $sekolahane_pos_raw ] : 'featured-pos-overlap';
+$sekolahane_pos_raw   = (string) get_sub_field( 'ane_featured_position' );
+$sekolahane_pos_map   = array(
+	'overlap' => 'featured-pos-overlap',
+	'below'   => 'featured-pos-below',
+);
+$sekolahane_pos_class = isset( $sekolahane_pos_map[ $sekolahane_pos_raw ] ) ? $sekolahane_pos_map[ $sekolahane_pos_raw ] : 'featured-pos-overlap';
 
-	$sekolahane_style_raw   = (string) get_sub_field( 'ane_featured_style' );
-	$sekolahane_style_map   = array(
-		'default' => 'featured-style-default',
-		'flat'    => 'featured-style-flat',
-	);
-	$sekolahane_style_class = isset( $sekolahane_style_map[ $sekolahane_style_raw ] ) ? $sekolahane_style_map[ $sekolahane_style_raw ] : 'featured-style-default';
+$sekolahane_style_raw   = (string) get_sub_field( 'ane_featured_style' );
+$sekolahane_style_map   = array(
+	'default' => 'featured-style-default',
+	'flat'    => 'featured-style-flat',
+);
+$sekolahane_style_class = isset( $sekolahane_style_map[ $sekolahane_style_raw ] ) ? $sekolahane_style_map[ $sekolahane_style_raw ] : 'featured-style-default';
+
+if ( have_rows( 'ane_featured' ) ) :
 	?>
 	<section class="section-featured <?php echo esc_attr( $sekolahane_pos_class . ' ' . $sekolahane_style_class ); ?>">
 		<div class="container">
