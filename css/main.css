@@ -2054,7 +2054,7 @@ select:after {
   pointer-events: none;
 }
 .home-slider .pemanis-slider svg {
-  fill: #F8F8F8;
+  fill: #FFFFFF;
   height: 90px;
   width: 100%;
 }
@@ -2108,15 +2108,14 @@ select:after {
   margin-bottom: 80px;
 }
 .section-featured.featured-pos-overlap {
-  background: #F8F8F8;
+  background: transparent;
   margin-top: -150px;
-  padding-bottom: 80px;
+  padding-bottom: 40px;
 }
 .section-featured.featured-pos-below {
-  background: #FFFFFF;
-  margin-top: 0;
-  padding-top: 60px;
-  padding-bottom: 40px;
+  background: transparent;
+  margin-top: 60px;
+  padding-bottom: 20px;
 }
 .section-featured ul {
   width: 100%;
