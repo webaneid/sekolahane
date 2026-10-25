@@ -161,3 +161,4 @@ require get_template_directory() . '/inc/custompost.php';
 require get_template_directory() . '/inc/widgets.php';
 require get_template_directory() . '/inc/updater.php';
 require get_template_directory() . '/inc/webp-converter.php';
+require get_template_directory() . '/inc/acf-importer.php';

@@ -15,3 +15,4 @@
 | 07 | Optimasi CSS: Bootstrap super ringan & konsolidasi 1 file `css/main.min.css` | Done | `phases/phase-07-optimasi-css-bootstrap-ringan.md` |
 | 08 | Migrasi icon `FontAne` ke Inline SVG & hapus folder `fonts/` (250 KB) | Done | `phases/phase-08-migrasi-icon-svg.md` |
 | 09 | Audit, pembersihan dead CSS, & deduplikasi `css/main.css` + `css/main.min.css` | Done | `phases/phase-09-pembersihan-dan-deduplikasi-css.md` |
+| 10 | Bundling & importer ACF JSON (`inc/acf-importer.php`) + verifikasi eksklusi `docs/` | Done | `phases/phase-10-acf-json-importer.md` |

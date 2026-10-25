@@ -1,0 +1,3324 @@
+[
+    {
+        "key": "group_6032a4955792a",
+        "title": "Customer Care",
+        "fields": [
+            {
+                "key": "field_6032a49b5c363",
+                "label": "Aktifkan Customer Care",
+                "name": "ane_cs_aktif",
+                "aria-label": "",
+                "type": "true_false",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "message": "Aktifkan",
+                "default_value": 0,
+                "ui": 1,
+                "ui_on_text": "Aktif",
+                "ui_off_text": "Tidak Aktif"
+            },
+            {
+                "key": "field_6032a682d8222",
+                "label": "Customer Care Label",
+                "name": "ane_cs_label",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Default label is \"Customer Care\", You Can Change it in to whatever you want, like: \"Kontak Cepat\"",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_6032a49b5c363",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Customer Care",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_6032a71ed8223",
+                "label": "Customer Care Header Message",
+                "name": "ane_cs_welcome",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "You change that message",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_6032a49b5c363",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "Hubungi Customer Care Kami jika Anda membutuhkan bantuan, atau informasi seputar pelayanan kami",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_6032a5075c364",
+                "label": "Data Kontak WhatsApp CS",
+                "name": "ane_cs",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": [
+                    [
+                        {
+                            "field": "field_6032a49b5c363",
+                            "operator": "==",
+                            "value": "1"
+                        }
+                    ]
+                ],
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Tambah Customer Care",
+                "sub_fields": [
+                    {
+                        "key": "field_6032a5375c365",
+                        "label": "Nama",
+                        "name": "ane_nama",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "parent_repeater": "field_6032a5075c364"
+                    },
+                    {
+                        "key": "field_6032a54c5c366",
+                        "label": "Jabatan \/ Posisi",
+                        "name": "ane_area",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Contoh: Wali Kelas XI",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "parent_repeater": "field_6032a5075c364"
+                    },
+                    {
+                        "key": "field_6032a58a5c367",
+                        "label": "Nomor WhatsApp",
+                        "name": "ane_whatsapp",
+                        "aria-label": "",
+                        "type": "number",
+                        "instructions": "Pastikan memasukan kode negara seperti contoh: 6285210626455",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": 6285210626455,
+                        "prepend": "",
+                        "append": "",
+                        "min": "",
+                        "max": "",
+                        "step": "",
+                        "parent_repeater": "field_6032a5075c364"
+                    },
+                    {
+                        "key": "field_6032a5b75c368",
+                        "label": "Photo",
+                        "name": "ane_image",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "Ukuran 200 x 200 pixel",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "preview_size": "kotak",
+                        "library": "all",
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": "",
+                        "parent_repeater": "field_6032a5075c364"
+                    }
+                ],
+                "rows_per_page": 20
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-customer-care"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_5e3ecfcf9f08d",
+        "title": "Guru Detail",
+        "fields": [
+            {
+                "key": "field_5e3ecfd5c4108",
+                "label": "Jabatan di Sekolah",
+                "name": "ane_jabatan",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "guru"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "acf_after_title",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_5de74a631717f",
+        "title": "Informasi Umum",
+        "fields": [
+            {
+                "key": "field_5de74a77f88e3",
+                "label": "Dunia Membutuhkan Informasi Anda",
+                "name": "about_ane",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5de74aa8f88e4",
+                        "label": "Nama Perusahaan atau Organisasi Anda",
+                        "name": "company_name",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Dunia Ingin mengetahui siapa Anda",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Webane Indonesia",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5de74ad3f88e5",
+                        "label": "Sologan Perusahaan Anda",
+                        "name": "company_sologan",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Creative Squad",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5de74aeef88e6",
+                        "label": "Siapakah Anda?",
+                        "name": "company_about",
+                        "aria-label": "",
+                        "type": "textarea",
+                        "instructions": "Katakan pada Dunia tentang Anda hanya dengan 200 Huruf",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": 2,
+                        "new_lines": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5de74c4cf88e7",
+                "label": "Lengkapi Informasi Kontak Anda",
+                "name": "contact_ane",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Dunia Membutuhkan Informasi Kontak Anda",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5dea0d546c14e",
+                        "label": "Alamat Lengkap",
+                        "name": "kontak_alamat",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Perum Permat Block C4, Jl. Karang Ploso, Gempol. Condong Catur, Depok, Sleman, Yogyakarta",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5de74dd2f88e8",
+                        "label": "Nomor Telepon",
+                        "name": "kontak_telepon",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5de74debf88e9",
+                        "label": "Nomor Handphone",
+                        "name": "kontak_handphone",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5de74dfcf88ea",
+                        "label": "Alamat Email",
+                        "name": "kontak_email",
+                        "aria-label": "",
+                        "type": "email",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "webane.com@gmail.com",
+                        "prepend": "",
+                        "append": ""
+                    },
+                    {
+                        "key": "field_5de74e20f88eb",
+                        "label": "Alamat Website",
+                        "name": "kontak_website",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5de74e43f88ec",
+                "label": "Media Sosial Penting Banget",
+                "name": "sosmed_ane",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "Anda harus terkoneksi dengan platform sosial media besar agar memudahkan dunia menemukan Anda.",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5de74ea8f88ed",
+                        "label": "Link Facebook Anda",
+                        "name": "sosmed_fb",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "Tulis lengkap URL Facebook Anda",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "https:\/\/facebook.com\/webanecom",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5de74ef2f88ee",
+                        "label": "ID Instagram",
+                        "name": "sosmed_ig",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "webanecom",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5de74f07f88ef",
+                        "label": "ID Twitter",
+                        "name": "sosmed_tw",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "webanecom",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5de74f27f88f0",
+                        "label": "URL Chanel Youtube",
+                        "name": "sosmed_youtube",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "https:\/\/www.youtube.com\/channel\/UCy0bPAx6H7uceH0VSSoLftw",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5de74f46f88f1",
+                        "label": "Nomor WhatsApp",
+                        "name": "sosmed_wa",
+                        "aria-label": "",
+                        "type": "number",
+                        "instructions": "Lengkapi dengan kode negara, tetapi jangan gunakan + diawalnya, lihat contoh.",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": 6285210626455,
+                        "prepend": "",
+                        "append": "",
+                        "min": "",
+                        "max": "",
+                        "step": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5debaf505b7e4",
+                "label": "Google Map",
+                "name": "gmap",
+                "aria-label": "",
+                "type": "google_map",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "center_lat": "",
+                "center_lng": "",
+                "zoom": "",
+                "height": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "webane-theme-general-settings"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_5e3ea26047ae8",
+        "title": "Testimoni Detail",
+        "fields": [
+            {
+                "key": "field_5e3ea299c9fa6",
+                "label": "Jabatan",
+                "name": "ane_jabatan",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "Cnth: Orang Tua \/ Wali Murid \/ Alumni",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "Alumni",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_5e3ea2c8c9fa7",
+                "label": "Isi Testimoni",
+                "name": "ane_testimoni",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "testimoni"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "acf_after_title",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_5debd866ae76c",
+        "title": "User Gravatar",
+        "fields": [
+            {
+                "key": "field_5debd86e9d507",
+                "label": "Local User Gravatar",
+                "name": "gravatar_ane",
+                "aria-label": "",
+                "type": "image",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array",
+                "preview_size": "kotak",
+                "library": "all",
+                "min_width": "",
+                "min_height": "",
+                "min_size": "",
+                "max_width": "",
+                "max_height": "",
+                "max_size": "",
+                "mime_types": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "user_form",
+                    "operator": "==",
+                    "value": "edit"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_5dea6988a1cd7",
+        "title": "Banner Iklan",
+        "fields": [
+            {
+                "key": "field_5debc44ee92c2",
+                "label": "Banner Header",
+                "name": "banner_header",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5debc471e92c3",
+                        "label": "Nama Pengiklan",
+                        "name": "iklan_nama",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5debc480e92c4",
+                        "label": "URL Iklan",
+                        "name": "url_iklan",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5debc489e92c5",
+                        "label": "Iklan Mulai",
+                        "name": "iklan_mulai",
+                        "aria-label": "",
+                        "type": "date_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "display_format": "j F Y",
+                        "return_format": "Y-m-d",
+                        "first_day": 1,
+                        "default_to_current_date": 0
+                    },
+                    {
+                        "key": "field_5debc4c4e92c6",
+                        "label": "Iklan Berakhir",
+                        "name": "iklan_berakhir",
+                        "aria-label": "",
+                        "type": "date_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "display_format": "j F Y",
+                        "return_format": "Y-m-d",
+                        "first_day": 1,
+                        "default_to_current_date": 0
+                    },
+                    {
+                        "key": "field_5debc4e8e92c7",
+                        "label": "Upload Image",
+                        "name": "iklan_image",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "url",
+                        "preview_size": "full",
+                        "library": "all",
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": ""
+                    }
+                ]
+            },
+            {
+                "key": "field_5debc51cad440",
+                "label": "Banner Iklan di Body Post",
+                "name": "banner_post",
+                "aria-label": "",
+                "type": "group",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layout": "block",
+                "sub_fields": [
+                    {
+                        "key": "field_5debc543ad441",
+                        "label": "Nama Pengiklan",
+                        "name": "iklan_nama",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5debc55aad442",
+                        "label": "URL Iklan",
+                        "name": "url_iklan",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": ""
+                    },
+                    {
+                        "key": "field_5debc576ad443",
+                        "label": "Iklan Mulai",
+                        "name": "iklan_mulai",
+                        "aria-label": "",
+                        "type": "date_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "display_format": "j F Y",
+                        "return_format": "Y-m-d",
+                        "first_day": 1,
+                        "default_to_current_date": 0
+                    },
+                    {
+                        "key": "field_5debc5a5ad444",
+                        "label": "Iklan Berakhir",
+                        "name": "iklan_berakhir",
+                        "aria-label": "",
+                        "type": "date_picker",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "display_format": "j F Y",
+                        "return_format": "Y-m-d",
+                        "first_day": 1,
+                        "default_to_current_date": 0
+                    },
+                    {
+                        "key": "field_5debc5bdad445",
+                        "label": "Upload Image",
+                        "name": "iklan_image",
+                        "aria-label": "",
+                        "type": "image",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "url",
+                        "preview_size": "full",
+                        "library": "all",
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": ""
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-your-banners"
+                }
+            ]
+        ],
+        "menu_order": 1,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_628542c07ac88",
+        "title": "Blog Type Settings",
+        "fields": [
+            {
+                "key": "field_628542c080ce7",
+                "label": "Blog Type Contents",
+                "name": "blog_content",
+                "aria-label": "",
+                "type": "flexible_content",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layouts": {
+                    "layout_5dddf0293325c": {
+                        "key": "layout_5dddf0293325c",
+                        "name": "home_default",
+                        "label": "Blog 1 - Default Layout",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_628542c09fd54",
+                                "label": "Pilih Kategori",
+                                "name": "pilih_kategori",
+                                "aria-label": "",
+                                "type": "taxonomy",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "taxonomy": "category",
+                                "field_type": "select",
+                                "allow_null": 0,
+                                "add_term": 1,
+                                "save_terms": 0,
+                                "load_terms": 0,
+                                "return_format": "object",
+                                "multiple": 0,
+                                "bidirectional_target": []
+                            },
+                            {
+                                "key": "field_628542c0a0ef1",
+                                "label": "Custom Title",
+                                "name": "custom_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Biarkan kosong jika ingin menggunakan judul asli dari kategori",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5dde05b89d886": {
+                        "key": "layout_5dde05b89d886",
+                        "name": "home_sliding",
+                        "label": "Blog 2 - Sliding Layout",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_628542c0a587d",
+                                "label": "Pilih Kategori",
+                                "name": "home_sliding_kategori",
+                                "aria-label": "",
+                                "type": "taxonomy",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "taxonomy": "category",
+                                "field_type": "select",
+                                "allow_null": 0,
+                                "add_term": 1,
+                                "save_terms": 0,
+                                "load_terms": 0,
+                                "return_format": "object",
+                                "multiple": 0,
+                                "bidirectional_target": []
+                            },
+                            {
+                                "key": "field_628542c0a6ad7",
+                                "label": "Custom Title",
+                                "name": "custom_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Biarkan kosong jika ingin menggunakan judul asli dari kategori",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5de9cfe5078aa": {
+                        "key": "layout_5de9cfe5078aa",
+                        "name": "home_classic",
+                        "label": "Blog 3 - Classic Layout",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_628542c0a8239",
+                                "label": "Pilih Kategori",
+                                "name": "pilih_kategori",
+                                "aria-label": "",
+                                "type": "taxonomy",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "taxonomy": "category",
+                                "field_type": "select",
+                                "allow_null": 0,
+                                "add_term": 1,
+                                "save_terms": 0,
+                                "load_terms": 0,
+                                "return_format": "object",
+                                "multiple": 0,
+                                "bidirectional_target": []
+                            },
+                            {
+                                "key": "field_628542c0a95f0",
+                                "label": "Custom Title",
+                                "name": "custom_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Jika Ingin Menggunakan Custom Title Isi Ini",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5dde3995ef188": {
+                        "key": "layout_5dde3995ef188",
+                        "name": "news_columns",
+                        "label": "Blog 4 - Tiga Kolom Layout",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_628542c0aaafd",
+                                "label": "News Columns Items",
+                                "name": "column_item",
+                                "aria-label": "",
+                                "type": "repeater",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 3,
+                                "layout": "table",
+                                "button_label": "Tambah Kolom",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_628542c0ac354",
+                                        "label": "Pilih Kategori",
+                                        "name": "column_cat",
+                                        "aria-label": "",
+                                        "type": "taxonomy",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "taxonomy": "category",
+                                        "field_type": "select",
+                                        "allow_null": 0,
+                                        "add_term": 1,
+                                        "save_terms": 0,
+                                        "load_terms": 0,
+                                        "return_format": "object",
+                                        "multiple": 0,
+                                        "bidirectional_target": [],
+                                        "parent_repeater": "field_628542c0aaafd"
+                                    },
+                                    {
+                                        "key": "field_628542c0ac363",
+                                        "label": "Custom Title",
+                                        "name": "column_title",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_628542c0aaafd"
+                                    }
+                                ],
+                                "rows_per_page": 20
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3e5b55e3a51": {
+                        "key": "layout_5e3e5b55e3a51",
+                        "name": "home_cta",
+                        "label": "Banner Iklan\/Ajakan",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_628542c095875",
+                                "label": "Judul Besar",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_628542c096e5c",
+                                "label": "Deskripsi Singkat",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_628542c0980fb",
+                                "label": "Link Selengkapnya",
+                                "name": "ane_link",
+                                "aria-label": "",
+                                "type": "link",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array"
+                            },
+                            {
+                                "key": "field_628542c0992f3",
+                                "label": "Big Background",
+                                "name": "ane_background",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "url",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5dded0f25bfb1": {
+                        "key": "layout_5dded0f25bfb1",
+                        "name": "home_banner",
+                        "label": "Long Banner Image",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_628542c0afdb1",
+                                "label": "Nama Perusahaan",
+                                "name": "home_banner_perusahaan",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Webane Indonesia",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_628542c0b12ba",
+                                "label": "Mulai Iklan",
+                                "name": "home_banner_start",
+                                "aria-label": "",
+                                "type": "date_picker",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "display_format": "j F Y",
+                                "return_format": "Y-m-d",
+                                "first_day": 1,
+                                "default_to_current_date": 0
+                            },
+                            {
+                                "key": "field_628542c0b2691",
+                                "label": "Iklan Berakhir",
+                                "name": "Home_banner_end",
+                                "aria-label": "",
+                                "type": "date_picker",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "display_format": "j F Y",
+                                "return_format": "Y-m-d",
+                                "first_day": 1,
+                                "default_to_current_date": 0
+                            },
+                            {
+                                "key": "field_628542c0b3e03",
+                                "label": "URL Iklan",
+                                "name": "home_banner_url",
+                                "aria-label": "",
+                                "type": "url",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "https:\/\/webane.com"
+                            },
+                            {
+                                "key": "field_628542c0b5214",
+                                "label": "Nama Iklan",
+                                "name": "home_banner_name",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Web Design Indonesia",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_628542c0b665b",
+                                "label": "Upload Image",
+                                "name": "home_banner_image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "url",
+                                "preview_size": "full",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    }
+                },
+                "button_label": "Tambah Blok Baru",
+                "min": "",
+                "max": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "page-newslist.php"
+                }
+            ]
+        ],
+        "menu_order": 1,
+        "position": "acf_after_title",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_5dbeefc248e7f",
+        "title": "Landing Page Content",
+        "fields": [
+            {
+                "key": "field_5dddf001a9ad6",
+                "label": "Landing Page Content",
+                "name": "home_content",
+                "aria-label": "",
+                "type": "flexible_content",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layouts": {
+                    "layout_5e3dc0d0f811f": {
+                        "key": "layout_5e3dc0d0f811f",
+                        "name": "home_box_slider",
+                        "label": "1. Home Big Slider",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5e3dc0e9f8120",
+                                "label": "Home Slider",
+                                "name": "home_slider",
+                                "aria-label": "",
+                                "type": "repeater",
+                                "instructions": "maksimal 3 slide",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 3,
+                                "layout": "table",
+                                "button_label": "Tambah Slider",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_5e3dc100f8121",
+                                        "label": "Big Image Background",
+                                        "name": "ane_background",
+                                        "aria-label": "",
+                                        "type": "image",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "url",
+                                        "preview_size": "thumbnail",
+                                        "library": "all",
+                                        "min_width": "",
+                                        "min_height": "",
+                                        "min_size": "",
+                                        "max_width": "",
+                                        "max_height": "",
+                                        "max_size": "",
+                                        "mime_types": "",
+                                        "parent_repeater": "field_5e3dc0e9f8120"
+                                    },
+                                    {
+                                        "key": "field_5e3dc11ef8122",
+                                        "label": "Slider Title",
+                                        "name": "ane_title",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_5e3dc0e9f8120"
+                                    },
+                                    {
+                                        "key": "field_5e3dc136f8123",
+                                        "label": "Slider Description",
+                                        "name": "ane_deskripsi",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_5e3dc0e9f8120"
+                                    },
+                                    {
+                                        "key": "field_5e3dc14cf8124",
+                                        "label": "Link",
+                                        "name": "ane_link",
+                                        "aria-label": "",
+                                        "type": "link",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "array",
+                                        "parent_repeater": "field_5e3dc0e9f8120"
+                                    }
+                                ],
+                                "rows_per_page": 20
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3e4f14e5e44": {
+                        "key": "layout_5e3e4f14e5e44",
+                        "name": "home_featured",
+                        "label": "2. Fitur Sekolah",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5e3e4f2be5e45",
+                                "label": "Fitur Sekolah",
+                                "name": "ane_featured",
+                                "aria-label": "",
+                                "type": "repeater",
+                                "instructions": "Tambah fitur sekolah, seperti sekolah SMP\/SMA\/SD atau bisa untuk kurikulum, fitur ini untuk menampilkan informasi penting dari sekolah.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 4,
+                                "layout": "table",
+                                "button_label": "Tambah Fitur",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_5e3e4fabe5e47",
+                                        "label": "Judul Fitur",
+                                        "name": "ane_title",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_5e3e4f2be5e45"
+                                    },
+                                    {
+                                        "key": "field_5e3e4fc8e5e48",
+                                        "label": "Deskripsi Fitur",
+                                        "name": "ane_deskripsi",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_5e3e4f2be5e45"
+                                    },
+                                    {
+                                        "key": "field_5e3e4fdce5e49",
+                                        "label": "Link Ke Informasi Fitur selengkapnya",
+                                        "name": "ane_link",
+                                        "aria-label": "",
+                                        "type": "link",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "array",
+                                        "parent_repeater": "field_5e3e4f2be5e45"
+                                    },
+                                    {
+                                        "key": "field_5e3e4ff1e5e4a",
+                                        "label": "Icon Fitur",
+                                        "name": "ane_icon",
+                                        "aria-label": "",
+                                        "type": "image",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "url",
+                                        "preview_size": "full",
+                                        "library": "all",
+                                        "min_width": "",
+                                        "min_height": "",
+                                        "min_size": "",
+                                        "max_width": "",
+                                        "max_height": "",
+                                        "max_size": "",
+                                        "mime_types": "",
+                                        "parent_repeater": "field_5e3e4f2be5e45"
+                                    }
+                                ],
+                                "rows_per_page": 20
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3ead60ff293": {
+                        "key": "layout_5e3ead60ff293",
+                        "name": "home_ekstrakurikuler",
+                        "label": "3. Ekstrakurikuler",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5e3ead7aff294",
+                                "label": "Judul Spesifik",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Kosongkan jika ingin tetap judulnya Ekstrakurikuler",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5e3eada2ff295",
+                                "label": "Deskripsi",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Deskripsi",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3e5b55e3a51": {
+                        "key": "layout_5e3e5b55e3a51",
+                        "name": "home_cta",
+                        "label": "4. Banner Iklan\/Ajakan",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5e3e5b6ce3a52",
+                                "label": "Judul Besar",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5e3e5b85e3a53",
+                                "label": "Deskripsi Singkat",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5e3e5b9be3a54",
+                                "label": "Link Selengkapnya",
+                                "name": "ane_link",
+                                "aria-label": "",
+                                "type": "link",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array"
+                            },
+                            {
+                                "key": "field_5e3e5bba04831",
+                                "label": "Big Background",
+                                "name": "ane_background",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "url",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3ed08cc9d95": {
+                        "key": "layout_5e3ed08cc9d95",
+                        "name": "home_guru",
+                        "label": "5. Guru-guru",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5e3ed0a3c9d96",
+                                "label": "Judul Custom",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Default Judul \"Dewan Guru\". Untuk Memvariasikan tampilan tambah <span> pada test tertentu contoh: Dewan <span>Guru<\/span>",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Dewan <span>Guru<\/span>",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5e3ed103c9d97",
+                                "label": "Deskripsi",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3ea4718b483": {
+                        "key": "layout_5e3ea4718b483",
+                        "name": "home_testimoni",
+                        "label": "6. Testimoni",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5e3ea4918b484",
+                                "label": "Text Judul Khusus",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5e3ea4c68b486",
+                                "label": "Deskripsi",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Keep Short, bro!",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5dddf0293325c": {
+                        "key": "layout_5dddf0293325c",
+                        "name": "home_default",
+                        "label": "Blog 1 - Default Layout",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5dddf070a9ad7",
+                                "label": "Pilih Kategori",
+                                "name": "pilih_kategori",
+                                "aria-label": "",
+                                "type": "taxonomy",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "taxonomy": "category",
+                                "field_type": "select",
+                                "allow_null": 0,
+                                "add_term": 1,
+                                "save_terms": 0,
+                                "load_terms": 0,
+                                "return_format": "object",
+                                "multiple": 0,
+                                "bidirectional_target": []
+                            },
+                            {
+                                "key": "field_5dddf13ca9ad8",
+                                "label": "Custom Title",
+                                "name": "custom_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Biarkan kosong jika ingin menggunakan judul asli dari kategori",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5dde05b89d886": {
+                        "key": "layout_5dde05b89d886",
+                        "name": "home_sliding",
+                        "label": "Blog 2 - Sliding Layout",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5dde05ee9d887",
+                                "label": "Pilih Kategori",
+                                "name": "home_sliding_kategori",
+                                "aria-label": "",
+                                "type": "taxonomy",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "taxonomy": "category",
+                                "field_type": "select",
+                                "allow_null": 0,
+                                "add_term": 1,
+                                "save_terms": 0,
+                                "load_terms": 0,
+                                "return_format": "object",
+                                "multiple": 0,
+                                "bidirectional_target": []
+                            },
+                            {
+                                "key": "field_5dde06219d888",
+                                "label": "Custom Title",
+                                "name": "custom_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Biarkan kosong jika ingin menggunakan judul asli dari kategori",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5de9cfe5078aa": {
+                        "key": "layout_5de9cfe5078aa",
+                        "name": "home_classic",
+                        "label": "Blog 3 - Classic Layout",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5de9d00e078ab",
+                                "label": "Pilih Kategori",
+                                "name": "pilih_kategori",
+                                "aria-label": "",
+                                "type": "taxonomy",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "taxonomy": "category",
+                                "field_type": "select",
+                                "allow_null": 0,
+                                "add_term": 1,
+                                "save_terms": 0,
+                                "load_terms": 0,
+                                "return_format": "object",
+                                "multiple": 0,
+                                "bidirectional_target": []
+                            },
+                            {
+                                "key": "field_5de9d06c078ac",
+                                "label": "Custom Title",
+                                "name": "custom_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Jika Ingin Menggunakan Custom Title Isi Ini",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5dde3995ef188": {
+                        "key": "layout_5dde3995ef188",
+                        "name": "news_columns",
+                        "label": "Blog 4 - Tiga Kolom Layout",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5dde39f3ef189",
+                                "label": "News Columns Items",
+                                "name": "column_item",
+                                "aria-label": "",
+                                "type": "repeater",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 3,
+                                "layout": "table",
+                                "button_label": "Tambah Kolom",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_5dde3ae9ef18a",
+                                        "label": "Pilih Kategori",
+                                        "name": "column_cat",
+                                        "aria-label": "",
+                                        "type": "taxonomy",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "taxonomy": "category",
+                                        "field_type": "select",
+                                        "allow_null": 0,
+                                        "add_term": 1,
+                                        "save_terms": 0,
+                                        "load_terms": 0,
+                                        "return_format": "object",
+                                        "multiple": 0,
+                                        "bidirectional_target": [],
+                                        "parent_repeater": "field_5dde39f3ef189"
+                                    },
+                                    {
+                                        "key": "field_5dde3b0fef18b",
+                                        "label": "Custom Title",
+                                        "name": "column_title",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_5dde39f3ef189"
+                                    }
+                                ],
+                                "rows_per_page": 20
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5dded0f25bfb1": {
+                        "key": "layout_5dded0f25bfb1",
+                        "name": "home_banner",
+                        "label": "Long Banner Iklan",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_5dded11e5bfb2",
+                                "label": "Nama Perusahaan",
+                                "name": "home_banner_perusahaan",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Webane Indonesia",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5dded1585bfb3",
+                                "label": "Mulai Iklan",
+                                "name": "home_banner_start",
+                                "aria-label": "",
+                                "type": "date_picker",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "display_format": "j F Y",
+                                "return_format": "Y-m-d",
+                                "first_day": 1,
+                                "default_to_current_date": 0
+                            },
+                            {
+                                "key": "field_5dded1ae5bfb4",
+                                "label": "Iklan Berakhir",
+                                "name": "Home_banner_end",
+                                "aria-label": "",
+                                "type": "date_picker",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "display_format": "j F Y",
+                                "return_format": "Y-m-d",
+                                "first_day": 1,
+                                "default_to_current_date": 0
+                            },
+                            {
+                                "key": "field_5dded1d15bfb5",
+                                "label": "URL Iklan",
+                                "name": "home_banner_url",
+                                "aria-label": "",
+                                "type": "url",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "https:\/\/webane.com"
+                            },
+                            {
+                                "key": "field_5dded22c5bfb6",
+                                "label": "Nama Iklan",
+                                "name": "home_banner_name",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Web Design Indonesia",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_5dded2555bfb7",
+                                "label": "Upload Image",
+                                "name": "home_banner_image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "url",
+                                "preview_size": "full",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    }
+                },
+                "button_label": "Tambah Blok Baru",
+                "min": "",
+                "max": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "page-home.php"
+                }
+            ]
+        ],
+        "menu_order": 1,
+        "position": "acf_after_title",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_618965e831bd4",
+        "title": "Mobile Footer Menu",
+        "fields": [
+            {
+                "key": "field_618965f42faeb",
+                "label": "Tambah Footer Menu",
+                "name": "ane_mobile_menu",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Maksimal 4 - untuk icon silahkan pilih melalui tautan ini: https:\/\/fontawesome.com\/v4.7\/icons\/ lalu copy text: bagian fa-nama-icon, contoh icon bintang: fa-star",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Tambah Menu",
+                "sub_fields": [
+                    {
+                        "key": "field_6189660d2faec",
+                        "label": "Pilih URL",
+                        "name": "ane_link",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "parent_repeater": "field_618965f42faeb"
+                    },
+                    {
+                        "key": "field_6189662f2faed",
+                        "label": "Icon",
+                        "name": "ane_icon",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "fa-star",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "parent_repeater": "field_618965f42faeb"
+                    }
+                ],
+                "rows_per_page": 20
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-mobile-menu"
+                }
+            ]
+        ],
+        "menu_order": 1,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_628554343579d",
+        "title": "Page Profil Lembaga",
+        "fields": [
+            {
+                "key": "field_628562be88261",
+                "label": "Headline Profil",
+                "name": "ane_headline",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_6285cc523bbc3",
+                "label": "Sekolah dalam Angka",
+                "name": "ane_data_sekolah",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Misalnya: Jumlah Murid - 20 .. untuk icon silahkan pilih disini:\r\nhttps:\/\/fontawesome.com\/v4\/icons\/",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 4,
+                "layout": "table",
+                "button_label": "Tambah Baris",
+                "sub_fields": [
+                    {
+                        "key": "field_6285cd5b2ad5b",
+                        "label": "Icon",
+                        "name": "ane_icon",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "contoh: fa-graduation-cap",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "fa-graduation-cap",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "parent_repeater": "field_6285cc523bbc3"
+                    },
+                    {
+                        "key": "field_6285cd832ad5c",
+                        "label": "Judul Data",
+                        "name": "ane_title",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "contoh: Jumlah Murid",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "Jumlah Murid",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "parent_repeater": "field_6285cc523bbc3"
+                    },
+                    {
+                        "key": "field_6285cd9c2ad5d",
+                        "label": "Jumlah",
+                        "name": "ane_jumlah",
+                        "aria-label": "",
+                        "type": "number",
+                        "instructions": "hanya angka, contoh: 300",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": 300,
+                        "prepend": "",
+                        "append": "",
+                        "min": "",
+                        "max": "",
+                        "step": "",
+                        "parent_repeater": "field_6285cc523bbc3"
+                    }
+                ],
+                "rows_per_page": 20
+            },
+            {
+                "key": "field_628554343c7ac",
+                "label": "Content Profil Lembaga",
+                "name": "profil_content",
+                "aria-label": "",
+                "type": "flexible_content",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "layouts": {
+                    "layout_5e3e4f14e5e44": {
+                        "key": "layout_5e3e4f14e5e44",
+                        "name": "home_featured",
+                        "label": "1. Fitur Sekolah",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_62855434460eb",
+                                "label": "Fitur Sekolah",
+                                "name": "ane_featured",
+                                "aria-label": "",
+                                "type": "repeater",
+                                "instructions": "Tambah fitur sekolah, seperti sekolah SMP\/SMA\/SD atau bisa untuk kurikulum, fitur ini untuk menampilkan informasi penting dari sekolah.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 4,
+                                "layout": "table",
+                                "button_label": "Tambah Fitur",
+                                "sub_fields": [
+                                    {
+                                        "key": "field_62855434476d5",
+                                        "label": "Judul Fitur",
+                                        "name": "ane_title",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_62855434460eb"
+                                    },
+                                    {
+                                        "key": "field_62855434476e6",
+                                        "label": "Deskripsi Fitur",
+                                        "name": "ane_deskripsi",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_62855434460eb"
+                                    },
+                                    {
+                                        "key": "field_62855434476f5",
+                                        "label": "Link Ke Informasi Fitur selengkapnya",
+                                        "name": "ane_link",
+                                        "aria-label": "",
+                                        "type": "link",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "array",
+                                        "parent_repeater": "field_62855434460eb"
+                                    },
+                                    {
+                                        "key": "field_6285543447705",
+                                        "label": "Icon Fitur",
+                                        "name": "ane_icon",
+                                        "aria-label": "",
+                                        "type": "image",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "url",
+                                        "preview_size": "full",
+                                        "library": "all",
+                                        "min_width": "",
+                                        "min_height": "",
+                                        "min_size": "",
+                                        "max_width": "",
+                                        "max_height": "",
+                                        "max_size": "",
+                                        "mime_types": "",
+                                        "parent_repeater": "field_62855434460eb"
+                                    }
+                                ],
+                                "rows_per_page": 20
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_628556e3f85b9": {
+                        "key": "layout_628556e3f85b9",
+                        "name": "ane_content_profil",
+                        "label": "Konten Profil",
+                        "display": "block",
+                        "sub_fields": [],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3ead60ff293": {
+                        "key": "layout_5e3ead60ff293",
+                        "name": "home_ekstrakurikuler",
+                        "label": "2. Ekstrakurikuler",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_628554344e25c",
+                                "label": "Judul Spesifik",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Kosongkan jika ingin tetap judulnya Ekstrakurikuler",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_628554344f3a8",
+                                "label": "Deskripsi",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Deskripsi",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3ed08cc9d95": {
+                        "key": "layout_5e3ed08cc9d95",
+                        "name": "home_guru",
+                        "label": "3. Guru-guru",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_6285543456799",
+                                "label": "Judul Custom",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Default Judul \"Dewan Guru\". Untuk Memvariasikan tampilan tambah <span> pada test tertentu contoh: Dewan <span>Guru<\/span>",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Dewan <span>Guru<\/span>",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_62855434578e9",
+                                "label": "Deskripsi",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3ea4718b483": {
+                        "key": "layout_5e3ea4718b483",
+                        "name": "home_testimoni",
+                        "label": "4. Testimoni",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_6285543458d91",
+                                "label": "Text Judul Khusus",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_628554345a7a1",
+                                "label": "Deskripsi",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Keep Short, bro!",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5dded0f25bfb1": {
+                        "key": "layout_5dded0f25bfb1",
+                        "name": "home_banner",
+                        "label": "5. Long Banner Iklan",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_6285543469a80",
+                                "label": "Nama Lembaga",
+                                "name": "home_banner_perusahaan",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Webane Indonesia",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_628554346ae49",
+                                "label": "Mulai Iklan",
+                                "name": "home_banner_start",
+                                "aria-label": "",
+                                "type": "date_picker",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "display_format": "j F Y",
+                                "return_format": "Y-m-d",
+                                "first_day": 1,
+                                "default_to_current_date": 0
+                            },
+                            {
+                                "key": "field_628554346c095",
+                                "label": "Iklan Berakhir",
+                                "name": "Home_banner_end",
+                                "aria-label": "",
+                                "type": "date_picker",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "display_format": "j F Y",
+                                "return_format": "Y-m-d",
+                                "first_day": 1,
+                                "default_to_current_date": 0
+                            },
+                            {
+                                "key": "field_628554346d80f",
+                                "label": "URL Iklan",
+                                "name": "home_banner_url",
+                                "aria-label": "",
+                                "type": "url",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "https:\/\/webane.com"
+                            },
+                            {
+                                "key": "field_628554346f167",
+                                "label": "Nama Iklan",
+                                "name": "home_banner_name",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Web Design Indonesia",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_62855434702c8",
+                                "label": "Upload Image",
+                                "name": "home_banner_image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "url",
+                                "preview_size": "full",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    }
+                },
+                "button_label": "Tambah Blok Baru",
+                "min": "",
+                "max": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "page-aneprofil.php"
+                }
+            ]
+        ],
+        "menu_order": 1,
+        "position": "acf_after_title",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_5e3f0c06ee00f",
+        "title": "Top Header Link",
+        "fields": [
+            {
+                "key": "field_5e3f0c16a4e66",
+                "label": "Top Header Link",
+                "name": "ane_link_header",
+                "aria-label": "",
+                "type": "link",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "array"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "webane-theme-general-settings"
+                }
+            ]
+        ],
+        "menu_order": 1,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_6189017c4bc9a",
+        "title": "Mobile Profil Lembaga",
+        "fields": [
+            {
+                "key": "field_618903e04e781",
+                "label": "Custom Title",
+                "name": "ane_lembaga_title",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
+                "key": "field_618901a901b33",
+                "label": "List URL Lembaga",
+                "name": "ane_list_lembaga",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "Maksimal 12 categori, untuk icon silahkan pilih melalui tautan ini: https:\/\/fontawesome.com\/v4.7\/icons\/ lalu copy text: bagian fa-nama-icon, contoh icon bintang: fa-star",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Tambah Menu",
+                "sub_fields": [
+                    {
+                        "key": "field_6189028d01b34",
+                        "label": "URL",
+                        "name": "ane_link",
+                        "aria-label": "",
+                        "type": "link",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "return_format": "array",
+                        "parent_repeater": "field_618901a901b33"
+                    },
+                    {
+                        "key": "field_618902b901b35",
+                        "label": "Icon",
+                        "name": "ane_icon",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "parent_repeater": "field_618901a901b33"
+                    }
+                ],
+                "rows_per_page": 20
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-mobile-menu"
+                }
+            ]
+        ],
+        "menu_order": 2,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    },
+    {
+        "key": "group_618a576742d2c",
+        "title": "Mobile Menu Kategori",
+        "fields": [
+            {
+                "key": "field_618a5774395f4",
+                "label": "Tambahkan Menu Berdasarkan Kategori",
+                "name": "ane_menu_kategori",
+                "aria-label": "",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 0,
+                "layout": "table",
+                "button_label": "Tambah Menu",
+                "sub_fields": [
+                    {
+                        "key": "field_618a7089395f5",
+                        "label": "Pilih Kategori",
+                        "name": "pilih_kategori",
+                        "aria-label": "",
+                        "type": "taxonomy",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "taxonomy": "category",
+                        "field_type": "select",
+                        "allow_null": 0,
+                        "add_term": 1,
+                        "save_terms": 0,
+                        "load_terms": 0,
+                        "return_format": "object",
+                        "multiple": 0,
+                        "bidirectional_target": [],
+                        "parent_repeater": "field_618a5774395f4"
+                    },
+                    {
+                        "key": "field_618a7137395f7",
+                        "label": "Icon",
+                        "name": "ane_icon",
+                        "aria-label": "",
+                        "type": "text",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "",
+                        "placeholder": "",
+                        "prepend": "",
+                        "append": "",
+                        "maxlength": "",
+                        "parent_repeater": "field_618a5774395f4"
+                    }
+                ],
+                "rows_per_page": 20
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-mobile-menu"
+                }
+            ]
+        ],
+        "menu_order": 3,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "left",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": "",
+        "show_in_rest": false,
+        "display_title": "",
+        "allow_ai_access": false,
+        "ai_description": ""
+    }
+]

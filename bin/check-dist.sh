@@ -33,6 +33,17 @@ if [ -n "$FORBIDDEN" ]; then
   exit 1
 fi
 
+if [ -d "$TMP_DIST/sekolahane/docs" ]; then
+  echo "❌ GAGAL: Folder docs/ masih ikut masuk ke paket rilis!"
+  exit 1
+fi
+
+if [ ! -f "$TMP_DIST/sekolahane/inc/acf-json/field-groups.json" ]; then
+  echo "❌ GAGAL: File inc/acf-json/field-groups.json tidak ditemukan di paket rilis!"
+  exit 1
+fi
+
 echo "✅ Paket rilis bersih. Tidak ada file .md, folder docs/AI, atau tooling dev."
+echo "✅ Bundel ACF JSON (inc/acf-json/field-groups.json) tersedia di paket rilis."
 echo "Ringkasan isi root paket rilis (sekolahane/):"
 ls -la "$TMP_DIST/sekolahane"
