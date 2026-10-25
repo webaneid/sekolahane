@@ -1162,40 +1162,88 @@ select:after {
 .ane-header .atas {
   display: block;
   width: 100%;
-  height: auto;
-  background-color: #c98b49;
   background-color: #c98b49;
   background-image: linear-gradient(to right, #c98b49, #e7ad57);
-  padding: 8px 0;
-  max-height: 50px;
+  padding: 6px 0;
+  min-height: 44px;
 }
 .ane-header .atas .kiri {
-  margin: 0;
-  max-height: 35px;
+  display: flex;
+  align-items: center;
+  min-height: 32px;
 }
-.ane-header .atas .kiri a {
+.ane-header .atas .kiri .top-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+}
+.ane-header .atas .kiri .top-date i {
+  font-size: 15px;
+  color: #FFFFFF;
+}
+.ane-header .atas .kanan {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-height: 32px;
+}
+.ane-header .atas .kanan .ane-top-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #FFFFFF;
+  border-radius: 50px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  transition: all 0.25s ease;
+}
+.ane-header .atas .kanan .ane-top-wa i {
+  font-size: 15px;
+  color: #FFFFFF;
+}
+.ane-header .atas .kanan .ane-top-wa:hover {
+  background: #04b33e;
+  border-color: #04b33e;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+.ane-header .atas .kanan .ane-topbutton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: #00a859;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: rgba(22, 14, 6, 0.5);
-  border-radius: 6px;
-  padding: 5px 15px;
-  font-weight: 700;
-  width: auto;
-  font-size: 15px;
-  line-height: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #FFFFFF;
+  border-radius: 50px;
+  padding: 5px 16px;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  transition: all 0.25s ease;
 }
-.ane-header .atas .kiri a i {
-  font-size: 15px;
-  margin-right: 5px;
+.ane-header .atas .kanan .ane-topbutton i {
+  font-size: 14px;
 }
-.ane-header .atas .kiri a:hover {
-  background: #e7ad57;
-  color: #fff;
+.ane-header .atas .kanan .ane-topbutton:hover {
+  background: #160e06;
+  border-color: #160e06;
+  color: #FFFFFF;
+  text-decoration: none;
 }
 .ane-header .bawah {
   position: absolute;
   left: 0;
-  top: 50px;
+  top: 44px;
   z-index: 2;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);

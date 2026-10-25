@@ -20,20 +20,56 @@ defined( 'ABSPATH' ) || exit;
 <header class="ane-header">
 	<div class="atas">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-6 col-6">
-					<?php
-					$sekolahane_link = get_field( 'ane_link_header', 'option' );
-					if ( is_array( $sekolahane_link ) && ! empty( $sekolahane_link['url'] ) ) :
-						$sekolahane_link_title = isset( $sekolahane_link['title'] ) ? (string) $sekolahane_link['title'] : '';
-						?>
-						<div class="kiri">
-							<a href="<?php echo esc_url( (string) $sekolahane_link['url'] ); ?>" class="ane-topbutton"><?php echo sekolahane_icon( 'buku' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $sekolahane_link_title ); ?></a>
-						</div>
-					<?php endif; ?>
+			<div class="row align-items-center">
+				<div class="col-md-5 col-6">
+					<div class="kiri">
+						<span class="top-date">
+							<?php echo sekolahane_icon( 'calendar' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+							<?php echo esc_html( wp_date( 'l, j F Y' ) ); ?>
+						</span>
+					</div>
 				</div>
-				<div class="col-md-6 col-6 text-right">
-					<?php get_template_part( 'tp/content', 'sosmed' ); ?>
+				<div class="col-md-7 col-6 text-right">
+					<div class="kanan">
+						<?php
+						$sekolahane_wa_raw   = '';
+						$sekolahane_wa_label = '';
+						$sekolahane_sosmed   = get_field( 'sosmed_ane', 'option' );
+						$sekolahane_contact  = get_field( 'contact_ane', 'option' );
+
+						if ( is_array( $sekolahane_sosmed ) && ! empty( $sekolahane_sosmed['sosmed_wa'] ) ) {
+							$sekolahane_wa_label = trim( wp_strip_all_tags( (string) $sekolahane_sosmed['sosmed_wa'] ) );
+							$sekolahane_wa_raw   = (string) preg_replace( '/[^0-9]/', '', $sekolahane_wa_label );
+						} elseif ( is_array( $sekolahane_contact ) && ! empty( $sekolahane_contact['kontak_handphone'] ) ) {
+							$sekolahane_wa_label = trim( wp_strip_all_tags( (string) $sekolahane_contact['kontak_handphone'] ) );
+							$sekolahane_wa_raw   = (string) preg_replace( '/[^0-9]/', '', $sekolahane_wa_label );
+						}
+
+						if ( '' !== $sekolahane_wa_raw && '0' === substr( $sekolahane_wa_raw, 0, 1 ) ) {
+							$sekolahane_wa_raw = '62' . substr( $sekolahane_wa_raw, 1 );
+						}
+
+						if ( '' !== $sekolahane_wa_raw ) :
+							?>
+							<a href="<?php echo esc_url( 'https://wa.me/' . $sekolahane_wa_raw ); ?>" class="ane-top-wa" target="_blank" rel="noopener noreferrer">
+								<?php echo sekolahane_icon( 'whatsapp' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<span><?php echo esc_html( '+' . $sekolahane_wa_raw ); ?></span>
+							</a>
+						<?php endif; ?>
+
+						<?php
+						$sekolahane_link = get_field( 'ane_link_header', 'option' );
+						if ( is_array( $sekolahane_link ) && ! empty( $sekolahane_link['url'] ) ) :
+							$sekolahane_link_title  = isset( $sekolahane_link['title'] ) ? trim( wp_strip_all_tags( (string) $sekolahane_link['title'] ) ) : '';
+							$sekolahane_link_title  = '' !== $sekolahane_link_title ? $sekolahane_link_title : __( 'Pendaftaran', 'sekolahane' );
+							$sekolahane_link_target = ! empty( $sekolahane_link['target'] ) ? (string) $sekolahane_link['target'] : '_self';
+							?>
+							<a href="<?php echo esc_url( (string) $sekolahane_link['url'] ); ?>" target="<?php echo esc_attr( $sekolahane_link_target ); ?>" class="ane-topbutton">
+								<?php echo sekolahane_icon( 'buku' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+								<span><?php echo esc_html( $sekolahane_link_title ); ?></span>
+							</a>
+						<?php endif; ?>
+					</div>
 				</div>
 			</div>
 		</div>

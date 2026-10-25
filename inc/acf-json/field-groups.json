@@ -3145,15 +3145,15 @@
     },
     {
         "key": "group_5e3f0c06ee00f",
-        "title": "Top Header Link",
+        "title": "Pengaturan Tombol Pendaftaran / Top Header",
         "fields": [
             {
                 "key": "field_5e3f0c16a4e66",
-                "label": "Top Header Link",
+                "label": "Link Pendaftaran / Tombol Aksi Top Header (PPDB)",
                 "name": "ane_link_header",
                 "aria-label": "",
                 "type": "link",
-                "instructions": "",
+                "instructions": "Pilih URL dan tulis teks tombol pendaftaran (misalnya: PPDB Online / Pendaftaran Siswa Baru). Nomor WhatsApp di sebelahnya otomatis diambil dari Nomor WhatsApp yang tersimpan di bagian Informasi Umum.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {

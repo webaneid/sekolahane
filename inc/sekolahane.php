@@ -81,6 +81,7 @@ function sekolahane_icon( $name ) {
 		'chevron-right-alt-2' => '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.29 14.29L9.3 14.88 12.17 12 9.3 9.12l1.41-1.41L15 12l-4.29 4.29z"/>',
 		'chevron-left'        => '<path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>',
 		'chevron-right'       => '<path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/>',
+		'calendar'            => '<path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>',
 	);
 
 	if ( ! isset( $paths[ $name ] ) ) {

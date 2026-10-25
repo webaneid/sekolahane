@@ -17,3 +17,4 @@
 | 09 | Audit, pembersihan dead CSS, & deduplikasi `css/main.css` + `css/main.min.css` | Done | `phases/phase-09-pembersihan-dan-deduplikasi-css.md` |
 | 10 | Bundling & importer ACF JSON (`inc/acf-importer.php`) + verifikasi eksklusi `docs/` | Done | `phases/phase-10-acf-json-importer.md` |
 | 11 | Auto-sync perubahan ACF JSON ke DB & redesign Hero Slider (`tp/section/big-slider.php`) | Done | `phases/phase-11-redesign-hero-slider.md` |
+| 12 | Redesign Top Header: Tanggal, WhatsApp Otomatis & Link Pendaftaran (`header.php`) | Done | `phases/phase-12-redesign-top-header.md` |
