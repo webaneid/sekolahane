@@ -2251,8 +2251,10 @@ select:after {
 }
 .section-featured.featured-style-flat ul li .item {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   gap: 16px;
+  width: 100%;
   text-align: left;
   padding: 0;
 }
@@ -2278,8 +2280,7 @@ select:after {
   filter: brightness(0) invert(1);
 }
 .section-featured.featured-style-flat ul li .item .content {
-  flex: 1;
-  min-width: 0;
+  width: 100%;
   text-align: left;
 }
 .section-featured.featured-style-flat ul li .item .content h4 {
