@@ -2129,7 +2129,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -2149,7 +2149,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -2158,6 +2158,52 @@
                                 "prepend": "",
                                 "append": "",
                                 "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_testi_style_home",
+                                "label": "Desain Kartu Testimoni",
+                                "name": "ane_testimoni_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tampilan kartu testimoni.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "modern": "1. Modern Editorial Card (Default)",
+                                    "bubble": "2. Classic Glass Speech"
+                                },
+                                "default_value": "modern",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_testi_margin_home",
+                                "label": "Margin Bawah Section",
+                                "name": "ane_testimoni_margin",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih 'Tanpa Margin Bawah' jika section di bawahnya memiliki background berwarna (misal CTA / Footer) agar menyatu tanpa celah putih.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Pakai Margin Bawah",
+                                    "no": "Tanpa Margin Bawah (Menempel)"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
                             }
                         ],
                         "min": "",
@@ -3089,7 +3135,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -3109,7 +3155,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -3118,6 +3164,52 @@
                                 "prepend": "",
                                 "append": "",
                                 "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_testi_style_profil",
+                                "label": "Desain Kartu Testimoni",
+                                "name": "ane_testimoni_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tampilan kartu testimoni.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "modern": "1. Modern Editorial Card (Default)",
+                                    "bubble": "2. Classic Glass Speech"
+                                },
+                                "default_value": "modern",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_testi_margin_profil",
+                                "label": "Margin Bawah Section",
+                                "name": "ane_testimoni_margin",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih 'Tanpa Margin Bawah' jika section di bawahnya memiliki background berwarna (misal CTA / Footer) agar menyatu tanpa celah putih.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Pakai Margin Bawah",
+                                    "no": "Tanpa Margin Bawah (Menempel)"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
                             }
                         ],
                         "min": "",

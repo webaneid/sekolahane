@@ -20,3 +20,4 @@
 | 12 | Redesign Top Header: Tanggal, WhatsApp Otomatis & Link Pendaftaran (`header.php`) | Done | `phases/phase-12-redesign-top-header.md` |
 | 13 | Redesign Fitur Sekolah: Pilihan Posisi (Menempel / Di Bawah Hero) & Desain (Default / Flat) (`tp/section/featured.php`) | Done | `phases/phase-13-redesign-section-featured.md` |
 | 14 | Redesign Section & Kartu Ekstrakurikuler + Tombol Semua Ekstrakurikuler (`tp/section/ekstra.php`, `tp/content-ekstrakurikuler.php`) | Done | `phases/phase-14-redesign-section-ekstrakurikuler.md` |
+| 15 | Redesign Section & Kartu Testimoni + Opsi Margin Bawah (`tp/section/testimoni.php`, `tp/content-testimoni.php`) | Done | `phases/phase-15-redesign-section-testimoni.md` |
