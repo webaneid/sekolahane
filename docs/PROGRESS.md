@@ -22,3 +22,4 @@
 | 14 | Redesign Section & Kartu Ekstrakurikuler + Tombol Semua Ekstrakurikuler (`tp/section/ekstra.php`, `tp/content-ekstrakurikuler.php`) | Done | `phases/phase-14-redesign-section-ekstrakurikuler.md` |
 | 15 | Redesign Section & Kartu Testimoni + Opsi Margin Bawah (`tp/section/testimoni.php`, `tp/content-testimoni.php`) | Done | `phases/phase-15-redesign-section-testimoni.md` |
 | 16 | Redesign Section Call to Action: 3 Pilihan Desain, Opsi Margin Bawah & Tombol WA Otomatis (`tp/section/calltoaction.php`) | Done | `phases/phase-16-redesign-section-calltoaction.md` |
+| 17 | Redesign Section Berita `home-default` (2 Pilihan Layout, Hapus Populer) & Kartu `content-overlay` / `content-list` | Done | `phases/phase-17-redesign-news-default-dan-kartu-berita.md` |

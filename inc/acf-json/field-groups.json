@@ -1046,6 +1046,29 @@
                         "display": "block",
                         "sub_fields": [
                             {
+                                "key": "field_sekolahane_default_style_blog",
+                                "label": "Gaya Layout Berita",
+                                "name": "ane_default_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tata letak untuk blok Berita: Modern Split Magazine (1 Sorotan Besar di Kiri + 4 List di Kanan) atau Bento News Grid (2 Sorotan Atas + 4 List 2-Kolom di Bawah).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "100",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "split": "1. Modern Split Magazine (Default)",
+                                    "bento": "2. Bento News Grid (2 Atas + 4 Bawah)"
+                                },
+                                "default_value": "split",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
                                 "key": "field_628542c09fd54",
                                 "label": "Pilih Kategori",
                                 "name": "pilih_kategori",
@@ -1055,7 +1078,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -1079,7 +1102,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -2286,6 +2309,29 @@
                         "display": "block",
                         "sub_fields": [
                             {
+                                "key": "field_sekolahane_default_style_home",
+                                "label": "Gaya Layout Berita",
+                                "name": "ane_default_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tata letak untuk blok Berita: Modern Split Magazine (1 Sorotan Besar di Kiri + 4 List di Kanan) atau Bento News Grid (2 Sorotan Atas + 4 List 2-Kolom di Bawah).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "100",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "split": "1. Modern Split Magazine (Default)",
+                                    "bento": "2. Bento News Grid (2 Atas + 4 Bawah)"
+                                },
+                                "default_value": "split",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
                                 "key": "field_5dddf070a9ad7",
                                 "label": "Pilih Kategori",
                                 "name": "pilih_kategori",
@@ -2295,7 +2341,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -2319,7 +2365,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
