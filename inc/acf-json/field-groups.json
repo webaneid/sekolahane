@@ -1906,6 +1906,29 @@
                         "display": "block",
                         "sub_fields": [
                             {
+                                "key": "field_sekolahane_ekstra_style_home",
+                                "label": "Gaya Desain Section",
+                                "name": "ane_ekstra_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tata letak section Ekstrakurikuler: Bento Grid Showcase (grid mosaik modern) atau Asymmetric Split (panel intro di kiri & galeri di kanan).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "100",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "bento": "Bento Grid Showcase",
+                                    "split": "Asymmetric Split (Kiri Intro + Kanan Galeri)"
+                                },
+                                "default_value": "bento",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
                                 "key": "field_5e3ead7aff294",
                                 "label": "Judul Spesifik",
                                 "name": "ane_title",
@@ -2933,6 +2956,29 @@
                         "label": "2. Ekstrakurikuler",
                         "display": "block",
                         "sub_fields": [
+                            {
+                                "key": "field_sekolahane_ekstra_style_profil",
+                                "label": "Gaya Desain Section",
+                                "name": "ane_ekstra_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tata letak section Ekstrakurikuler: Bento Grid Showcase (grid mosaik modern) atau Asymmetric Split (panel intro di kiri & galeri di kanan).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "100",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "bento": "Bento Grid Showcase",
+                                    "split": "Asymmetric Split (Kiri Intro + Kanan Galeri)"
+                                },
+                                "default_value": "bento",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
                             {
                                 "key": "field_628554344e25c",
                                 "label": "Judul Spesifik",
