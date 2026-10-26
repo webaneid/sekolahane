@@ -1979,6 +1979,76 @@
                         "display": "block",
                         "sub_fields": [
                             {
+                                "key": "field_sekolahane_cta_style_home",
+                                "label": "Gaya Desain CTA",
+                                "name": "ane_cta_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tata letak visual untuk Banner Ajakan / Pendaftaran.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "100",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "bento": "1. Floating Bento Split (Default)",
+                                    "glass": "2. Full-Width Glass Stage",
+                                    "frame": "3. Asymmetric Image Frame"
+                                },
+                                "default_value": "bento",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_cta_margin_home",
+                                "label": "Margin Bawah Section",
+                                "name": "ane_cta_margin",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih 'Tanpa Margin Bawah' jika section di bawahnya memiliki background berwarna atau menempel ke Footer.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Pakai Margin Bawah",
+                                    "no": "Tanpa Margin Bawah (Menempel)"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_cta_wa_home",
+                                "label": "Tombol Pendamping WhatsApp",
+                                "name": "ane_cta_wa",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Otomatis menampilkan tombol Chat WhatsApp dari nomor WA sekolah yang tersimpan di Pengaturan.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Tampilkan Tombol WA",
+                                    "no": "Sembunyikan"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
                                 "key": "field_5e3e5b6ce3a52",
                                 "label": "Judul Besar",
                                 "name": "ane_title",
@@ -1988,7 +2058,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -2008,7 +2078,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -2028,7 +2098,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -2036,7 +2106,7 @@
                             },
                             {
                                 "key": "field_5e3e5bba04831",
-                                "label": "Big Background",
+                                "label": "Big Background / Foto Pendamping",
                                 "name": "ane_background",
                                 "aria-label": "",
                                 "type": "image",
@@ -2044,7 +2114,7 @@
                                 "required": 0,
                                 "conditional_logic": 0,
                                 "wrapper": {
-                                    "width": "",
+                                    "width": "50",
                                     "class": "",
                                     "id": ""
                                 },
@@ -3210,6 +3280,167 @@
                                 "return_format": "value",
                                 "allow_null": 0,
                                 "layout": "horizontal"
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
+                    },
+                    "layout_5e3e5b55e3a51": {
+                        "key": "layout_5e3e5b55e3a51",
+                        "name": "home_cta",
+                        "label": "Banner Iklan/Ajakan (CTA)",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_sekolahane_cta_style_profil",
+                                "label": "Gaya Desain CTA",
+                                "name": "ane_cta_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tata letak visual untuk Banner Ajakan / Pendaftaran.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "100",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "bento": "1. Floating Bento Split (Default)",
+                                    "glass": "2. Full-Width Glass Stage",
+                                    "frame": "3. Asymmetric Image Frame"
+                                },
+                                "default_value": "bento",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_cta_margin_profil",
+                                "label": "Margin Bawah Section",
+                                "name": "ane_cta_margin",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih 'Tanpa Margin Bawah' jika section di bawahnya memiliki background berwarna atau menempel ke Footer.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Pakai Margin Bawah",
+                                    "no": "Tanpa Margin Bawah (Menempel)"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_cta_wa_profil",
+                                "label": "Tombol Pendamping WhatsApp",
+                                "name": "ane_cta_wa",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Otomatis menampilkan tombol Chat WhatsApp dari nomor WA sekolah yang tersimpan di Pengaturan.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Tampilkan Tombol WA",
+                                    "no": "Sembunyikan"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_cta_title_profil",
+                                "label": "Judul Besar",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_cta_desc_profil",
+                                "label": "Deskripsi Singkat",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_cta_link_profil",
+                                "label": "Link Selengkapnya",
+                                "name": "ane_link",
+                                "aria-label": "",
+                                "type": "link",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array"
+                            },
+                            {
+                                "key": "field_sekolahane_cta_bg_profil",
+                                "label": "Big Background / Foto Pendamping",
+                                "name": "ane_background",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "url",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
                             }
                         ],
                         "min": "",
