@@ -1386,6 +1386,15 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 
 	acf_add_options_sub_page(
 		array(
+			'page_title'  => 'Warna Website',
+			'menu_title'  => 'Warna Web',
+			'menu_slug'   => 'acf-options-warna-web',
+			'parent_slug' => 'webane-theme-general-settings',
+		)
+	);
+
+	acf_add_options_sub_page(
+		array(
 			'page_title'  => 'Google & Tracking Integration',
 			'menu_title'  => 'Google & Tracking',
 			'menu_slug'   => 'acf-options-google-tracking',
@@ -1514,3 +1523,62 @@ function sekolahane_init_default_mobile_menu( $value ) {
 	);
 }
 add_filter( 'acf/load_value/name=ane_mobile_menu', 'sekolahane_init_default_mobile_menu' );
+
+/**
+ * Konversi kode warna HEX (#rrggbb atau #rgb) menjadi string komponen RGB "r, g, b".
+ *
+ * @param string $colour Kode warna HEX.
+ * @return string|false String "r, g, b" atau false jika tidak valid.
+ */
+function sekolahane_hex2rgb( $colour ) {
+	$clean = ltrim( trim( (string) $colour ), '#' );
+	if ( 6 === strlen( $clean ) && ctype_xdigit( $clean ) ) {
+		$r = hexdec( substr( $clean, 0, 2 ) );
+		$g = hexdec( substr( $clean, 2, 2 ) );
+		$b = hexdec( substr( $clean, 4, 2 ) );
+		return $r . ', ' . $g . ', ' . $b;
+	}
+	if ( 3 === strlen( $clean ) && ctype_xdigit( $clean ) ) {
+		$r = hexdec( $clean[0] . $clean[0] );
+		$g = hexdec( $clean[1] . $clean[1] );
+		$b = hexdec( $clean[2] . $clean[2] );
+		return $r . ', ' . $g . ', ' . $b;
+	}
+	return false;
+}
+
+/**
+ * Cetak CSS Custom Properties (`:root`) dinamis dari pengaturan ACF "Warna Web"
+ * (`admin.php?page=acf-options-warna-web`) di `<head>`.
+ *
+ * Kompatibel dengan sistem penamaan variabel `--ane-warna-*` pada keluarga tema Webane.
+ *
+ * @return void
+ */
+function sekolahane_render_dynamic_colors_css() {
+	if ( ! function_exists( 'get_field' ) ) {
+		return;
+	}
+
+	$colors = array( 'utama', 'utama-2', 'alternatif', 'gelap', 'terang', 'text', 'putih' );
+	$rules  = array();
+
+	foreach ( $colors as $name ) {
+		$raw_color = get_field( 'ane-warna-' . $name, 'option' );
+		$hex       = is_string( $raw_color ) ? sanitize_hex_color( trim( $raw_color ) ) : '';
+		if ( is_string( $hex ) && '' !== $hex ) {
+			$rules[] = '--ane-warna-' . $name . ': ' . $hex . ';';
+			$rgb     = sekolahane_hex2rgb( $hex );
+			if ( false !== $rgb ) {
+				$rules[] = '--ane-warna-' . $name . '-rgb: ' . $rgb . ';';
+			}
+		}
+	}
+
+	if ( empty( $rules ) ) {
+		return;
+	}
+
+	echo '<style id="ane-colors">:root{' . esc_html( implode( '', $rules ) ) . '}</style>' . "\n";
+}
+add_action( 'wp_head', 'sekolahane_render_dynamic_colors_css', 999 );

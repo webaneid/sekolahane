@@ -4078,5 +4078,147 @@
         "hide_on_screen": "",
         "active": true,
         "description": ""
+    },
+    {
+        "key": "group_sekolahane_warna_web",
+        "title": "Pengaturan Dinamisasi Warna Website",
+        "fields": [
+            {
+                "key": "field_sekolahane_warna_utama",
+                "label": "Warna Utama (Primary Brand)",
+                "name": "ane-warna-utama",
+                "type": "color_picker",
+                "instructions": "Warna identitas utama sekolah untuk tombol utama, badge, garis aksen, ikon aktif, dan link hover (Default: #c98b49).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#c98b49",
+                "enable_opacity": 0,
+                "return_format": "string"
+            },
+            {
+                "key": "field_sekolahane_warna_utama_2",
+                "label": "Warna Utama 2 / Secondary (Gradasi Terang)",
+                "name": "ane-warna-utama-2",
+                "type": "color_picker",
+                "instructions": "Warna pendamping utama untuk gradasi tombol, highlight ikon pada kartu gelap, dan aksen sekunder (Default: #e7ad57).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#e7ad57",
+                "enable_opacity": 0,
+                "return_format": "string"
+            },
+            {
+                "key": "field_sekolahane_warna_gelap",
+                "label": "Warna Gelap (Header, Footer, Kartu Gelap & Judul)",
+                "name": "ane-warna-gelap",
+                "type": "color_picker",
+                "instructions": "Warna gelap utama untuk Top Header, Footer, Drawer Menu Mobile, Kartu Alamat/CTA Gelap, dan teks judul (Default: #160e06).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#160e06",
+                "enable_opacity": 0,
+                "return_format": "string"
+            },
+            {
+                "key": "field_sekolahane_warna_alternatif",
+                "label": "Warna Alternatif (Aksen Kontras)",
+                "name": "ane-warna-alternatif",
+                "type": "color_picker",
+                "instructions": "Warna alternatif/kontras untuk elemen aksen pelengkap (Default: #130c2f).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "50",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#130c2f",
+                "enable_opacity": 0,
+                "return_format": "string"
+            },
+            {
+                "key": "field_sekolahane_warna_terang",
+                "label": "Warna Latar Terang (Soft Surface & Border)",
+                "name": "ane-warna-terang",
+                "type": "color_picker",
+                "instructions": "Warna latar lembut untuk section selang-seling, border kartu, dan surface sekunder (Default: #ede7db).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#ede7db",
+                "enable_opacity": 0,
+                "return_format": "string"
+            },
+            {
+                "key": "field_sekolahane_warna_text",
+                "label": "Warna Teks Paragraf",
+                "name": "ane-warna-text",
+                "type": "color_picker",
+                "instructions": "Warna teks utama untuk isi artikel dan paragraf (Default: #22262a).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "33",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#22262a",
+                "enable_opacity": 0,
+                "return_format": "string"
+            },
+            {
+                "key": "field_sekolahane_warna_putih",
+                "label": "Warna Dasar Putih (Background Utama & Kartu)",
+                "name": "ane-warna-putih",
+                "type": "color_picker",
+                "instructions": "Warna dasar putih untuk latar halaman dan kartu (Default: #ffffff).",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "34",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "#ffffff",
+                "enable_opacity": 0,
+                "return_format": "string"
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "acf-options-warna-web"
+                }
+            ]
+        ],
+        "menu_order": 10,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": ""
     }
 ]
