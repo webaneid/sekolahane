@@ -15,6 +15,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
+	<?php wp_body_open(); ?>
 	<div id="fb-root"></div>
 <div class="webane-wrapper">
 <header class="ane-header">

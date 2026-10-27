@@ -1207,3 +1207,147 @@ function sekolahane_serve_llms_txt_endpoint() {
 	exit;
 }
 add_action( 'init', 'sekolahane_serve_llms_txt_endpoint', 1 );
+
+/**
+ * Ekstrak nilai kode verifikasi murni dari input teks yang mungkin berisi
+ * tag HTML penuh `<meta name="..." content="KODE" />` atau hanya `KODE`.
+ *
+ * @param string $raw Input mentah dari admin.
+ * @return string Kode verifikasi bersih.
+ */
+function sekolahane_extract_verification_token( $raw ) {
+	$text = trim( (string) $raw );
+	if ( '' === $text ) {
+		return '';
+	}
+
+	if ( preg_match( '/content\s*=\s*["\']([^"\']+)["\']/i', $text, $matches ) && ! empty( $matches[1] ) ) {
+		$text = trim( $matches[1] );
+	}
+
+	return (string) preg_replace( '/[^a-zA-Z0-9_\-\.]/', '', $text );
+}
+
+/**
+ * Ambil dan validasi seluruh pengaturan Google & Tracking Pixel dari ACF Option.
+ *
+ * @return array{gsc: string, gtm_id: string, ga4_id: string, fb_pixel: string, fb_verify: string, tiktok_pixel: string}
+ */
+function sekolahane_get_tracking_settings() {
+	static $settings = null;
+	if ( is_array( $settings ) ) {
+		return $settings;
+	}
+
+	$gsc          = '';
+	$gtm_id       = '';
+	$ga4_id       = '';
+	$fb_pixel     = '';
+	$fb_verify    = '';
+	$tiktok_pixel = '';
+
+	if ( function_exists( 'get_field' ) ) {
+		$gsc       = sekolahane_extract_verification_token( (string) get_field( 'sekolahane_gsc_verification', 'option' ) );
+		$fb_verify = sekolahane_extract_verification_token( (string) get_field( 'sekolahane_fb_domain_verify', 'option' ) );
+
+		$raw_gtm = strtoupper( trim( (string) get_field( 'sekolahane_gtm_id', 'option' ) ) );
+		if ( preg_match( '/(GTM-[A-Z0-9]+)/', $raw_gtm, $m_gtm ) ) {
+			$gtm_id = $m_gtm[1];
+		}
+
+		$raw_ga4 = strtoupper( trim( (string) get_field( 'sekolahane_ga4_id', 'option' ) ) );
+		if ( preg_match( '/((?:G|UA|AW|DC)-[A-Z0-9\-]+)/', $raw_ga4, $m_ga4 ) ) {
+			$ga4_id = $m_ga4[1];
+		}
+
+		$raw_fb = trim( (string) get_field( 'sekolahane_fb_pixel_id', 'option' ) );
+		if ( preg_match( '/([0-9]{8,25})/', $raw_fb, $m_fb ) ) {
+			$fb_pixel = $m_fb[1];
+		}
+
+		$raw_tt = strtoupper( trim( (string) get_field( 'sekolahane_tiktok_pixel_id', 'option' ) ) );
+		if ( preg_match( '/^([A-Z0-9]{10,30})$/', $raw_tt, $m_tt ) ) {
+			$tiktok_pixel = $m_tt[1];
+		}
+	}
+
+	$settings = array(
+		'gsc'          => $gsc,
+		'gtm_id'       => $gtm_id,
+		'ga4_id'       => $ga4_id,
+		'fb_pixel'     => $fb_pixel,
+		'fb_verify'    => $fb_verify,
+		'tiktok_pixel' => $tiktok_pixel,
+	);
+
+	return $settings;
+}
+
+/**
+ * Cetak meta verifikasi (Google Search Console & Meta Domain) serta script resmi
+ * Google Tag Manager, Google Analytics 4, Meta Pixel, dan TikTok Pixel di `<head>`.
+ *
+ * @return void
+ */
+function sekolahane_render_tracking_head() {
+	if ( is_admin() || is_feed() || is_robots() ) {
+		return;
+	}
+
+	$t = sekolahane_get_tracking_settings();
+
+	if ( '' !== $t['gsc'] ) {
+		echo '<meta name="google-site-verification" content="' . esc_attr( $t['gsc'] ) . '" />' . "\n";
+	}
+
+	if ( '' !== $t['fb_verify'] ) {
+		echo '<meta name="facebook-domain-verification" content="' . esc_attr( $t['fb_verify'] ) . '" />' . "\n";
+	}
+
+	if ( '' !== $t['gtm_id'] ) {
+		$gtm_js = esc_js( $t['gtm_id'] );
+		echo "<!-- Google Tag Manager -->\n";
+		echo "<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','" . $gtm_js . "');</script>\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	if ( '' !== $t['ga4_id'] ) {
+		$ga_url = 'https://www.googletagmanager.com/gtag/js?id=' . rawurlencode( $t['ga4_id'] );
+		$ga_js  = esc_js( $t['ga4_id'] );
+		echo "<!-- Google Analytics (gtag.js) -->\n";
+		// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+		echo '<script async src="' . esc_url( $ga_url ) . '"></script>' . "\n";
+		echo "<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','" . $ga_js . "');</script>\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	if ( '' !== $t['fb_pixel'] ) {
+		$fb_js = esc_js( $t['fb_pixel'] );
+		$fb_tr = 'https://www.facebook.com/tr?id=' . rawurlencode( $t['fb_pixel'] ) . '&ev=PageView&noscript=1';
+		echo "<!-- Meta Pixel Code -->\n";
+		echo "<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','" . $fb_js . "');fbq('track','PageView');</script>\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo '<noscript><img height="1" width="1" style="display:none" src="' . esc_url( $fb_tr ) . '" alt="" /></noscript>' . "\n";
+	}
+
+	if ( '' !== $t['tiktok_pixel'] ) {
+		$tt_js = esc_js( $t['tiktok_pixel'] );
+		echo "<!-- TikTok Pixel Code -->\n";
+		echo "<script>!function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=['page','track','identify','instances','debug','on','off','once','ready','alias','group','enableCookie','disableCookie'],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i='https://analytics.tiktok.com/i18n/pixel/events.js';ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement('script');o.type='text/javascript',o.async=!0,o.src=i+'?sdkid='+e+'&lib='+t;var a=document.getElementsByTagName('script')[0];a.parentNode.insertBefore(o,a)};ttq.load('" . $tt_js . "');ttq.page();}(window,document,'ttq');</script>\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+}
+add_action( 'wp_head', 'sekolahane_render_tracking_head', 2 );
+
+/**
+ * Cetak `<noscript>` Google Tag Manager tepat setelah tag pembuka `<body>` (`wp_body_open`).
+ *
+ * @return void
+ */
+function sekolahane_render_tracking_body_open() {
+	$t = sekolahane_get_tracking_settings();
+	if ( '' === $t['gtm_id'] ) {
+		return;
+	}
+
+	$gtm_ns_url = 'https://www.googletagmanager.com/ns.html?id=' . rawurlencode( $t['gtm_id'] );
+	echo '<!-- Google Tag Manager (noscript) -->' . "\n";
+	echo '<noscript><iframe src="' . esc_url( $gtm_ns_url ) . '" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>' . "\n";
+}
+add_action( 'wp_body_open', 'sekolahane_render_tracking_body_open', 2 );

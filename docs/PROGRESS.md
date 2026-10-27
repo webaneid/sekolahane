@@ -31,3 +31,4 @@
 | 23 | Default Google Maps API Key Terobfuskasi (XOR-Hex) & Fallback Otomatis (`inc/sekolahane.php`) | Done | `phases/phase-23-default-google-maps-key-terenkripsi.md` |
 | 24 | Redesign Total Halaman Kontak (`page-kontak.php`, `tp/content-page-kontak.php`), Contact Form 7 & Customer Care Mobile | Done | `phases/phase-24-redesign-halaman-kontak.md` |
 | 25 | Mesin SEO Premium Hybrid (Yoast Booster), Google Sitelinks Schema, Tag-to-Keywords, & GEO (`llms.txt`) | Done | `phases/phase-25-seo-premium-dan-geo-engine.md` |
+| 26 | Submenu Admin "Google & Tracking" (GTM, GA4, Search Console, Meta/FB Pixel, & TikTok Pixel) | Done | `phases/phase-26-submenu-integrasi-google-dan-pixel.md` |
