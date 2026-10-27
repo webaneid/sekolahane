@@ -27,3 +27,4 @@
 | 19 | Redesign Floating WhatsApp Customer Care (`.cc-contactpop`): Tombol Bulat & Kartu Listing Agen (`footer.php`, `js/sekolahane.js`, `css/main.css`) | Done | `phases/phase-19-redesign-floating-customer-care.md` |
 | 20 | Eliminasi Total FontAwesome ke Inline SVG & Redesign Mobile Bottom Bar `#footer-bar` (`inc/sekolahane.php`, `tp/mobile/menu-footer.php`, `footer.php`, `css/main.css`) | Done | `phases/phase-20-eliminasi-fontawesome-dan-redesign-mobile-menu.md` |
 | 21 | Redesign Total Menu Utama Mobile (`.primary-mobile-menu` & `.mean-nav`) Modern Floating Glass (`js/sekolahane.js`, `css/main.css`) | Done | `phases/phase-21-redesign-mobile-mean-nav.md` |
+| 22 | Universal Single Mobile App-Style (`post`, `page`, `ekstrakurikuler`, `guru`) & Redesign Social Share + Copy URL (`tp/mobile/single-universal.php`, `inc/sekolahane.php`, `css/main.css`) | Done | `phases/phase-22-universal-single-mobile-dan-share.md` |

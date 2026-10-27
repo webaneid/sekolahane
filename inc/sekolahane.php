@@ -151,6 +151,8 @@ function sekolahane_icon( $name ) {
 		'clock'               => '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>',
 		'eye'                 => '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>',
 		'linkedin'            => '<path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68zm1.39 9.94v-8.37H5.5v8.37h2.77z"/>',
+		'link'                => '<path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>',
+		'check'               => '<path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>',
 		'buku'                => '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zm2.5-.5a.5.5 0 0 0 0 1H19v-1H6.5zM8 6h8v2H8V6zm0 4h8v2H8v-2z"/>',
 		'search'              => '<path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/>',
 		'lokasi'              => '<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>',
@@ -678,30 +680,43 @@ function ane_load_times_ago() {
 }
 
 /**
- * Kembalikan tombol berbagi media sosial untuk post saat ini.
+ * Kembalikan tombol berbagi media sosial modern + tombol salin tautan (Copy URL).
+ *
+ * Menggunakan direct share URL tanpa iframe/SDK berat pihak ketiga agar ringan
+ * di desktop maupun mobile.
  *
  * @return string
  */
 function fungsi_share_webane() {
 	global $post;
-	$post_id   = ( is_object( $post ) && isset( $post->ID ) ) ? $post->ID : get_the_ID();
-	$title     = rawurlencode( wp_strip_all_tags( get_the_title( $post_id ) ) );
-	$permalink = (string) get_permalink( $post_id );
-	$enc_url   = rawurlencode( $permalink );
+	$post_id    = ( is_object( $post ) && isset( $post->ID ) ) ? $post->ID : get_the_ID();
+	$raw_title  = wp_strip_all_tags( get_the_title( $post_id ) );
+	$title      = rawurlencode( $raw_title );
+	$permalink  = (string) get_permalink( $post_id );
+	$enc_url    = rawurlencode( $permalink );
+	$share_text = rawurlencode( $raw_title . ' - ' . $permalink );
 
 	$twitter_handler = get_option( 'twitter_handler' );
 	$via             = ! empty( $twitter_handler ) ? '&via=' . rawurlencode( (string) $twitter_handler ) : '';
 
-	$twitter  = 'https://twitter.com/intent/tweet?text=Hey!%20Read%20this:%20' . $title . '&url=' . $enc_url . $via;
-	$whatsapp = 'https://api.whatsapp.com/send?text=' . $title . '%20' . $enc_url;
-	$linkedin = 'https://www.linkedin.com/shareArticle?mini=true&url=' . $enc_url;
+	$whatsapp = 'https://api.whatsapp.com/send?text=' . $share_text;
+	$facebook = 'https://www.facebook.com/sharer/sharer.php?u=' . $enc_url;
+	$twitter  = 'https://twitter.com/intent/tweet?text=' . $title . '&url=' . $enc_url . $via;
+	$linkedin = 'https://www.linkedin.com/sharing/share-offsite/?url=' . $enc_url;
 
-	$content  = '<div class="social-share-buttons mt-20"><ul>';
-	$content .= '<li><div class="fb-like" data-href="' . esc_url( $permalink ) . '" data-width="" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div></li>';
-	$content .= '<li><a class="twitter" href="' . esc_url( $twitter ) . '" target="_blank" rel="nofollow noopener">' . sekolahane_icon( 'twitter' ) . '</a></li>';
-	$content .= '<li><a class="whatsapp" href="' . esc_url( $whatsapp ) . '" target="_blank" rel="nofollow noopener">' . sekolahane_icon( 'whatsapp' ) . '</a></li>';
-	$content .= '<li><a class="linkedin" href="' . esc_url( $linkedin ) . '" target="_blank" rel="nofollow noopener">' . sekolahane_icon( 'linkedin' ) . '</a></li>';
-	$content .= '</ul></div><!-- .webane-share -->';
+	$label_share  = esc_html__( 'Bagikan:', 'sekolahane' );
+	$label_copy   = esc_html__( 'Salin Link', 'sekolahane' );
+	$label_copied = esc_attr__( 'Tersalin!', 'sekolahane' );
+
+	$content  = '<div class="social-share-buttons">';
+	$content .= '<span class="share-label">' . $label_share . '</span>';
+	$content .= '<ul>';
+	$content .= '<li><a class="share-btn whatsapp" href="' . esc_url( $whatsapp ) . '" target="_blank" rel="nofollow noopener noreferrer" aria-label="WhatsApp">' . sekolahane_icon( 'whatsapp' ) . '<span>WhatsApp</span></a></li>';
+	$content .= '<li><a class="share-btn facebook" href="' . esc_url( $facebook ) . '" target="_blank" rel="nofollow noopener noreferrer" aria-label="Facebook">' . sekolahane_icon( 'facebook' ) . '<span>Facebook</span></a></li>';
+	$content .= '<li><a class="share-btn twitter" href="' . esc_url( $twitter ) . '" target="_blank" rel="nofollow noopener noreferrer" aria-label="X / Twitter">' . sekolahane_icon( 'twitter' ) . '<span>Twitter</span></a></li>';
+	$content .= '<li><a class="share-btn linkedin" href="' . esc_url( $linkedin ) . '" target="_blank" rel="nofollow noopener noreferrer" aria-label="LinkedIn">' . sekolahane_icon( 'linkedin' ) . '<span>LinkedIn</span></a></li>';
+	$content .= '<li><button type="button" class="share-btn share-copy" data-url="' . esc_url( $permalink ) . '" data-copied-text="' . $label_copied . '" aria-label="' . esc_attr( $label_copy ) . '"><span class="copy-icon-default">' . sekolahane_icon( 'link' ) . '</span><span class="copy-icon-done">' . sekolahane_icon( 'check' ) . '</span><span class="copy-label">' . $label_copy . '</span></button></li>';
+	$content .= '</ul></div>';
 
 	return $content;
 }

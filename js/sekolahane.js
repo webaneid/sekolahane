@@ -320,6 +320,39 @@
 			});
 		}
 
+		/* Share Copy URL (.share-copy) */
+		$(document).on('click', '.share-copy', function (e) {
+			e.preventDefault();
+			var $btn = $(this);
+			var url = $btn.attr('data-url') || window.location.href;
+			var copiedText = $btn.attr('data-copied-text') || 'Tersalin!';
+			var $label = $btn.find('.copy-label');
+			var origText = $btn.data('orig-text') || $label.text();
+			$btn.data('orig-text', origText);
+
+			var markCopied = function () {
+				$btn.addClass('is-copied');
+				$label.text(copiedText);
+				setTimeout(function () {
+					$btn.removeClass('is-copied');
+					$label.text(origText);
+				}, 2200);
+			};
+
+			if (navigator.clipboard && navigator.clipboard.writeText) {
+				navigator.clipboard.writeText(url).then(markCopied, function () {
+					markCopied();
+				});
+			} else {
+				var $temp = $('<input>');
+				$('body').append($temp);
+				$temp.val(url).trigger('select');
+				document.execCommand('copy');
+				$temp.remove();
+				markCopied();
+			}
+		});
+
 		/* Google Maps (.acf-map) */
 		if ($('.acf-map').length) {
 			$('.acf-map').each(function () {

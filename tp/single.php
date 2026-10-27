@@ -43,18 +43,18 @@ defined( 'ABSPATH' ) || exit;
 			?>
 		</div>
 		<div class="ane-content">
-			<div class="share-this">
-			<?= fungsi_share_webane(); ?>
-			</div>
-			<?php the_content();?>
+			<?php the_content(); ?>
 			<div class="post-tags">
 
 				<?php
-					if(get_the_tag_list()) {
+					if ( get_the_tag_list() ) {
 						echo '<span>Post Tags</span>';
-					    echo get_the_tag_list('<ul><li>','</li><li>','</li></ul>');
+						echo get_the_tag_list( '<ul><li>', '</li><li>', '</li></ul>' );
 					}
 				?>
+			</div>
+			<div class="share-this">
+				<?php echo fungsi_share_webane(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
 			<div class="post-nav">
 				<?php echo ane_prev_next_post(); ?>

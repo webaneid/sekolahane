@@ -1,27 +1,33 @@
 <?php
+/**
+ * Template untuk menampilkan detail CPT Ekstrakurikuler.
+ *
+ * @package Sekolahane
+ */
+
 defined( 'ABSPATH' ) || exit;
-get_header ();
+
+get_header();
 ?>
 
 <div id="primary" class="content-area">
 	<main id="main" class="site-main">
 		<?php
-
-			if ( have_posts() ) :
-				set_views(get_the_ID());
-				while ( have_posts() ) : the_post();
-
-					get_template_part( 'tp/single','ekstrakurikuler' );
-
-				endwhile;
-
-				else :
-
-					get_template_part( 'tp/content', 'none' );
-
-			endif;
+		if ( have_posts() ) :
+			set_views( get_the_ID() );
+			while ( have_posts() ) :
+				the_post();
+				if ( wp_is_mobile() ) {
+					get_template_part( 'tp/mobile/single', 'universal' );
+				} else {
+					get_template_part( 'tp/single', 'ekstrakurikuler' );
+				}
+			endwhile;
+		else :
+			get_template_part( 'tp/content', 'none' );
+		endif;
 		?>
 	</main>
 </div>
 
-<?php get_footer (); ?>
+<?php get_footer(); ?>
