@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
                 $icon = get_sub_field('ane_icon');
             ?>
         <li>
-            <a href="<?php echo esc_url( get_category_link( $kategori->term_id ) ); ?>"><i class="fa <?php echo esc_attr( (string) $icon ); ?>"></i><span><?php echo esc_html( $kategori->name ); ?></span></a>
+            <a href="<?php echo esc_url( get_category_link( $kategori->term_id ) ); ?>"><?php echo sekolahane_icon( (string) $icon ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( $kategori->name ); ?></span></a>
         </li>
         <?php endwhile; ?>
         </ul>

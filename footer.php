@@ -218,6 +218,8 @@ if ( have_rows( 'ane_cs', 'option' ) ) :
 	</div>
 <?php endif; ?>
 
+<?php get_template_part( 'tp/mobile/menu-footer' ); ?>
+
 </div> <!-- webane-wrapper -->
 <?php wp_footer(); ?>
 </body>

@@ -25,3 +25,4 @@
 | 17 | Redesign Section Berita `home-default` (2 Pilihan Layout, Hapus Populer) & Kartu `content-overlay` / `content-list` | Done | `phases/phase-17-redesign-news-default-dan-kartu-berita.md` |
 | 18 | Redesign Total Footer Modern dengan Gradasi Elegan & Glassmorphism (`footer.php`, `css/main.css`) | Done | `phases/phase-18-redesign-footer.md` |
 | 19 | Redesign Floating WhatsApp Customer Care (`.cc-contactpop`): Tombol Bulat & Kartu Listing Agen (`footer.php`, `js/sekolahane.js`, `css/main.css`) | Done | `phases/phase-19-redesign-floating-customer-care.md` |
+| 20 | Eliminasi Total FontAwesome ke Inline SVG & Redesign Mobile Bottom Bar `#footer-bar` (`inc/sekolahane.php`, `tp/mobile/menu-footer.php`, `footer.php`, `css/main.css`) | Done | `phases/phase-20-eliminasi-fontawesome-dan-redesign-mobile-menu.md` |

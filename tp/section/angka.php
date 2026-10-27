@@ -13,7 +13,7 @@ if( have_rows('ane_data_sekolah') ): ?>
             <div class="col-xl-3 col-lg-3 col-md-6 col-6">
                 <div class="d-flex align-items-center justify-content-center py-4">
                     <div>
-                        <i class="fa <?php echo esc_attr( (string) $icon ); ?>"></i>
+                        <?php echo sekolahane_icon( (string) $icon ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                     </div>
                     <div class="ms-4 lh-1">
                         <h2 class="mb-0 fw-bold"><?php echo esc_html( (string) $jml ); ?></h2>

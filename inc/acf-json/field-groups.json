@@ -2730,11 +2730,11 @@
         "fields": [
             {
                 "key": "field_618965f42faeb",
-                "label": "Tambah Footer Menu",
+                "label": "Daftar 5 Menu Aplikasi Mobile (Bottom Bar)",
                 "name": "ane_mobile_menu",
                 "aria-label": "",
                 "type": "repeater",
-                "instructions": "Maksimal 4 - untuk icon silahkan pilih melalui tautan ini: https://fontawesome.com/v4.7/icons/ lalu copy text: bagian fa-nama-icon, contoh icon bintang: fa-star",
+                "instructions": "5 menu utama aplikasi mobile (Profile, News, Home di tengah, PPDB, dan Contact) sudah langsung terbuka dengan icon SVG modern. Anda cukup memilih URL tujuan pada masing-masing baris.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -2743,14 +2743,14 @@
                     "id": ""
                 },
                 "collapsed": "",
-                "min": 0,
-                "max": 0,
+                "min": 5,
+                "max": 5,
                 "layout": "table",
                 "button_label": "Tambah Menu",
                 "sub_fields": [
                     {
                         "key": "field_6189660d2faec",
-                        "label": "Pilih URL",
+                        "label": "Pilih URL & Label Menu",
                         "name": "ane_link",
                         "aria-label": "",
                         "type": "link",
@@ -2758,7 +2758,7 @@
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "",
+                            "width": "60",
                             "class": "",
                             "id": ""
                         },
@@ -2767,23 +2767,36 @@
                     },
                     {
                         "key": "field_6189662f2faed",
-                        "label": "Icon",
+                        "label": "Icon SVG",
                         "name": "ane_icon",
                         "aria-label": "",
-                        "type": "text",
+                        "type": "select",
                         "instructions": "",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "",
+                            "width": "40",
                             "class": "",
                             "id": ""
                         },
-                        "default_value": "",
-                        "placeholder": "fa-star",
-                        "prepend": "",
-                        "append": "",
-                        "maxlength": "",
+                        "choices": {
+                            "profile": "Profile / Profil Sekolah",
+                            "news": "News / Berita & Blog",
+                            "home": "Home / Beranda (Tengah)",
+                            "ppdb": "PPDB / Pendaftaran",
+                            "contact": "Contact / Hubungi Kami",
+                            "prestasi": "Prestasi / Penghargaan",
+                            "ekstra": "Ekstrakurikuler",
+                            "galeri": "Galeri / Dokumentasi",
+                            "calendar": "Agenda / Kalender"
+                        },
+                        "default_value": "profile",
+                        "return_format": "value",
+                        "multiple": 0,
+                        "allow_null": 0,
+                        "ui": 0,
+                        "ajax": 0,
+                        "placeholder": "",
                         "parent_repeater": "field_618965f42faeb"
                     }
                 ],
@@ -2842,7 +2855,7 @@
                 "name": "ane_data_sekolah",
                 "aria-label": "",
                 "type": "repeater",
-                "instructions": "Misalnya: Jumlah Murid - 20 .. untuk icon silahkan pilih disini:\r\nhttps://fontawesome.com/v4/icons/",
+                "instructions": "Misalnya: Jumlah Murid - 300. Pilihan kode icon SVG: ppdb, users, profile, prestasi, buku, ekstra, star.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
@@ -2862,7 +2875,7 @@
                         "name": "ane_icon",
                         "aria-label": "",
                         "type": "text",
-                        "instructions": "contoh: fa-graduation-cap",
+                        "instructions": "contoh: ppdb, users, prestasi, buku",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
@@ -2871,7 +2884,7 @@
                             "id": ""
                         },
                         "default_value": "",
-                        "placeholder": "fa-graduation-cap",
+                        "placeholder": "ppdb",
                         "prepend": "",
                         "append": "",
                         "maxlength": "",
@@ -3723,7 +3736,7 @@
                 "name": "ane_list_lembaga",
                 "aria-label": "",
                 "type": "repeater",
-                "instructions": "Maksimal 12 categori, untuk icon silahkan pilih melalui tautan ini: https://fontawesome.com/v4.7/icons/ lalu copy text: bagian fa-nama-icon, contoh icon bintang: fa-star",
+                "instructions": "Maksimal 12 kategori. Pilihan nama icon SVG: profile, ppdb, news, buku, prestasi, ekstra, galeri, contact, star.",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {

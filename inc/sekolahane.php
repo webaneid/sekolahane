@@ -56,16 +56,101 @@ function sekolahane_get_fb_app_id() {
 }
 
 /**
- * Render inline SVG icon pengganti FontAne (hanya 15 icon yang dipakai di theme).
+ * Render inline SVG icon pengganti FontAne & FontAwesome.
  *
  * Dibungkus tag <i> agar seluruh selector CSS existing (.ane-footer ul li i,
- * .ane-sosmed ul li a i, .lainnya i, dll) tetap bekerja identik.
+ * .ane-sosmed ul li a i, .lainnya i, dll) tetap bekerja identik. Mendukung
+ * pemetaan otomatis kode icon lama berformat `fa-*` agar kompatibel dengan
+ * data database situs pelanggan.
  *
- * @param string $name Nama icon (tanpa prefix 'ane-').
+ * @param string $name Nama icon (mis. 'home', 'profile', 'news', 'ppdb', 'contact', atau kode legacy 'fa-*').
  * @return string Markup HTML inline SVG yang aman.
  */
 function sekolahane_icon( $name ) {
+	$raw_name = strtolower( trim( (string) $name ) );
+	$raw_name = (string) preg_replace( '/^fa[srlbd]?\s+/', '', $raw_name );
+	if ( 0 === strpos( $raw_name, 'fa-' ) ) {
+		$raw_name = substr( $raw_name, 3 );
+	}
+
+	$aliases = array(
+		'clock-o'        => 'clock',
+		'calendar-o'     => 'calendar',
+		'Agenda'         => 'calendar',
+		'agenda'         => 'calendar',
+		'building'       => 'profile',
+		'building-o'     => 'profile',
+		'university'     => 'profile',
+		'bank'           => 'profile',
+		'institution'    => 'profile',
+		'school'         => 'profile',
+		'user-circle'    => 'profile',
+		'newspaper-o'    => 'news',
+		'newspaper'      => 'news',
+		'file-text-o'    => 'news',
+		'file-text'      => 'news',
+		'bullhorn'       => 'news',
+		'rss'            => 'news',
+		'graduation-cap' => 'ppdb',
+		'mortar-board'   => 'ppdb',
+		'user-plus'      => 'ppdb',
+		'id-card'        => 'ppdb',
+		'id-card-o'      => 'ppdb',
+		'pencil-square'  => 'ppdb',
+		'edit'           => 'ppdb',
+		'phone'          => 'contact',
+		'phone-square'   => 'contact',
+		'comments'       => 'contact',
+		'comments-o'     => 'contact',
+		'commenting'     => 'contact',
+		'commenting-o'   => 'contact',
+		'envelope'       => 'email',
+		'envelope-o'     => 'email',
+		'address-book'   => 'contact',
+		'address-book-o' => 'contact',
+		'headphones'     => 'contact',
+		'book'           => 'buku',
+		'map-marker'     => 'lokasi',
+		'mobile'         => 'handphone',
+		'desktop'        => 'laptop',
+		'users'          => 'users',
+		'group'          => 'users',
+		'user'           => 'users',
+		'male'           => 'users',
+		'female'         => 'users',
+		'child'          => 'users',
+		'trophy'         => 'prestasi',
+		'award'          => 'prestasi',
+		'certificate'    => 'prestasi',
+		'star-o'         => 'star',
+		'futbol-o'       => 'ekstra',
+		'basketball'     => 'ekstra',
+		'music'          => 'ekstra',
+		'paint-brush'    => 'ekstra',
+		'picture-o'      => 'galeri',
+		'image'          => 'galeri',
+		'camera'         => 'galeri',
+		'video-camera'   => 'galeri',
+	);
+
+	if ( isset( $aliases[ $raw_name ] ) ) {
+		$raw_name = $aliases[ $raw_name ];
+	}
+
 	$paths = array(
+		'home'                => '<path d="M12 3.1 3.5 10a1 1 0 0 0-.37.78v9.22A1.5 1.5 0 0 0 4.63 21.5h4.62v-6.25a1.25 1.25 0 0 1 1.25-1.25h3a1.25 1.25 0 0 1 1.25 1.25v6.25h4.62a1.5 1.5 0 0 0 1.5-1.5v-9.22a1 1 0 0 0-.37-.78L12 3.1z"/>',
+		'profile'             => '<path d="M12 2 2 7v2h20V7L12 2zm-7 9v7H3v2h18v-2h-2v-7h-2v7h-4v-7h-2v7H7v-7H5z"/>',
+		'news'                => '<path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>',
+		'ppdb'                => '<path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm-7 10.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>',
+		'contact'             => '<path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-7 11H7v-2h6v2zm4-4H7V7h10v2z"/>',
+		'users'               => '<path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>',
+		'prestasi'            => '<path d="M19 5h-2V3H7v2H5a2 2 0 0 0-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0 0 11 15.9V19H7v2h10v-2h-4v-3.1a5.01 5.01 0 0 0 3.61-2.96C19.08 12.63 21 10.55 21 8V7a2 2 0 0 0-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>',
+		'ekstra'              => '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 14.93V14h-2v2.93A8.006 8.006 0 0 1 4.07 11H7V9H4.07A8.006 8.006 0 0 1 11 4.07V7h2V4.07A8.006 8.006 0 0 1 19.93 9H17v2h2.93A8.006 8.006 0 0 1 13 16.93z"/>',
+		'galeri'              => '<path d="M21 19V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>',
+		'star'                => '<path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>',
+		'clock'               => '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>',
+		'eye'                 => '<path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>',
+		'linkedin'            => '<path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68zm1.39 9.94v-8.37H5.5v8.37h2.77z"/>',
 		'buku'                => '<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zm2.5-.5a.5.5 0 0 0 0 1H19v-1H6.5zM8 6h8v2H8V6zm0 4h8v2H8v-2z"/>',
 		'search'              => '<path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/>',
 		'lokasi'              => '<path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>',
@@ -84,12 +169,45 @@ function sekolahane_icon( $name ) {
 		'calendar'            => '<path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>',
 	);
 
-	if ( ! isset( $paths[ $name ] ) ) {
-		return '';
+	if ( ! isset( $paths[ $raw_name ] ) ) {
+		if ( '' !== $raw_name ) {
+			$raw_name = 'star';
+		} else {
+			return '';
+		}
 	}
 
-	return '<i class="ane-icon" aria-hidden="true"><svg class="ane-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" focusable="false">' . $paths[ $name ] . '</svg></i>';
+	return '<i class="ane-icon" aria-hidden="true"><svg class="ane-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" focusable="false">' . $paths[ $raw_name ] . '</svg></i>';
 }
+
+/**
+ * Izinkan elemen <svg> dan <path> pada konteks 'post' di wp_kses_post()
+ * agar output inline SVG dari sekolahane_icon() tidak terhapus saat escaping.
+ *
+ * @param array<string, mixed> $tags    Daftar tag HTML yang diizinkan.
+ * @param string               $context Konteks kses.
+ * @return array<string, mixed>
+ */
+function sekolahane_allow_svg_in_kses( $tags, $context ) {
+	if ( 'post' === $context ) {
+		$tags['svg']  = array(
+			'class'       => true,
+			'xmlns'       => true,
+			'viewbox'     => true,
+			'fill'        => true,
+			'focusable'   => true,
+			'aria-hidden' => true,
+			'width'       => true,
+			'height'      => true,
+		);
+		$tags['path'] = array(
+			'd'    => true,
+			'fill' => true,
+		);
+	}
+	return $tags;
+}
+add_filter( 'wp_kses_allowed_html', 'sekolahane_allow_svg_in_kses', 10, 2 );
 
 /**
  * Enqueue stylesheet dan script front-end theme.
@@ -103,7 +221,6 @@ function ane_load_css_and_js() {
 	$css_ver = file_exists( $css_f ) ? (string) filemtime( $css_f ) : $ver;
 	$js_ver  = file_exists( $js_f ) ? (string) filemtime( $js_f ) : $ver;
 
-	wp_enqueue_style( 'FontsAwsome', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0' );
 	wp_enqueue_style( 'Google-Fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,800,900&display=swap', array(), null );
 	wp_enqueue_style( 'OwlCarouse', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css', array(), '2.2.1' );
 
@@ -320,8 +437,8 @@ function ane_post_pagination( ?\WP_Query $wp_query = null, $echo = true ) {
 			'end_size'     => 3,
 			'mid_size'     => 1,
 			'prev_next'    => true,
-			'prev_text'    => '<i class="fa fa-chevron-left"></i>',
-			'next_text'    => '<i class="fa fa-chevron-right"></i>',
+			'prev_text'    => sekolahane_icon( 'chevron-left' ),
+			'next_text'    => sekolahane_icon( 'chevron-right' ),
 			'add_args'     => false,
 			'add_fragment' => '',
 		)
@@ -445,7 +562,7 @@ function ane_prev_next_post() {
 
 		$content .= '
 				<div class="nav-header-prev">
-					<span><i class="fa fa-chevron-left"></i> Prev Post</span>
+					<span>' . sekolahane_icon( 'chevron-left' ) . ' Prev Post</span>
 				</div>
 				<article class="ane-konten-nav">
 					<div class="entry-header">
@@ -469,7 +586,7 @@ function ane_prev_next_post() {
 
 		$content .= '
 				<div class="nav-header-prev text-right">
-					<span>Next Post <i class="fa fa-chevron-right"></i></span>
+					<span>Next Post ' . sekolahane_icon( 'chevron-right' ) . '</span>
 				</div>
 				<article class="ane-konten-nav nav-next">
 					<div class="entry-header">
@@ -554,7 +671,7 @@ function ane_load_times_ago() {
 
 	return '
 	<div class="meta-time">
-		<i class="fa fa-clock-o"></i>
+		' . sekolahane_icon( 'clock' ) . '
 		' . esc_html( times_ago( $timestamp ) ) . '
 	</div>
 	';
@@ -581,9 +698,9 @@ function fungsi_share_webane() {
 
 	$content  = '<div class="social-share-buttons mt-20"><ul>';
 	$content .= '<li><div class="fb-like" data-href="' . esc_url( $permalink ) . '" data-width="" data-layout="button_count" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div></li>';
-	$content .= '<li><a class="twitter" href="' . esc_url( $twitter ) . '" target="_blank" rel="nofollow noopener"><i class="fa fa-twitter"></i></a></li>';
-	$content .= '<li><a class="whatsapp" href="' . esc_url( $whatsapp ) . '" target="_blank" rel="nofollow noopener"><i class="fa fa-whatsapp"></i></a></li>';
-	$content .= '<li><a class="linkedin" href="' . esc_url( $linkedin ) . '" target="_blank" rel="nofollow noopener"><i class="fa fa-linkedin"></i></a></li>';
+	$content .= '<li><a class="twitter" href="' . esc_url( $twitter ) . '" target="_blank" rel="nofollow noopener">' . sekolahane_icon( 'twitter' ) . '</a></li>';
+	$content .= '<li><a class="whatsapp" href="' . esc_url( $whatsapp ) . '" target="_blank" rel="nofollow noopener">' . sekolahane_icon( 'whatsapp' ) . '</a></li>';
+	$content .= '<li><a class="linkedin" href="' . esc_url( $linkedin ) . '" target="_blank" rel="nofollow noopener">' . sekolahane_icon( 'linkedin' ) . '</a></li>';
 	$content .= '</ul></div><!-- .webane-share -->';
 
 	return $content;
@@ -661,7 +778,7 @@ add_filter( 'the_content', 'sekolahane_author_info_box' );
  */
 function fungsi_breadcrumbs_webane() {
 	$home_link        = esc_url( home_url( '/' ) );
-	$home_text        = '<i class="fa fa-home"></i>';
+	$home_text        = sekolahane_icon( 'home' );
 	$link_before      = '<li class="parent-page">';
 	$link_after       = '</li>';
 	$link_attr        = ' rel="v:url" property="v:title"';
@@ -1268,3 +1385,70 @@ function sekolahane_register_api_keys_fields() {
 	);
 }
 add_action( 'acf/init', 'sekolahane_register_api_keys_fields' );
+
+/**
+ * Isi nilai default 5 menu utama (Profile, News, Home, PPDB, Contact) pada
+ * repeater `ane_mobile_menu` di halaman admin Mobile Menu jika belum ada data.
+ *
+ * Dengan filter ini, ketika admin membuka `admin.php?page=acf-options-mobile-menu`,
+ * ke-5 baris menu langsung terbuka dengan icon dan judul default yang sudah
+ * dipetakan sehingga admin cukup mengarahkan URL-nya saja.
+ *
+ * @param mixed $value Nilai field dari database.
+ * @return mixed
+ */
+function sekolahane_init_default_mobile_menu( $value ) {
+	if ( ! empty( $value ) && is_array( $value ) ) {
+		return $value;
+	}
+
+	$home_url  = home_url( '/' );
+	$blog_id   = (int) get_option( 'page_for_posts' );
+	$news_url  = $blog_id > 0 ? (string) get_permalink( $blog_id ) : $home_url;
+	$ppdb_link = function_exists( 'get_field' ) ? get_field( 'ane_link_header', 'option' ) : null;
+	$ppdb_url  = ( is_array( $ppdb_link ) && ! empty( $ppdb_link['url'] ) ) ? (string) $ppdb_link['url'] : '#';
+
+	return array(
+		array(
+			'field_6189660d2faec' => array(
+				'title'  => __( 'Profile', 'sekolahane' ),
+				'url'    => '#',
+				'target' => '',
+			),
+			'field_6189662f2faed' => 'profile',
+		),
+		array(
+			'field_6189660d2faec' => array(
+				'title'  => __( 'News', 'sekolahane' ),
+				'url'    => $news_url,
+				'target' => '',
+			),
+			'field_6189662f2faed' => 'news',
+		),
+		array(
+			'field_6189660d2faec' => array(
+				'title'  => __( 'Home', 'sekolahane' ),
+				'url'    => $home_url,
+				'target' => '',
+			),
+			'field_6189662f2faed' => 'home',
+		),
+		array(
+			'field_6189660d2faec' => array(
+				'title'  => __( 'PPDB', 'sekolahane' ),
+				'url'    => $ppdb_url,
+				'target' => '',
+			),
+			'field_6189662f2faed' => 'ppdb',
+		),
+		array(
+			'field_6189660d2faec' => array(
+				'title'  => __( 'Contact', 'sekolahane' ),
+				'url'    => '#',
+				'target' => '',
+			),
+			'field_6189662f2faed' => 'contact',
+		),
+	);
+}
+add_filter( 'acf/load_value/name=ane_mobile_menu', 'sekolahane_init_default_mobile_menu' );

@@ -10,7 +10,7 @@ if( have_rows('ane_list_lembaga','option') ): ?>
                 $link_title = is_array( $link ) && ! empty( $link['title'] ) ? $link['title'] : '';
             ?>
         <li>
-            <a href="<?php echo esc_url( $link_url ); ?>"><i class="fa <?php echo esc_attr( (string) $icon ); ?>"></i><span><?php echo esc_html( $link_title ); ?></span></a>
+            <a href="<?php echo esc_url( $link_url ); ?>"><?php echo sekolahane_icon( (string) $icon ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( $link_title ); ?></span></a>
         </li>
         <?php endwhile; ?>
         </ul>

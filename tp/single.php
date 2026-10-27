@@ -15,8 +15,8 @@ defined( 'ABSPATH' ) || exit;
 				?>
 				<div class="ane-meta">
 					<ul>
-						<li><i class="fa fa-clock-o"></i> <?php echo $tanggal ?></li>
-						<li><i class="fa fa-eye"></i> <?php echo get_views($post->ID); ?></li>
+						<li><?php echo sekolahane_icon( 'clock' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( (string) $tanggal ); ?></li>
+						<li><?php echo sekolahane_icon( 'eye' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( (string) get_views( $post->ID ) ); ?></li>
 					</ul>
 				</div>
 	</header>
