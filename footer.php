@@ -132,7 +132,12 @@ $sekolahane_judul    = ! empty( $sekolahane_org_name ) ? (string) $sekolahane_or
 	<div class="bawah">
 		<div class="container">
 			<div class="isi">
-				Copyright <?php echo wp_kses_post( (string) webane_load_dynamic_copyright_year() ) . ' ' . esc_html( $sekolahane_judul ) . ' ' . wp_kses_post( (string) webane_load_designed_by() ); ?>
+				<div class="bawah-kiri">
+					Copyright <?php echo wp_kses_post( (string) webane_load_dynamic_copyright_year() ) . ' ' . esc_html( $sekolahane_judul ); ?>
+				</div>
+				<div class="bawah-kanan">
+					<?php echo wp_kses_post( ltrim( (string) webane_load_designed_by(), '| ' ) ); ?>
+				</div>
 			</div>
 		</div>
 	</div>
