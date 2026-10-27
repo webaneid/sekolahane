@@ -834,7 +834,7 @@ function fungsi_breadcrumbs_webane() {
 	$home_text        = sekolahane_icon( 'home' );
 	$link_before      = '<li class="parent-page">';
 	$link_after       = '</li>';
-	$link_attr        = ' rel="v:url" property="v:title"';
+	$link_attr        = '';
 	$link             = $link_before . '<a' . $link_attr . ' href="%1$s">%2$s</a>' . $link_after;
 	$delimiter        = '';
 	$before           = '<li>';
@@ -996,7 +996,7 @@ function fungsi_breadcrumbs_webane() {
 			$breadcrumb_output_link .= $page_addon;
 		}
 	} else {
-		$breadcrumb_output_link .= '<li><a href="' . $home_link . '" rel="v:url" property="v:title">' . $home_text . '</a></li>';
+		$breadcrumb_output_link .= '<li><a href="' . $home_link . '">' . $home_text . '</a></li>';
 		$breadcrumb_output_link .= $delimiter;
 		$breadcrumb_output_link .= $breadcrumb_trail;
 		$breadcrumb_output_link .= $page_addon;

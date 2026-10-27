@@ -30,3 +30,4 @@
 | 22 | Universal Single Mobile App-Style (`post`, `page`, `ekstrakurikuler`, `guru`) & Redesign Social Share + Copy URL (`tp/mobile/single-universal.php`, `inc/sekolahane.php`, `css/main.css`) | Done | `phases/phase-22-universal-single-mobile-dan-share.md` |
 | 23 | Default Google Maps API Key Terobfuskasi (XOR-Hex) & Fallback Otomatis (`inc/sekolahane.php`) | Done | `phases/phase-23-default-google-maps-key-terenkripsi.md` |
 | 24 | Redesign Total Halaman Kontak (`page-kontak.php`, `tp/content-page-kontak.php`), Contact Form 7 & Customer Care Mobile | Done | `phases/phase-24-redesign-halaman-kontak.md` |
+| 25 | Mesin SEO Premium Hybrid (Yoast Booster), Google Sitelinks Schema, Tag-to-Keywords, & GEO (`llms.txt`) | Done | `phases/phase-25-seo-premium-dan-geo-engine.md` |

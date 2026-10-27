@@ -92,12 +92,14 @@ defined( 'ABSPATH' ) || exit;
 						<?php
 						wp_nav_menu(
 							array(
-								'theme_location' => 'menuutama',
-								'container_id'   => 'main-menu',
-								'echo'           => true,
-								'fallback_cb'    => 'wp_page_menu',
-								'items_wrap'     => '<ul class="main-menu">%3$s</ul>',
-								'depth'          => 4,
+								'theme_location'       => 'menuutama',
+								'container'            => 'nav',
+								'container_id'         => 'main-menu',
+								'container_aria_label' => __( 'Menu Utama', 'sekolahane' ),
+								'echo'                 => true,
+								'fallback_cb'          => 'wp_page_menu',
+								'items_wrap'           => '<ul class="main-menu">%3$s</ul>',
+								'depth'                => 4,
 							)
 						);
 						?>
@@ -117,7 +119,7 @@ defined( 'ABSPATH' ) || exit;
 		?>
 		<div class="mobile-menu-area">
 			<div class="mobile-menu">
-				<nav id="mobile-menu-active">
+				<nav id="mobile-menu-active" aria-label="<?php esc_attr_e( 'Menu Mobile', 'sekolahane' ); ?>">
 					<?php
 					wp_nav_menu(
 						array(

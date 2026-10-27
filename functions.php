@@ -157,6 +157,7 @@ function sekolahane_remove_meta_version() {
 add_filter( 'the_generator', 'sekolahane_remove_meta_version' );
 
 require get_template_directory() . '/inc/sekolahane.php';
+require get_template_directory() . '/inc/seo.php';
 require get_template_directory() . '/inc/custompost.php';
 require get_template_directory() . '/inc/widgets.php';
 require get_template_directory() . '/inc/updater.php';
