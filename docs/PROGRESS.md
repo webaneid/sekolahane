@@ -24,3 +24,4 @@
 | 16 | Redesign Section Call to Action: 3 Pilihan Desain, Opsi Margin Bawah & Tombol WA Otomatis (`tp/section/calltoaction.php`) | Done | `phases/phase-16-redesign-section-calltoaction.md` |
 | 17 | Redesign Section Berita `home-default` (2 Pilihan Layout, Hapus Populer) & Kartu `content-overlay` / `content-list` | Done | `phases/phase-17-redesign-news-default-dan-kartu-berita.md` |
 | 18 | Redesign Total Footer Modern dengan Gradasi Elegan & Glassmorphism (`footer.php`, `css/main.css`) | Done | `phases/phase-18-redesign-footer.md` |
+| 19 | Redesign Floating WhatsApp Customer Care (`.cc-contactpop`): Tombol Bulat & Kartu Listing Agen (`footer.php`, `js/sekolahane.js`, `css/main.css`) | Done | `phases/phase-19-redesign-floating-customer-care.md` |

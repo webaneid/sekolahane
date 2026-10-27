@@ -214,15 +214,18 @@
 		/* Floating WhatsApp Customer Care (.cc-contactpop) */
 		var $ccPop = $('.cc-contactpop');
 		if ($ccPop.length) {
-			$ccPop.find('form, i, p, ul').hide();
-			$ccPop.on('click', function () {
-				$ccPop.find('form, p, i, ul').slideDown(500);
-			});
-			$ccPop.find('i').on('click', function (e) {
+			$ccPop.find('.kelapa').on('click', function (e) {
 				e.stopPropagation();
-				$(this).slideUp(500);
-				$ccPop.find('p, ul, form').slideUp(500);
-				return false;
+				$ccPop.toggleClass('is-open');
+			});
+			$ccPop.find('.cc-close-btn').on('click', function (e) {
+				e.stopPropagation();
+				$ccPop.removeClass('is-open');
+			});
+			$(document).on('click', function (e) {
+				if (!$(e.target).closest('.cc-contactpop').length) {
+					$ccPop.removeClass('is-open');
+				}
 			});
 		}
 
