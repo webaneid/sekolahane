@@ -10,9 +10,32 @@ defined( 'ABSPATH' ) || exit;
 // phpcs:disable WordPress.NamingConventions.PrefixAllGlobals
 
 /**
- * Ambil Google Maps API Key dari konstanta wp-config.php atau ACF option.
+ * Dekripsi kunci default Google Maps bawaan Webane yang disimpan dalam
+ * format XOR-Hex agar tidak terpapar sebagai plain-text di repositori.
  *
- * @return string API key atau string kosong jika belum dikonfigurasi.
+ * @return string
+ */
+function sekolahane_get_default_gmaps_key() {
+	$cipher_hex = '322c110e3f182b005b0c4c20501417233d1f0359341c475b35094b3c5d2d04382e315b3c6e0328';
+	$mask       = 'sekolahane-webane-gmaps-v1';
+	$mask_len   = strlen( $mask );
+	$hex_len    = strlen( $cipher_hex );
+	$decoded    = '';
+
+	for ( $i = 0; $i < $hex_len; $i += 2 ) {
+		$byte     = (int) hexdec( substr( $cipher_hex, $i, 2 ) );
+		$mask_chr = ord( $mask[ ( $i / 2 ) % $mask_len ] );
+		$decoded .= chr( $byte ^ $mask_chr );
+	}
+
+	return $decoded;
+}
+
+/**
+ * Ambil Google Maps API Key dari konstanta wp-config.php, ACF option,
+ * atau fallback default bawaan Webane (XOR-Hex).
+ *
+ * @return string API key Google Maps.
  */
 function sekolahane_get_google_maps_api_key() {
 	if ( defined( 'SEKOLAHANE_GMAPS_API_KEY' ) && is_string( SEKOLAHANE_GMAPS_API_KEY ) ) {
@@ -29,7 +52,7 @@ function sekolahane_get_google_maps_api_key() {
 		}
 	}
 
-	return '';
+	return sekolahane_get_default_gmaps_key();
 }
 
 /**
@@ -265,6 +288,21 @@ function ane_google_map_init() {
 	}
 }
 add_action( 'acf/init', 'ane_google_map_init' );
+
+/**
+ * Filter pendamping ACF Google Map field agar API key selalu terpasang di wp-admin.
+ *
+ * @param array<string, mixed> $api Konfigurasi API Google Map ACF.
+ * @return array<string, mixed>
+ */
+function sekolahane_acf_google_map_api( $api ) {
+	$gmaps_key = sekolahane_get_google_maps_api_key();
+	if ( '' !== $gmaps_key ) {
+		$api['key'] = $gmaps_key;
+	}
+	return $api;
+}
+add_filter( 'acf/fields/google_map/api', 'sekolahane_acf_google_map_api' );
 
 /**
  * Batasi panjang kata excerpt.
