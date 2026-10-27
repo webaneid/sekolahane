@@ -17,7 +17,7 @@
 		var defaults = {
 			meanMenuTarget: $(this),
 			meanMenuContainer: 'body',
-			meanMenuClose: 'X',
+			meanMenuClose: '<svg class="ane-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
 			meanMenuCloseSize: '18px',
 			meanMenuOpen: '<span /><span /><span />',
 			meanRevealPosition: '',
@@ -27,8 +27,7 @@
 			meanNavPush: '',
 			meanShowChildren: true,
 			meanExpandableChildren: true,
-			meanExpand: '+',
-			meanContract: '-',
+			meanExpand: '<svg class="ane-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>',
 			meanDisplay: 'block'
 		};
 		options = $.extend(defaults, options);
@@ -72,7 +71,7 @@
 				if (currentWidth <= meanScreenWidth) {
 					meanMenuExist = true;
 					$(meanContainer).addClass('mean-container');
-					$('.mean-container').prepend('<div class="mean-bar"><a href="#nav" class="meanmenu-reveal" style="' + meanStyles + '">Show Navigation</a><nav class="mean-nav"></nav></div>');
+					$('.mean-container').prepend('<div class="mean-bar"><a href="#nav" class="meanmenu-reveal" aria-label="Menu Navigasi" style="' + meanStyles + '">Show Navigation</a><nav class="mean-nav"></nav></div>');
 					$('.mean-nav').html($(meanMenu).html());
 
 					$(meanMenu).before('<div class="mean-push" />');
@@ -87,15 +86,15 @@
 						if (options.meanExpandableChildren) {
 							$('.mean-nav ul ul').each(function () {
 								if ($(this).children().length) {
-									$(this, 'li:first').parent().append('<a class="mean-expand" href="#" style="font-size: ' + options.meanMenuCloseSize + '">' + options.meanExpand + '</a>');
+									$(this, 'li:first').parent().append('<a class="mean-expand" href="#" aria-label="Submenu">' + options.meanExpand + '</a>');
 								}
 							});
 							$('.mean-expand').on('click', function (e) {
 								e.preventDefault();
 								if ($(this).hasClass('mean-clicked')) {
-									$(this).text(options.meanExpand).prev('ul').slideUp(300);
+									$(this).prev('ul').slideUp(240);
 								} else {
-									$(this).text(options.meanContract).prev('ul').slideDown(300);
+									$(this).prev('ul').slideDown(240);
 								}
 								$(this).toggleClass('mean-clicked');
 							});
@@ -110,11 +109,10 @@
 					$navreveal.on('click', function (e) {
 						e.preventDefault();
 						if (!menuOn) {
-							$navreveal.css({ 'text-align': 'center', 'text-indent': '0', 'font-size': options.meanMenuCloseSize });
-							$('.mean-nav ul:first').slideDown();
+							$('.mean-nav ul:first').slideDown(260);
 							menuOn = true;
 						} else {
-							$('.mean-nav ul:first').slideUp();
+							$('.mean-nav ul:first').slideUp(220);
 							menuOn = false;
 						}
 						$navreveal.toggleClass('meanclose');
