@@ -8,31 +8,40 @@
 defined( 'ABSPATH' ) || exit;
 
 get_template_part( 'tp/mobile/menu-footer' );
-$nama  = get_field( 'nama_organisasi', 'option' );
-$judul = ! empty( $nama ) ? (string) $nama : get_bloginfo( 'name' );
+$sekolahane_org_name = get_field( 'nama_organisasi', 'option' );
+$sekolahane_judul    = ! empty( $sekolahane_org_name ) ? (string) $sekolahane_org_name : get_bloginfo( 'name' );
 ?>
 <footer id="footer" class="ane-footer">
 	<div class="atas">
 		<div class="container">
 			<div class="row justify-content-center">
 				<?php if ( have_rows( 'about_ane', 'option' ) ) : ?>
-				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
-					<div class="isi">
-						<?php
-						while ( have_rows( 'about_ane', 'option' ) ) :
-							the_row();
-							$judul   = (string) get_sub_field( 'company_name' );
-							$sologan = (string) get_sub_field( 'company_sologan' );
-							$about   = (string) get_sub_field( 'company_about' );
-							?>
-							<div class="footer-content">
-								<h3><?php echo esc_html( $judul ); ?></h3>
-								<h4><?php echo esc_html( $sologan ); ?></h4>
-								<p><?php echo wp_kses_post( $about ); ?></p>
-							</div>
-						<?php endwhile; ?>
+					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
+						<div class="isi">
+							<?php
+							while ( have_rows( 'about_ane', 'option' ) ) :
+								the_row();
+								$sekolahane_comp_name = trim( (string) get_sub_field( 'company_name' ) );
+								$sekolahane_slogan    = trim( (string) get_sub_field( 'company_sologan' ) );
+								$sekolahane_about     = trim( (string) get_sub_field( 'company_about' ) );
+								if ( '' !== $sekolahane_comp_name ) {
+									$sekolahane_judul = $sekolahane_comp_name;
+								}
+								?>
+								<div class="footer-content">
+									<?php if ( '' !== $sekolahane_comp_name ) : ?>
+										<h3><?php echo esc_html( $sekolahane_comp_name ); ?></h3>
+									<?php endif; ?>
+									<?php if ( '' !== $sekolahane_slogan ) : ?>
+										<h4><?php echo esc_html( $sekolahane_slogan ); ?></h4>
+									<?php endif; ?>
+									<?php if ( '' !== $sekolahane_about ) : ?>
+										<p><?php echo wp_kses_post( $sekolahane_about ); ?></p>
+									<?php endif; ?>
+								</div>
+							<?php endwhile; ?>
+						</div>
 					</div>
-				</div>
 				<?php endif; ?>
 				<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-12">
 					<div class="isi-v2">
@@ -58,36 +67,53 @@ $judul = ! empty( $nama ) ? (string) $nama : get_bloginfo( 'name' );
 									<?php
 									while ( have_rows( 'contact_ane', 'option' ) ) :
 										the_row();
-										$alamat = (string) get_sub_field( 'kontak_alamat' );
-										$phone  = (string) get_sub_field( 'kontak_telepon' );
-										$mobile = (string) get_sub_field( 'kontak_handphone' );
-										$email  = (string) get_sub_field( 'kontak_email' );
-										$web    = (string) get_sub_field( 'kontak_website' );
-										$url    = home_url( '/' );
+										$sekolahane_alamat = trim( (string) get_sub_field( 'kontak_alamat' ) );
+										$sekolahane_phone  = trim( (string) get_sub_field( 'kontak_telepon' ) );
+										$sekolahane_mobile = trim( (string) get_sub_field( 'kontak_handphone' ) );
+										$sekolahane_email  = trim( (string) get_sub_field( 'kontak_email' ) );
+										$sekolahane_web    = trim( (string) get_sub_field( 'kontak_website' ) );
+										$sekolahane_url    = home_url( '/' );
 
-										if ( '' !== $alamat ) :
+										if ( '' !== $sekolahane_alamat ) :
 											?>
-											<li><?php echo sekolahane_icon( 'lokasi' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $alamat ); ?></li>
+											<li>
+												<?php echo sekolahane_icon( 'lokasi' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+												<span><?php echo esc_html( $sekolahane_alamat ); ?></span>
+											</li>
 											<?php
 										endif;
-										if ( '' !== $phone ) :
+										if ( '' !== $sekolahane_phone ) :
 											?>
-											<li><?php echo sekolahane_icon( 'telepon' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $phone ); ?></li>
+											<li>
+												<?php echo sekolahane_icon( 'telepon' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+												<span><?php echo esc_html( $sekolahane_phone ); ?></span>
+											</li>
 											<?php
 										endif;
-										if ( '' !== $mobile ) :
+										if ( '' !== $sekolahane_mobile ) :
 											?>
-											<li><?php echo sekolahane_icon( 'handphone' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $mobile ); ?></li>
+											<li>
+												<?php echo sekolahane_icon( 'handphone' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+												<span><?php echo esc_html( $sekolahane_mobile ); ?></span>
+											</li>
 											<?php
 										endif;
-										if ( '' !== $email ) :
+										if ( '' !== $sekolahane_email ) :
 											?>
-											<li><?php echo sekolahane_icon( 'email' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $email ); ?></li>
+											<li>
+												<?php echo sekolahane_icon( 'email' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+												<span><?php echo esc_html( $sekolahane_email ); ?></span>
+											</li>
 											<?php
 										endif;
-										if ( '' !== $web ) :
+										if ( '' !== $sekolahane_web ) :
 											?>
-											<li><a href="<?php echo esc_url( $url ); ?>" title="<?php echo esc_attr( $web ); ?>"> <?php echo sekolahane_icon( 'laptop' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( $web ); ?></a></li>
+											<li>
+												<a href="<?php echo esc_url( $sekolahane_url ); ?>" title="<?php echo esc_attr( $sekolahane_web ); ?>">
+													<?php echo sekolahane_icon( 'laptop' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+													<span><?php echo esc_html( $sekolahane_web ); ?></span>
+												</a>
+											</li>
 											<?php
 										endif;
 									endwhile;
@@ -106,7 +132,7 @@ $judul = ! empty( $nama ) ? (string) $nama : get_bloginfo( 'name' );
 	<div class="bawah">
 		<div class="container">
 			<div class="isi">
-				Copyright <?php echo wp_kses_post( webane_load_dynamic_copyright_year() ) . ' ' . esc_html( $judul ) . ' ' . wp_kses_post( webane_load_designed_by() ); ?>
+				Copyright <?php echo wp_kses_post( (string) webane_load_dynamic_copyright_year() ) . ' ' . esc_html( $sekolahane_judul ) . ' ' . wp_kses_post( (string) webane_load_designed_by() ); ?>
 			</div>
 		</div>
 	</div>
@@ -114,20 +140,20 @@ $judul = ! empty( $nama ) ? (string) $nama : get_bloginfo( 'name' );
 <div class="cc-contactpop fixed">
 	<header class="kelapa">
 		<?php
-		$cs_title = get_field( 'ane_cs_label', 'option' );
-		if ( ! empty( $cs_title ) ) :
+		$sekolahane_cs_title = get_field( 'ane_cs_label', 'option' );
+		if ( ! empty( $sekolahane_cs_title ) ) :
 			?>
-			<h3><span class="fa fa-whatsapp" aria-hidden="true"></span> <?php echo esc_html( (string) $cs_title ); ?></h3>
+			<h3><span class="fa fa-whatsapp" aria-hidden="true"></span> <?php echo esc_html( (string) $sekolahane_cs_title ); ?></h3>
 		<?php endif; ?>
 	</header>
 
 	<div class="renseignement">
 		<i class="fa fa-times"></i>
 		<?php
-		$msg = get_field( 'ane_cs_welcome', 'option' );
-		if ( ! empty( $msg ) ) :
+		$sekolahane_msg = get_field( 'ane_cs_welcome', 'option' );
+		if ( ! empty( $sekolahane_msg ) ) :
 			?>
-			<p><?php echo esc_html( (string) $msg ); ?></p>
+			<p><?php echo esc_html( (string) $sekolahane_msg ); ?></p>
 			<?php
 		endif;
 		if ( have_rows( 'ane_cs', 'option' ) ) :
@@ -136,21 +162,21 @@ $judul = ! empty( $nama ) ? (string) $nama : get_bloginfo( 'name' );
 				<?php
 				while ( have_rows( 'ane_cs', 'option' ) ) :
 					the_row();
-					$wa    = preg_replace( '/[^0-9]/', '', (string) get_sub_field( 'ane_whatsapp' ) );
-					$image = get_sub_field( 'ane_image' );
-					$nama  = (string) get_sub_field( 'ane_nama' );
-					$area  = (string) get_sub_field( 'ane_area' );
-					$wa_url = 'https://wa.me/' . $wa;
+					$sekolahane_wa     = (string) preg_replace( '/[^0-9]/', '', (string) get_sub_field( 'ane_whatsapp' ) );
+					$sekolahane_image  = get_sub_field( 'ane_image' );
+					$sekolahane_nama   = (string) get_sub_field( 'ane_nama' );
+					$sekolahane_area   = (string) get_sub_field( 'ane_area' );
+					$sekolahane_wa_url = 'https://wa.me/' . $sekolahane_wa;
 					?>
 					<li>
 						<?php
-						if ( is_array( $image ) && ! empty( $image['sizes']['kotak'] ) ) :
+						if ( is_array( $sekolahane_image ) && ! empty( $sekolahane_image['sizes']['kotak'] ) ) :
 							?>
-							<img src="<?php echo esc_url( (string) $image['sizes']['kotak'] ); ?>" alt="<?php echo esc_attr( $nama ); ?>">
+							<img src="<?php echo esc_url( (string) $sekolahane_image['sizes']['kotak'] ); ?>" alt="<?php echo esc_attr( $sekolahane_nama ); ?>">
 						<?php endif; ?>
-						<a href="<?php echo esc_url( $wa_url ); ?>">
-							<span><?php echo esc_html( $nama ); ?> </span><br/>
-							<?php echo esc_html( $area ); ?>
+						<a href="<?php echo esc_url( $sekolahane_wa_url ); ?>">
+							<span><?php echo esc_html( $sekolahane_nama ); ?> </span><br/>
+							<?php echo esc_html( $sekolahane_area ); ?>
 						</a>
 					</li>
 				<?php endwhile; ?>
