@@ -2527,6 +2527,145 @@ select:after {
   height: auto;
   margin-bottom: 80px;
 }
+
+/* --- Section Funfact (.section-funfact) --- */
+.landing-page .section-funfact,
+.section-funfact {
+  display: block;
+  width: 100%;
+  position: relative;
+  margin-bottom: 80px;
+}
+.landing-page .section-funfact.funfact-mb-yes,
+.section-funfact.funfact-mb-yes {
+  margin-bottom: 80px;
+}
+.landing-page .section-funfact.funfact-mb-no,
+.section-funfact.funfact-mb-no {
+  margin-bottom: 0;
+}
+.section-funfact.funfact-style-putih {
+  background: var(--ane-warna-putih);
+  padding: 10px 0;
+}
+.section-funfact.funfact-style-terang {
+  background: var(--ane-warna-terang);
+  padding: 68px 0;
+}
+.section-funfact.funfact-style-gelap {
+  background-color: var(--ane-warna-gelap);
+  background-image: radial-gradient(circle at 85% 15%, rgba(var(--ane-warna-utama-rgb), 0.22) 0%, rgba(var(--ane-warna-gelap-rgb), 0) 55%), linear-gradient(135deg, var(--ane-warna-gelap) 0%, var(--ane-warna-alternatif) 100%);
+  padding: 68px 0;
+}
+.section-funfact .funfact-header {
+  margin-bottom: 36px;
+}
+.section-funfact .funfact-header p {
+  font-size: 15px;
+  color: rgba(var(--ane-warna-text-rgb), 0.78);
+  margin-bottom: 0;
+}
+.section-funfact.funfact-style-gelap .funfact-header h2 {
+  color: var(--ane-warna-putih);
+}
+.section-funfact.funfact-style-gelap .funfact-header h2 span {
+  color: var(--ane-warna-utama-2);
+}
+.section-funfact.funfact-style-gelap .funfact-header p {
+  color: rgba(var(--ane-warna-putih-rgb), 0.8);
+}
+.section-funfact .funfact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+.section-funfact .funfact-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 22px;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.section-funfact .funfact-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 4px;
+  border-radius: 0 0 6px 6px;
+  background: linear-gradient(90deg, var(--ane-warna-utama), var(--ane-warna-utama-2));
+  transition: width 0.3s ease;
+}
+.section-funfact.funfact-style-putih .funfact-card,
+.section-funfact.funfact-style-terang .funfact-card {
+  background: var(--ane-warna-putih);
+  border: 1px solid rgba(var(--ane-warna-utama-rgb), 0.22);
+  box-shadow: 0 10px 28px rgba(var(--ane-warna-gelap-rgb), 0.05);
+}
+.section-funfact.funfact-style-gelap .funfact-card {
+  background: rgba(var(--ane-warna-putih-rgb), 0.06);
+  border: 1px solid rgba(var(--ane-warna-putih-rgb), 0.14);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 14px 32px rgba(var(--ane-warna-gelap-rgb), 0.22);
+}
+.section-funfact .funfact-card:hover {
+  transform: translateY(-4px);
+}
+.section-funfact .funfact-card:hover::before {
+  width: 80px;
+}
+.section-funfact.funfact-style-putih .funfact-card:hover,
+.section-funfact.funfact-style-terang .funfact-card:hover {
+  border-color: var(--ane-warna-utama);
+  box-shadow: 0 16px 34px rgba(var(--ane-warna-utama-rgb), 0.14);
+}
+.section-funfact.funfact-style-gelap .funfact-card:hover {
+  background: rgba(var(--ane-warna-putih-rgb), 0.1);
+  border-color: rgba(var(--ane-warna-utama-2-rgb), 0.55);
+}
+.section-funfact .funfact-value {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  line-height: 1.05;
+  margin-bottom: 10px;
+}
+.section-funfact .funfact-number {
+  font-size: clamp(2.15rem, 3.2vw, 2.85rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--ane-warna-gelap);
+}
+.section-funfact .funfact-prefix {
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  font-weight: 800;
+  color: var(--ane-warna-utama);
+}
+.section-funfact.funfact-style-gelap .funfact-number {
+  color: var(--ane-warna-putih);
+}
+.section-funfact.funfact-style-gelap .funfact-prefix {
+  color: var(--ane-warna-utama-2);
+}
+.section-funfact .funfact-label {
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: rgba(var(--ane-warna-text-rgb), 0.82);
+  margin: 0;
+}
+.section-funfact.funfact-style-gelap .funfact-label {
+  color: rgba(var(--ane-warna-putih-rgb), 0.85);
+}
 @media (max-width: 767px) {
   .landing-page .home-ekstrakurikuler,
   .home-ekstrakurikuler {
@@ -2687,6 +2826,55 @@ select:after {
   .landing-page .home-guru .ane-konten-guru {
     box-shadow: 0 0 0;
     margin-bottom: 0;
+  }
+  .landing-page .section-funfact,
+  .section-funfact,
+  .landing-page .section-funfact.funfact-mb-yes,
+  .section-funfact.funfact-mb-yes {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  .landing-page .section-funfact.funfact-mb-no,
+  .section-funfact.funfact-mb-no {
+    margin-bottom: 0;
+  }
+  .section-funfact.funfact-style-putih {
+    padding: 20px 0;
+    border-bottom: 7px solid var(--ane-warna-terang);
+  }
+  .section-funfact.funfact-style-terang,
+  .section-funfact.funfact-style-gelap {
+    padding: 28px 0;
+  }
+  .section-funfact .funfact-header {
+    margin-bottom: 18px;
+  }
+  .section-funfact .funfact-header h2 {
+    margin-bottom: 6px;
+  }
+  .section-funfact .funfact-header p {
+    font-size: 13px;
+  }
+  .section-funfact .funfact-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .section-funfact .funfact-card {
+    padding: 20px 14px 18px;
+    border-radius: 16px;
+  }
+  .section-funfact .funfact-value {
+    margin-bottom: 6px;
+  }
+  .section-funfact .funfact-number {
+    font-size: clamp(1.85rem, 7vw, 2.3rem);
+  }
+  .section-funfact .funfact-prefix {
+    font-size: clamp(1.15rem, 4.4vw, 1.45rem);
+  }
+  .section-funfact .funfact-label {
+    font-size: 12.5px;
+    line-height: 1.3;
   }
   .landing-page .ane-post-mobile {
     padding: 20px 15px 20px 15px;

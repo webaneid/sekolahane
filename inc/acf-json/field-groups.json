@@ -2695,6 +2695,189 @@
                         ],
                         "min": "",
                         "max": ""
+                    },
+                    "layout_sekolahane_funfact_home": {
+                        "key": "layout_sekolahane_funfact_home",
+                        "name": "home_funfact",
+                        "label": "7. Funfact",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_sekolahane_funfact_style_home",
+                                "label": "Gaya Warna Section",
+                                "name": "sekolahane_funfact_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih skema warna section mengikuti warna brand (Putih Bersih, Terang, atau Gelap/Dark).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "putih": "Putih Bersih",
+                                    "terang": "Terang (Soft Brand)",
+                                    "gelap": "Gelap (Dark Brand)"
+                                },
+                                "default_value": "putih",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_funfact_margin_home",
+                                "label": "Margin Bawah Section",
+                                "name": "sekolahane_funfact_margin",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih apakah section memiliki jarak bawah (margin-bottom) atau menempel ke section di bawahnya.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Pakai Margin Bawah",
+                                    "no": "Tanpa Margin Bawah (Menempel)"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_funfact_title_home",
+                                "label": "Judul Section (Opsional)",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Kosongkan jika ingin menampilkan deretan kartu angka Funfact saja tanpa judul di atasnya. Gunakan tag <span>...</span> untuk memberi aksen warna utama.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Contoh: Sekolah dalam <span>Angka</span>",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_funfact_desc_home",
+                                "label": "Deskripsi Singkat (Opsional)",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Teks pengantar singkat di bawah judul (opsional).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_funfact_items_home",
+                                "label": "Daftar Item Funfact",
+                                "name": "sekolahane_funfact_items",
+                                "aria-label": "",
+                                "type": "repeater",
+                                "instructions": "Tambahkan maksimal 4 item Funfact. Contoh output: 2thn+ Pengalaman (Number = 2, Prefix = thn+, Label = Pengalaman).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 4,
+                                "layout": "table",
+                                "button_label": "Tambah Funfact",
+                                "rows_per_page": 20,
+                                "sub_fields": [
+                                    {
+                                        "key": "field_sekolahane_funfact_num_home",
+                                        "label": "Number",
+                                        "name": "sekolahane_number",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "30",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Contoh: 25",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_sekolahane_funfact_items_home"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_funfact_pre_home",
+                                        "label": "Prefix / Teks Tambahan",
+                                        "name": "sekolahane_prefix",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "25",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Contoh: thn+ atau +",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_sekolahane_funfact_items_home"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_funfact_lbl_home",
+                                        "label": "Label",
+                                        "name": "sekolahane_label",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "45",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Contoh: Pengalaman",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_sekolahane_funfact_items_home"
+                                    }
+                                ]
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
                     }
                 },
                 "button_label": "Tambah Blok Baru",
@@ -2722,7 +2905,8 @@
         "show_in_rest": false,
         "display_title": "",
         "allow_ai_access": false,
-        "ai_description": ""
+        "ai_description": "",
+        "modified": 1793215020
     },
     {
         "key": "group_618965e831bd4",
@@ -3634,6 +3818,189 @@
                         ],
                         "min": "",
                         "max": ""
+                    },
+                    "layout_sekolahane_funfact_profil": {
+                        "key": "layout_sekolahane_funfact_profil",
+                        "name": "home_funfact",
+                        "label": "6. Funfact",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_sekolahane_funfact_style_profil",
+                                "label": "Gaya Warna Section",
+                                "name": "sekolahane_funfact_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih skema warna section mengikuti warna brand (Putih Bersih, Terang, atau Gelap/Dark).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "putih": "Putih Bersih",
+                                    "terang": "Terang (Soft Brand)",
+                                    "gelap": "Gelap (Dark Brand)"
+                                },
+                                "default_value": "putih",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_funfact_margin_profil",
+                                "label": "Margin Bawah Section",
+                                "name": "sekolahane_funfact_margin",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih apakah section memiliki jarak bawah (margin-bottom) atau menempel ke section di bawahnya.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Pakai Margin Bawah",
+                                    "no": "Tanpa Margin Bawah (Menempel)"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_funfact_title_profil",
+                                "label": "Judul Section (Opsional)",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Kosongkan jika ingin menampilkan deretan kartu angka Funfact saja tanpa judul di atasnya. Gunakan tag <span>...</span> untuk memberi aksen warna utama.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Contoh: Sekolah dalam <span>Angka</span>",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_funfact_desc_profil",
+                                "label": "Deskripsi Singkat (Opsional)",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Teks pengantar singkat di bawah judul (opsional).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "50",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_funfact_items_profil",
+                                "label": "Daftar Item Funfact",
+                                "name": "sekolahane_funfact_items",
+                                "aria-label": "",
+                                "type": "repeater",
+                                "instructions": "Tambahkan maksimal 4 item Funfact. Contoh output: 2thn+ Pengalaman (Number = 2, Prefix = thn+, Label = Pengalaman).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 4,
+                                "layout": "table",
+                                "button_label": "Tambah Funfact",
+                                "rows_per_page": 20,
+                                "sub_fields": [
+                                    {
+                                        "key": "field_sekolahane_funfact_num_profil",
+                                        "label": "Number",
+                                        "name": "sekolahane_number",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "30",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Contoh: 25",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_sekolahane_funfact_items_profil"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_funfact_pre_profil",
+                                        "label": "Prefix / Teks Tambahan",
+                                        "name": "sekolahane_prefix",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "25",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Contoh: thn+ atau +",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_sekolahane_funfact_items_profil"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_funfact_lbl_profil",
+                                        "label": "Label",
+                                        "name": "sekolahane_label",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "45",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Contoh: Pengalaman",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_sekolahane_funfact_items_profil"
+                                    }
+                                ]
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
                     }
                 },
                 "button_label": "Tambah Blok Baru",
@@ -3661,7 +4028,8 @@
         "show_in_rest": false,
         "display_title": "",
         "allow_ai_access": false,
-        "ai_description": ""
+        "ai_description": "",
+        "modified": 1793215020
     },
     {
         "key": "group_5e3f0c06ee00f",

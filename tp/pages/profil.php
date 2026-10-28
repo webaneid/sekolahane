@@ -53,6 +53,9 @@ defined( 'ABSPATH' ) || exit;
                 elseif( get_row_layout() == 'home_guru' ):
                 get_template_part('tp/section/guru-v2');
 
+                elseif( get_row_layout() == 'home_funfact' ):
+                get_template_part('tp/section/funfact');
+
                 elseif( get_row_layout() == 'home_banner' ):
                 get_template_part('tp/section/banner');
 
