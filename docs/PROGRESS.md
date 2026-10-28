@@ -35,3 +35,4 @@
 | 27 | Dinamisasi Warna Tema (`Warna Web`) via ACF Color Picker & CSS Custom Properties (`:root`) | Done | `phases/phase-27-dinamisasi-warna-acf-css-variables.md` |
 | 28 | Redesign Profesional Dashboard Admin, Branding Icon Webane (`img/admin-webane*.svg`), & Penghapusan Banner Lama | Done | `phases/phase-28-redesign-dashboard-admin-webane.md` |
 | 29 | Redesign Mobile Sliding App-Icons pada `.section-featured.featured-style-flat` (`tp/section/featured.php`, `css/main.css`) | Done | `phases/phase-29-mobile-sliding-icons-section-featured.md` |
+| 30 | Redesign Section Hero Mobile: Rasio 16:9, Padding 15px, Border-Radius 16px, & Tanpa Masking Putih (`css/main.css`) | Done | `phases/phase-30-redesign-hero-mobile-16-9.md` |
