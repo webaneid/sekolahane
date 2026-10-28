@@ -107,7 +107,7 @@ function sekolahane_widgets() {
 		array(
 			'name'          => __( 'Default Sidebar', 'sekolahane' ),
 			'id'            => 'default-sidebar',
-			'before_widget' => '<div class="ane-sidebar">',
+			'before_widget' => '<div id="%1$s" class="ane-sidebar widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h2 class="widget-title ane-title">',
 			'after_title'   => '</h2>',

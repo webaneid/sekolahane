@@ -333,8 +333,8 @@ figure {
 
 body {
   font-family: "Poppins", Helvetica, Arial, sans-serif;
-  font-size: 1.1rem;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.65;
   font-weight: 400;
   margin: 0;
   text-rendering: optimizeLegibility;
@@ -362,15 +362,15 @@ h1, h2, h3, h4, h5 {
 }
 
 p {
-  font-size: 19px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.7;
   letter-spacing: 0.003em;
   color: var(--ane-warna-text);
 }
 @media (max-width: 767px) {
   p {
-    font-size: 1.2rem;
-    line-height: 1.7rem;
+    font-size: 15.5px;
+    line-height: 1.68;
   }
 }
 
@@ -379,7 +379,7 @@ ul {
   padding: 0;
 }
 ul li {
-  font-size: 20px;
+  font-size: 16px;
   line-height: 1.68;
   letter-spacing: 0.003em;
   color: var(--ane-warna-text);
@@ -4599,28 +4599,30 @@ select:after {
   }
 }
 .ane-content p {
-  color: var(--ane-warna-alternatif);
-  margin-bottom: 30px;
+  color: var(--ane-warna-text);
+  font-size: 16px;
+  line-height: 1.75;
+  margin-bottom: 24px;
 }
 @media (max-width: 767px) {
   .ane-content p {
-    font-size: 17px;
-    margin-bottom: 20px;
+    font-size: 16px;
+    margin-bottom: 18px;
   }
 }
 .ane-content ul {
   padding: 0;
   margin: 0;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
 }
 .ane-content ul li {
-  color: var(--ane-warna-gelap);
-  margin-left: 20px;
-  font-size: 18px;
+  color: var(--ane-warna-text);
+  margin-left: 16px;
+  font-size: 16px;
   list-style: none;
   position: relative;
-  line-height: 1.7rem;
-  padding-left: 20px;
+  line-height: 1.7;
+  padding-left: 18px;
 }
 .ane-content ul li:before {
   position: absolute;
@@ -4628,8 +4630,8 @@ select:after {
   bottom: 0;
   top: 0;
   content: "\203A";
-  font-size: 18px;
-  line-height: 1.55rem;
+  font-size: 16px;
+  line-height: 1.65;
   color: var(--ane-warna-utama);
   font-weight: 700;
 }
@@ -5666,86 +5668,412 @@ select:after {
 }
 
 .right-sidebar {
-  background-color: var(--ane-warna-utama);
-  background-image: linear-gradient(to bottom, var(--ane-warna-utama), var(--ane-warna-utama-2));
-  border-radius: 15px;
-  box-shadow: 0 2px 20px 2px rgba(0, 0, 0, 0.1);
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 40px;
 }
 .right-sidebar .ane-sidebar {
-  margin-bottom: 21px;
-  padding-bottom: 15px;
+  position: relative;
+  background: var(--ane-warna-putih);
+  border: 1px solid rgba(var(--ane-warna-utama-rgb), 0.18);
+  border-radius: 20px;
+  padding: 24px 22px;
+  margin: 0;
+  box-shadow: 0 10px 28px rgba(var(--ane-warna-gelap-rgb), 0.05);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.right-sidebar .ane-sidebar:hover {
+  border-color: rgba(var(--ane-warna-utama-rgb), 0.34);
+  box-shadow: 0 14px 32px rgba(var(--ane-warna-gelap-rgb), 0.07);
+}
+.right-sidebar .ane-sidebar h2.widget-title,
+.right-sidebar .ane-sidebar .wp-block-heading,
+.right-sidebar .ane-sidebar .wp-block-search__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16.5px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ane-warna-gelap);
+  margin: 0 0 16px 0;
+  padding: 0 0 13px 0;
+  border-bottom: 1px solid rgba(var(--ane-warna-utama-rgb), 0.16);
+}
+.right-sidebar .ane-sidebar h2.widget-title::before,
+.right-sidebar .ane-sidebar .wp-block-heading::before,
+.right-sidebar .ane-sidebar .wp-block-search__label::before {
+  content: "";
+  flex: 0 0 5px;
+  width: 5px;
+  height: 18px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, var(--ane-warna-utama) 0%, var(--ane-warna-utama-2) 100%);
+}
+.right-sidebar .ane-sidebar p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: rgba(var(--ane-warna-text-rgb), 0.85);
+  margin-bottom: 12px;
+}
+.right-sidebar .ane-sidebar p:last-child {
+  margin-bottom: 0;
 }
 .right-sidebar .ane-sidebar a {
-  color: var(--ane-warna-terang);
+  color: var(--ane-warna-gelap);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 .right-sidebar .ane-sidebar a:hover {
-  color: var(--ane-warna-gelap);
+  color: var(--ane-warna-utama);
 }
-.right-sidebar .ane-sidebar h2.widget-title {
-  font-size: 25px;
-  margin-bottom: 15px;
-  color: var(--ane-warna-gelap);
-}
-.right-sidebar .ane-sidebar ul {
+
+/* Unified Listing: Post Terbaru, Komentar, Kategori, Arsip, Meta, Halaman, Menu */
+.right-sidebar .ane-sidebar ul,
+.right-sidebar .ane-sidebar ol.wp-block-latest-comments {
+  list-style: none;
   padding: 0;
   margin: 0;
 }
-.right-sidebar .ane-sidebar ul li {
-  font-size: 18px;
-  list-style: none;
+.right-sidebar .ane-sidebar ul li,
+.right-sidebar .ane-sidebar ol.wp-block-latest-comments li {
   position: relative;
-  line-height: 1.7rem;
-  padding-left: 20px;
-  padding-bottom: 8px;
+  list-style: none;
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: rgba(var(--ane-warna-text-rgb), 0.82);
+  padding: 10px 0 10px 18px;
+  margin: 0;
+  border-bottom: 1px dashed rgba(var(--ane-warna-utama-rgb), 0.18);
 }
-.right-sidebar .ane-sidebar ul li a {
-  color: var(--ane-warna-terang);
+.right-sidebar .ane-sidebar ul li:first-child,
+.right-sidebar .ane-sidebar ol.wp-block-latest-comments li:first-child {
+  padding-top: 2px;
 }
-.right-sidebar .ane-sidebar ul li a:hover {
-  color: var(--ane-warna-gelap);
-}
-.right-sidebar .ane-sidebar ul li:before {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  top: 0;
-  content: "\203A";
-  font-size: 16px;
-  line-height: 1.55rem;
-  color: var(--ane-warna-terang);
-  font-weight: 700;
-}
-.right-sidebar .ane-sidebar ul li.cat-item {
-  padding: 10px 0 10px 0;
-  border-bottom: 1px solid rgba(var(--ane-warna-putih-rgb), 0.2);
-}
-.right-sidebar .ane-sidebar ul li.cat-item:before {
-  content: "";
-}
-.right-sidebar .ane-sidebar ul li.cat-item:last-child {
+.right-sidebar .ane-sidebar ul li:last-child,
+.right-sidebar .ane-sidebar ol.wp-block-latest-comments li:last-child {
+  padding-bottom: 0;
   border-bottom: 0;
 }
-.right-sidebar .ane-sidebar .tagcloud a {
-  background-color: rgba(var(--ane-warna-putih-rgb), 0.5);
+.right-sidebar .ane-sidebar ul li::before,
+.right-sidebar .ane-sidebar ol.wp-block-latest-comments li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ane-warna-utama);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.right-sidebar .ane-sidebar ul li:first-child::before,
+.right-sidebar .ane-sidebar ol.wp-block-latest-comments li:first-child::before {
+  top: 10px;
+}
+.right-sidebar .ane-sidebar ul li:hover::before,
+.right-sidebar .ane-sidebar ol.wp-block-latest-comments li:hover::before {
+  transform: scale(1.3);
+  background: var(--ane-warna-utama-2);
+}
+.right-sidebar .ane-sidebar ul li a,
+.right-sidebar .ane-sidebar ol.wp-block-latest-comments li a {
+  font-weight: 600;
   color: var(--ane-warna-gelap);
-  font-size: 14px !important;
-  border-radius: 4px;
-  padding: 5px 10px;
-  margin-bottom: 5px;
-  display: inline-block;
-  text-transform: capitalize;
-  transition: all 0.8s ease-in;
+  display: inline;
 }
-.right-sidebar .ane-sidebar .tagcloud a:before {
-  content: "#";
+.right-sidebar .ane-sidebar ul li a:hover,
+.right-sidebar .ane-sidebar ol.wp-block-latest-comments li a:hover {
+  color: var(--ane-warna-utama);
 }
-.right-sidebar .ane-sidebar .tagcloud a:hover {
+.right-sidebar .ane-sidebar ul ul.children,
+.right-sidebar .ane-sidebar ul ul.sub-menu {
+  margin-top: 8px;
+  padding-left: 10px;
+  border-left: 2px solid rgba(var(--ane-warna-utama-rgb), 0.18);
+}
+.right-sidebar .ane-sidebar ul ul.children li,
+.right-sidebar .ane-sidebar ul ul.sub-menu li {
+  font-size: 13.5px;
+  padding: 6px 0 6px 14px;
+  border-bottom: 0;
+}
+.right-sidebar .ane-sidebar ul ul.children li::before,
+.right-sidebar .ane-sidebar ul ul.sub-menu li::before {
+  top: 13px;
+  width: 5px;
+  height: 5px;
+  background: rgba(var(--ane-warna-utama-rgb), 0.65);
+}
+
+/* Post Terbaru & RSS Date / Summary */
+.right-sidebar .ane-sidebar .post-date,
+.right-sidebar .ane-sidebar .wp-block-latest-posts__post-date,
+.right-sidebar .ane-sidebar .rss-date,
+.right-sidebar .ane-sidebar .wp-block-latest-comments__comment-date {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(var(--ane-warna-text-rgb), 0.62);
+  margin-top: 3px;
+}
+.right-sidebar .ane-sidebar .rssSummary {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(var(--ane-warna-text-rgb), 0.78);
+  margin-top: 6px;
+}
+.right-sidebar .ane-sidebar .wp-block-latest-posts__featured-image {
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.right-sidebar .ane-sidebar .wp-block-latest-posts__featured-image img {
+  border-radius: 10px;
+  display: block;
+}
+
+/* Komentar Terbaru */
+.right-sidebar .ane-sidebar .recentcomments .comment-author-link,
+.right-sidebar .ane-sidebar .wp-block-latest-comments__comment-meta {
+  font-weight: 600;
+  color: var(--ane-warna-utama);
+}
+
+/* Search Widget (Classic & Block) */
+.right-sidebar .ane-sidebar .search-form,
+.right-sidebar .ane-sidebar .wp-block-search__inside-wrapper {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(var(--ane-warna-utama-rgb), 0.28);
+  background: var(--ane-warna-terang);
+  overflow: hidden;
+  padding: 0;
+}
+.right-sidebar .ane-sidebar .search-form .form-control,
+.right-sidebar .ane-sidebar .wp-block-search__input {
+  flex: 1 1 auto;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 11px 14px;
+  font-size: 14px;
+  color: var(--ane-warna-gelap);
+  outline: none;
+  box-shadow: none;
+}
+.right-sidebar .ane-sidebar .search-form .gradient,
+.right-sidebar .ane-sidebar .wp-block-search__button {
+  position: relative;
+  width: auto;
+  min-width: 46px;
+  height: auto;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(135deg, var(--ane-warna-utama) 0%, var(--ane-warna-utama-2) 100%);
   color: var(--ane-warna-putih);
-  background-color: var(--ane-warna-utama);
+  font-size: 13.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0;
+  transition: opacity 0.2s ease;
+}
+.right-sidebar .ane-sidebar .search-form .gradient:hover,
+.right-sidebar .ane-sidebar .wp-block-search__button:hover {
+  opacity: 0.92;
+  color: var(--ane-warna-putih);
+}
+
+/* Dropdown Select (Kategori / Arsip Dropdown) */
+.right-sidebar .ane-sidebar select {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ane-warna-gelap);
+  background-color: var(--ane-warna-terang);
+  background-image: none;
+  border: 1px solid rgba(var(--ane-warna-utama-rgb), 0.26);
+  border-radius: 12px;
+  outline: none;
+}
+
+/* Tag Cloud (Classic & Block) */
+.right-sidebar .ane-sidebar .tagcloud,
+.right-sidebar .ane-sidebar .wp-block-tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+.right-sidebar .ane-sidebar .tagcloud a,
+.right-sidebar .ane-sidebar .wp-block-tag-cloud a {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--ane-warna-terang);
+  border: 1px solid rgba(var(--ane-warna-utama-rgb), 0.2);
+  color: var(--ane-warna-gelap);
+  font-size: 12.5px !important;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 999px;
+  padding: 6px 13px;
+  margin: 0;
+  text-transform: capitalize;
+  transition: all 0.22s ease;
+}
+.right-sidebar .ane-sidebar .tagcloud a::before,
+.right-sidebar .ane-sidebar .wp-block-tag-cloud a::before {
+  content: "#";
+  color: var(--ane-warna-utama);
+  margin-right: 2px;
+  font-weight: 700;
+}
+.right-sidebar .ane-sidebar .tagcloud a:hover,
+.right-sidebar .ane-sidebar .wp-block-tag-cloud a:hover {
+  color: var(--ane-warna-putih);
+  background: linear-gradient(135deg, var(--ane-warna-utama) 0%, var(--ane-warna-utama-2) 100%);
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+.right-sidebar .ane-sidebar .tagcloud a:hover::before,
+.right-sidebar .ane-sidebar .wp-block-tag-cloud a:hover::before {
+  color: var(--ane-warna-putih);
+}
+
+/* Media Blocks: Image, Gallery, YouTube / Video Embed */
+.right-sidebar .ane-sidebar img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  display: block;
+}
+.right-sidebar .ane-sidebar .wp-block-image,
+.right-sidebar .ane-sidebar .widget_media_image {
+  margin-bottom: 0;
+}
+.right-sidebar .ane-sidebar .wp-caption,
+.right-sidebar .ane-sidebar figure {
+  margin: 0;
+  max-width: 100%;
+}
+.right-sidebar .ane-sidebar .wp-caption-text,
+.right-sidebar .ane-sidebar figcaption {
+  font-size: 12px;
+  color: rgba(var(--ane-warna-text-rgb), 0.68);
+  text-align: center;
+  padding-top: 8px;
+  margin: 0;
+}
+.right-sidebar .ane-sidebar .gallery,
+.right-sidebar .ane-sidebar .wp-block-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0;
+}
+.right-sidebar .ane-sidebar .gallery .gallery-item,
+.right-sidebar .ane-sidebar .wp-block-gallery .blocks-gallery-item,
+.right-sidebar .ane-sidebar .wp-block-gallery .wp-block-image {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border: 0;
+}
+.right-sidebar .ane-sidebar .gallery .gallery-item::before,
+.right-sidebar .ane-sidebar .wp-block-gallery .blocks-gallery-item::before {
+  display: none;
+}
+.right-sidebar .ane-sidebar .gallery .gallery-icon img,
+.right-sidebar .ane-sidebar .wp-block-gallery img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.right-sidebar .ane-sidebar .wp-block-embed,
+.right-sidebar .ane-sidebar .wp-block-video,
+.right-sidebar .ane-sidebar .widget_media_video {
+  margin: 0;
+}
+.right-sidebar .ane-sidebar .wp-block-embed__wrapper,
+.right-sidebar .ane-sidebar iframe,
+.right-sidebar .ane-sidebar video {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  display: block;
+}
+
+/* Kalender Widget */
+.right-sidebar .ane-sidebar .calendar_wrap,
+.right-sidebar .ane-sidebar .wp-block-calendar {
+  width: 100%;
+  overflow-x: auto;
+}
+.right-sidebar .ane-sidebar #wp-calendar,
+.right-sidebar .ane-sidebar .wp-calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: center;
+}
+.right-sidebar .ane-sidebar #wp-calendar caption,
+.right-sidebar .ane-sidebar .wp-calendar-table caption {
+  caption-side: top;
+  font-weight: 700;
+  color: var(--ane-warna-gelap);
+  padding-bottom: 8px;
+  text-align: center;
+}
+.right-sidebar .ane-sidebar #wp-calendar th,
+.right-sidebar .ane-sidebar .wp-calendar-table th {
+  padding: 6px 4px;
+  background: var(--ane-warna-terang);
+  color: var(--ane-warna-gelap);
+  font-weight: 700;
+}
+.right-sidebar .ane-sidebar #wp-calendar td,
+.right-sidebar .ane-sidebar .wp-calendar-table td {
+  padding: 6px 4px;
+  border: 1px solid rgba(var(--ane-warna-utama-rgb), 0.14);
+}
+.right-sidebar .ane-sidebar #wp-calendar td#today,
+.right-sidebar .ane-sidebar .wp-calendar-table td#today {
+  background: var(--ane-warna-utama);
+  color: var(--ane-warna-putih);
+  font-weight: 700;
+  border-radius: 6px;
 }
 .right-sidebar .ane-sidebar .screen-reader-text {
   display: none;
+}
+@media (max-width: 767px) {
+  .right-sidebar {
+    gap: 16px;
+    margin-top: 20px;
+    padding: 0 15px;
+  }
+  .right-sidebar .ane-sidebar {
+    padding: 20px 18px;
+    border-radius: 16px;
+  }
 }
 
 /* 1. Default: Modern Editorial Card (.ane-konten-testimoni / .testi-style-modern) */
