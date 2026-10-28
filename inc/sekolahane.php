@@ -1165,19 +1165,35 @@ function sekolahane_admin_brand_styles() {
 		#adminmenu {
 			background: var(--ane-admin-dark) !important;
 		}
-		#adminmenu .wp-submenu {
-			background: rgba(0, 0, 0, 0.28) !important;
+		#adminmenu .wp-submenu,
+		#adminmenu .wp-has-current-submenu .wp-submenu,
+		#adminmenu .wp-has-current-submenu.opensub .wp-submenu,
+		.folded #adminmenu .wp-has-current-submenu .wp-submenu {
+			background: var(--ane-admin-dark) !important;
+			border-left: 1px solid rgba(255, 255, 255, 0.08);
+			box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 		}
-		#adminmenu a {
-			color: rgba(255, 255, 255, 0.86);
+		#adminmenu li.wp-has-current-submenu .wp-submenu {
+			border-left: 0;
+			box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.25);
+		}
+		#adminmenu a,
+		#adminmenu .wp-submenu a {
+			color: rgba(255, 255, 255, 0.92) !important;
+		}
+		#adminmenu .wp-submenu .wp-submenu-head {
+			background: var(--ane-admin-dark) !important;
+			color: var(--ane-admin-primary2) !important;
+			font-weight: 700;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 		}
 		#adminmenu div.wp-menu-image:before {
-			color: rgba(255, 255, 255, 0.72);
+			color: rgba(255, 255, 255, 0.8);
 		}
 		#adminmenu li.menu-top:hover,
 		#adminmenu li.opensub > a.menu-top,
 		#adminmenu li > a.menu-top:focus {
-			background: rgba(255, 255, 255, 0.07) !important;
+			background: var(--ane-admin-dark) !important;
 			color: var(--ane-admin-primary2) !important;
 		}
 		#adminmenu li.menu-top:hover div.wp-menu-image:before,
@@ -1195,10 +1211,15 @@ function sekolahane_admin_brand_styles() {
 		#adminmenu li.wp-has-current-submenu div.wp-menu-image:before {
 			color: #ffffff !important;
 		}
+		#adminmenu .wp-submenu li:hover,
+		#adminmenu .wp-submenu li.current {
+			background: rgba(255, 255, 255, 0.08) !important;
+		}
 		#adminmenu .wp-submenu a:hover,
 		#adminmenu .wp-submenu li.current a,
 		#adminmenu .wp-submenu li.current a:hover {
 			color: var(--ane-admin-primary2) !important;
+			font-weight: 600;
 		}
 		#wpadminbar .ab-top-menu > li.hover > .ab-item,
 		#wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
