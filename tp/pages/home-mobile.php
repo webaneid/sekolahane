@@ -35,6 +35,9 @@ defined( 'ABSPATH' ) || exit;
 					elseif( get_row_layout() == 'home_funfact' ):
 					get_template_part('tp/section/funfact');
 
+					elseif( get_row_layout() == 'home_general_info' ):
+					get_template_part('tp/section/general-info');
+
 				    endif;
 				endwhile;
 			endif;

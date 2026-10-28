@@ -2878,6 +2878,297 @@
                         ],
                         "min": "",
                         "max": ""
+                    },
+                    "layout_sekolahane_ginfo_home": {
+                        "key": "layout_sekolahane_ginfo_home",
+                        "name": "home_general_info",
+                        "label": "8. General Info",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_sekolahane_ginfo_layout_home",
+                                "label": "Desain Tata Letak",
+                                "name": "sekolahane_ginfo_layout",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tata letak section: Default (Gambar di Kiri), Gambar di Kanan, atau Gambar di Tengah (3 Kolom seperti showcase).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "40",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "left": "Default (Gambar Kiri)",
+                                    "right": "Gambar di Kanan",
+                                    "center": "Gambar di Tengah (3 Kolom)"
+                                },
+                                "default_value": "left",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_style_home",
+                                "label": "Gaya Warna Section",
+                                "name": "sekolahane_ginfo_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih skema warna section mengikuti warna brand.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "35",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "putih": "Putih Bersih",
+                                    "terang": "Terang (Soft Brand)",
+                                    "gelap": "Gelap (Dark Brand)"
+                                },
+                                "default_value": "putih",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_margin_home",
+                                "label": "Margin Bawah",
+                                "name": "sekolahane_ginfo_margin",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Jarak bawah section.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "25",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Pakai Margin",
+                                    "no": "Tanpa Margin"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_img_home",
+                                "label": "Foto Utama (Rasio 3:4)",
+                                "name": "sekolahane_ginfo_image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "Unggah foto utama section (otomatis ditampilkan dalam rasio potret 3:4 seukuran Instagram dengan sudut membulat cantik).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "35",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "url",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_title_home",
+                                "label": "Judul Utama (Title)",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Judul utama section. Gunakan tag <span>...</span> untuk memberi aksen warna utama.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "65",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Contoh: Mengapa Memilih <span>Sekolah Kami?</span>",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_desc_home",
+                                "label": "Deskripsi (Text)",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "textarea",
+                                "instructions": "Penjelasan atau deskripsi singkat.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "65",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 3,
+                                "new_lines": "br"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_link_home",
+                                "label": "Tombol CTA / Link Halaman (Opsional)",
+                                "name": "ane_link",
+                                "aria-label": "",
+                                "type": "link",
+                                "instructions": "Pilih halaman atau masukkan URL jika ingin menampilkan tombol ajakan (kosongkan jika tidak diperlukan).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "35",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_items_home",
+                                "label": "Daftar Poin / Listing (Opsional)",
+                                "name": "sekolahane_ginfo_items",
+                                "aria-label": "",
+                                "type": "repeater",
+                                "instructions": "Tambahkan daftar poin keunggulan/informasi. Catatan: Untuk desain Gambar di Tengah (3 Kolom), maksimal 4 item yang ditampilkan (2 di kiri, 2 di kanan).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 8,
+                                "layout": "block",
+                                "button_label": "Tambah Item Listing",
+                                "rows_per_page": 20,
+                                "sub_fields": [
+                                    {
+                                        "key": "field_sekolahane_ginfo_icon_type_home",
+                                        "label": "Pilihan Icon",
+                                        "name": "sekolahane_icon_type",
+                                        "aria-label": "",
+                                        "type": "select",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "22",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "choices": {
+                                            "check": "SVG Checklist",
+                                            "star": "SVG Bintang",
+                                            "shield": "SVG Perisai",
+                                            "number": "Nomor Urut (01, 02...)",
+                                            "custom": "Upload Custom SVG"
+                                        },
+                                        "default_value": "check",
+                                        "return_format": "value",
+                                        "multiple": 0,
+                                        "allow_null": 0,
+                                        "ui": 0,
+                                        "ajax": 0,
+                                        "placeholder": "",
+                                        "parent_repeater": "field_sekolahane_ginfo_items_home"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_ginfo_svg_home",
+                                        "label": "Upload Custom SVG / Icon",
+                                        "name": "sekolahane_custom_svg",
+                                        "aria-label": "",
+                                        "type": "image",
+                                        "instructions": "Unggah file .svg atau gambar icon.",
+                                        "required": 0,
+                                        "conditional_logic": [
+                                            [
+                                                {
+                                                    "field": "field_sekolahane_ginfo_icon_type_home",
+                                                    "operator": "==",
+                                                    "value": "custom"
+                                                }
+                                            ]
+                                        ],
+                                        "wrapper": {
+                                            "width": "20",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "url",
+                                        "preview_size": "thumbnail",
+                                        "library": "all",
+                                        "min_width": "",
+                                        "min_height": "",
+                                        "min_size": "",
+                                        "max_width": "",
+                                        "max_height": "",
+                                        "max_size": "",
+                                        "mime_types": "svg,png,webp",
+                                        "parent_repeater": "field_sekolahane_ginfo_items_home"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_ginfo_ititle_home",
+                                        "label": "Judul Listing",
+                                        "name": "sekolahane_item_title",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "28",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Contoh: Kurikulum Terpadu",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_sekolahane_ginfo_items_home"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_ginfo_idesc_home",
+                                        "label": "Deskripsi Listing",
+                                        "name": "sekolahane_item_desc",
+                                        "aria-label": "",
+                                        "type": "textarea",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "30",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Penjelasan singkat poin ini...",
+                                        "maxlength": "",
+                                        "rows": 2,
+                                        "new_lines": "",
+                                        "parent_repeater": "field_sekolahane_ginfo_items_home"
+                                    }
+                                ]
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
                     }
                 },
                 "button_label": "Tambah Blok Baru",
@@ -2906,7 +3197,7 @@
         "display_title": "",
         "allow_ai_access": false,
         "ai_description": "",
-        "modified": 1793215020
+        "modified": 1793216500
     },
     {
         "key": "group_618965e831bd4",
@@ -4001,6 +4292,297 @@
                         ],
                         "min": "",
                         "max": ""
+                    },
+                    "layout_sekolahane_ginfo_profil": {
+                        "key": "layout_sekolahane_ginfo_profil",
+                        "name": "home_general_info",
+                        "label": "7. General Info",
+                        "display": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_sekolahane_ginfo_layout_profil",
+                                "label": "Desain Tata Letak",
+                                "name": "sekolahane_ginfo_layout",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih tata letak section: Default (Gambar di Kiri), Gambar di Kanan, atau Gambar di Tengah (3 Kolom seperti showcase).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "40",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "left": "Default (Gambar Kiri)",
+                                    "right": "Gambar di Kanan",
+                                    "center": "Gambar di Tengah (3 Kolom)"
+                                },
+                                "default_value": "left",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_style_profil",
+                                "label": "Gaya Warna Section",
+                                "name": "sekolahane_ginfo_style",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Pilih skema warna section mengikuti warna brand.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "35",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "putih": "Putih Bersih",
+                                    "terang": "Terang (Soft Brand)",
+                                    "gelap": "Gelap (Dark Brand)"
+                                },
+                                "default_value": "putih",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_margin_profil",
+                                "label": "Margin Bawah",
+                                "name": "sekolahane_ginfo_margin",
+                                "aria-label": "",
+                                "type": "button_group",
+                                "instructions": "Jarak bawah section.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "25",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "choices": {
+                                    "yes": "Pakai Margin",
+                                    "no": "Tanpa Margin"
+                                },
+                                "default_value": "yes",
+                                "return_format": "value",
+                                "allow_null": 0,
+                                "layout": "horizontal"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_img_profil",
+                                "label": "Foto Utama (Rasio 3:4)",
+                                "name": "sekolahane_ginfo_image",
+                                "aria-label": "",
+                                "type": "image",
+                                "instructions": "Unggah foto utama section (otomatis ditampilkan dalam rasio potret 3:4 seukuran Instagram dengan sudut membulat cantik).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "35",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "url",
+                                "preview_size": "medium",
+                                "library": "all",
+                                "min_width": "",
+                                "min_height": "",
+                                "min_size": "",
+                                "max_width": "",
+                                "max_height": "",
+                                "max_size": "",
+                                "mime_types": ""
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_title_profil",
+                                "label": "Judul Utama (Title)",
+                                "name": "ane_title",
+                                "aria-label": "",
+                                "type": "text",
+                                "instructions": "Judul utama section. Gunakan tag <span>...</span> untuk memberi aksen warna utama.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "65",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "Contoh: Mengapa Memilih <span>Sekolah Kami?</span>",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_desc_profil",
+                                "label": "Deskripsi (Text)",
+                                "name": "ane_deskripsi",
+                                "aria-label": "",
+                                "type": "textarea",
+                                "instructions": "Penjelasan atau deskripsi singkat.",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "65",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "maxlength": "",
+                                "rows": 3,
+                                "new_lines": "br"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_link_profil",
+                                "label": "Tombol CTA / Link Halaman (Opsional)",
+                                "name": "ane_link",
+                                "aria-label": "",
+                                "type": "link",
+                                "instructions": "Pilih halaman atau masukkan URL jika ingin menampilkan tombol ajakan (kosongkan jika tidak diperlukan).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "35",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "return_format": "array"
+                            },
+                            {
+                                "key": "field_sekolahane_ginfo_items_profil",
+                                "label": "Daftar Poin / Listing (Opsional)",
+                                "name": "sekolahane_ginfo_items",
+                                "aria-label": "",
+                                "type": "repeater",
+                                "instructions": "Tambahkan daftar poin keunggulan/informasi. Catatan: Untuk desain Gambar di Tengah (3 Kolom), maksimal 4 item yang ditampilkan (2 di kiri, 2 di kanan).",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "collapsed": "",
+                                "min": 0,
+                                "max": 8,
+                                "layout": "block",
+                                "button_label": "Tambah Item Listing",
+                                "rows_per_page": 20,
+                                "sub_fields": [
+                                    {
+                                        "key": "field_sekolahane_ginfo_icon_type_profil",
+                                        "label": "Pilihan Icon",
+                                        "name": "sekolahane_icon_type",
+                                        "aria-label": "",
+                                        "type": "select",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "22",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "choices": {
+                                            "check": "SVG Checklist",
+                                            "star": "SVG Bintang",
+                                            "shield": "SVG Perisai",
+                                            "number": "Nomor Urut (01, 02...)",
+                                            "custom": "Upload Custom SVG"
+                                        },
+                                        "default_value": "check",
+                                        "return_format": "value",
+                                        "multiple": 0,
+                                        "allow_null": 0,
+                                        "ui": 0,
+                                        "ajax": 0,
+                                        "placeholder": "",
+                                        "parent_repeater": "field_sekolahane_ginfo_items_profil"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_ginfo_svg_profil",
+                                        "label": "Upload Custom SVG / Icon",
+                                        "name": "sekolahane_custom_svg",
+                                        "aria-label": "",
+                                        "type": "image",
+                                        "instructions": "Unggah file .svg atau gambar icon.",
+                                        "required": 0,
+                                        "conditional_logic": [
+                                            [
+                                                {
+                                                    "field": "field_sekolahane_ginfo_icon_type_profil",
+                                                    "operator": "==",
+                                                    "value": "custom"
+                                                }
+                                            ]
+                                        ],
+                                        "wrapper": {
+                                            "width": "20",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "return_format": "url",
+                                        "preview_size": "thumbnail",
+                                        "library": "all",
+                                        "min_width": "",
+                                        "min_height": "",
+                                        "min_size": "",
+                                        "max_width": "",
+                                        "max_height": "",
+                                        "max_size": "",
+                                        "mime_types": "svg,png,webp",
+                                        "parent_repeater": "field_sekolahane_ginfo_items_profil"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_ginfo_ititle_profil",
+                                        "label": "Judul Listing",
+                                        "name": "sekolahane_item_title",
+                                        "aria-label": "",
+                                        "type": "text",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "28",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Contoh: Kurikulum Terpadu",
+                                        "prepend": "",
+                                        "append": "",
+                                        "maxlength": "",
+                                        "parent_repeater": "field_sekolahane_ginfo_items_profil"
+                                    },
+                                    {
+                                        "key": "field_sekolahane_ginfo_idesc_profil",
+                                        "label": "Deskripsi Listing",
+                                        "name": "sekolahane_item_desc",
+                                        "aria-label": "",
+                                        "type": "textarea",
+                                        "instructions": "",
+                                        "required": 0,
+                                        "conditional_logic": 0,
+                                        "wrapper": {
+                                            "width": "30",
+                                            "class": "",
+                                            "id": ""
+                                        },
+                                        "default_value": "",
+                                        "placeholder": "Penjelasan singkat poin ini...",
+                                        "maxlength": "",
+                                        "rows": 2,
+                                        "new_lines": "",
+                                        "parent_repeater": "field_sekolahane_ginfo_items_profil"
+                                    }
+                                ]
+                            }
+                        ],
+                        "min": "",
+                        "max": ""
                     }
                 },
                 "button_label": "Tambah Blok Baru",
@@ -4029,7 +4611,7 @@
         "display_title": "",
         "allow_ai_access": false,
         "ai_description": "",
-        "modified": 1793215020
+        "modified": 1793216500
     },
     {
         "key": "group_5e3f0c06ee00f",

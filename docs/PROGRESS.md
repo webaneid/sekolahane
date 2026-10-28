@@ -38,3 +38,4 @@
 | 30 | Redesign Section Hero Mobile: Rasio 16:9, Padding 15px, Border-Radius 16px, & Tanpa Masking Putih (`css/main.css`) | Done | `phases/phase-30-redesign-hero-mobile-16-9.md` |
 | 31 | Pembersihan Total Sisa Warna Hardcoded ke CSS Variables (`:root`) pada Section Landing Page & Komponen (`css/main.css`) | Done | `phases/phase-31-pembersihan-sisa-warna-hardcode-css.md` |
 | 32 | Section Baru Landing Page: `section-funfact` (ACF Flexible Content, Repeater 4 Item, 3 Varian Warna Brand, & 2 Kolom Mobile) | Done | `phases/phase-32-section-funfact-landingpage.md` |
+| 33 | Section Baru Landing Page: `section-general-info` (Foto 3:4, 3 Desain Layout, Repeater Listing + Upload SVG Aman, & CTA Link) | Done | `phases/phase-33-section-general-info-dan-svg-upload.md` |

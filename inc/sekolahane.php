@@ -192,6 +192,7 @@ function sekolahane_icon( $name ) {
 		'chevron-left'        => '<path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>',
 		'chevron-right'       => '<path d="M8.59 16.59 10 18l6-6-6-6-1.41 1.41L13.17 12z"/>',
 		'calendar'            => '<path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/>',
+		'shield'              => '<path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>',
 	);
 
 	if ( ! isset( $paths[ $raw_name ] ) ) {
@@ -233,6 +234,94 @@ function sekolahane_allow_svg_in_kses( $tags, $context ) {
 	return $tags;
 }
 add_filter( 'wp_kses_allowed_html', 'sekolahane_allow_svg_in_kses', 10, 2 );
+
+/**
+ * Izinkan upload file SVG (image/svg+xml) di Media Library untuk user yang berhak.
+ *
+ * @param array<string, string> $mimes Daftar ekstensi dan MIME type yang diizinkan.
+ * @return array<string, string>
+ */
+function sekolahane_allow_svg_upload_mimes( $mimes ) {
+	if ( current_user_can( 'upload_files' ) ) {
+		$mimes['svg']  = 'image/svg+xml';
+		$mimes['svgz'] = 'image/svg+xml';
+	}
+	return $mimes;
+}
+add_filter( 'upload_mimes', 'sekolahane_allow_svg_upload_mimes' );
+
+/**
+ * Pastikan pengecekan ekstensi dan MIME type WordPress mengenali file .svg secara konsisten.
+ *
+ * @param array<string, mixed> $data     Hasil deteksi ext, type, dan proper_filename.
+ * @param string               $file     Path lengkap ke file sementara.
+ * @param string               $filename Nama file asli.
+ * @param string[]|null        $mimes    Daftar MIME yang diizinkan.
+ * @return array<string, mixed>
+ */
+function sekolahane_fix_svg_filetype_check( $data, $file, $filename, $mimes ) {
+	unset( $file, $mimes );
+	if ( ! empty( $data['ext'] ) && ! empty( $data['type'] ) ) {
+		return $data;
+	}
+
+	$ext = strtolower( (string) pathinfo( (string) $filename, PATHINFO_EXTENSION ) );
+	if ( 'svg' === $ext && current_user_can( 'upload_files' ) ) {
+		$data['ext']  = 'svg';
+		$data['type'] = 'image/svg+xml';
+	}
+
+	return $data;
+}
+add_filter( 'wp_check_filetype_and_ext', 'sekolahane_fix_svg_filetype_check', 10, 4 );
+
+/**
+ * Sanitasi file SVG yang diunggah sebelum disimpan ke Media Library untuk
+ * mencegah XSS (menghapus <script>, <foreignObject>, atribut on*, dan URI javascript:).
+ *
+ * @param array<string, mixed> $file Data file upload ($_FILES item).
+ * @return array<string, mixed>
+ */
+function sekolahane_sanitize_svg_upload( $file ) {
+	$name = isset( $file['name'] ) ? (string) $file['name'] : '';
+	$type = isset( $file['type'] ) ? (string) $file['type'] : '';
+	$ext  = strtolower( (string) pathinfo( $name, PATHINFO_EXTENSION ) );
+
+	if ( 'svg' !== $ext && 'image/svg+xml' !== $type ) {
+		return $file;
+	}
+
+	if ( ! current_user_can( 'upload_files' ) ) {
+		$file['error'] = __( 'Anda tidak memiliki izin untuk mengunggah file SVG.', 'sekolahane' );
+		return $file;
+	}
+
+	$tmp_name = isset( $file['tmp_name'] ) ? (string) $file['tmp_name'] : '';
+	if ( '' === $tmp_name || ! is_readable( $tmp_name ) ) {
+		return $file;
+	}
+
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+	$content = file_get_contents( $tmp_name );
+	if ( ! is_string( $content ) || '' === trim( $content ) || false === stripos( $content, '<svg' ) ) {
+		$file['error'] = __( 'File SVG tidak valid.', 'sekolahane' );
+		return $file;
+	}
+
+	// Bersihkan deklarasi DOCTYPE/ENTITY eksternal (XXE), tag berbahaya, event handler on*, dan javascript: URI.
+	$clean = (string) preg_replace( '/<!DOCTYPE[^>]*>/i', '', $content );
+	$clean = (string) preg_replace( '/<!ENTITY[^>]*>/i', '', $clean );
+	$clean = (string) preg_replace( '#<\s*(script|foreignObject|iframe|object|embed|applet)\b[^>]*>.*?<\s*/\s*\1\s*>#is', '', $clean );
+	$clean = (string) preg_replace( '#<\s*(script|foreignObject|iframe|object|embed|applet)\b[^>]*/?\s*>#is', '', $clean );
+	$clean = (string) preg_replace( '/\s+on[a-z]+\s*=\s*(?:"[^"]*"|\'[^\']*\'|[^\s>]+)/i', '', $clean );
+	$clean = (string) preg_replace( '/(href|xlink:href|src)\s*=\s*(?:"\s*(?:javascript|data):[^"]*"|\'\s*(?:javascript|data):[^\']*\')/i', '', $clean );
+
+	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+	file_put_contents( $tmp_name, $clean );
+
+	return $file;
+}
+add_filter( 'wp_handle_upload_prefilter', 'sekolahane_sanitize_svg_upload' );
 
 /**
  * Enqueue stylesheet dan script front-end theme.
