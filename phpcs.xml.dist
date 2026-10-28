@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="Webane WordPress Theme">
-	<description>Standar coding theme Webane (WPCS + kompatibilitas PHP 7.4+).</description>
+	<description>Standar coding theme Webane (WPCS + kompatibilitas PHP 8.0+).</description>
 
 	<file>.</file>
 	<exclude-pattern>/vendor/*</exclude-pattern>
@@ -13,7 +13,7 @@
 	<arg name="parallel" value="8"/>
 	<arg value="ps"/>
 
-	<config name="testVersion" value="7.4-"/>
+	<config name="testVersion" value="8.0-"/>
 	<config name="minimum_wp_version" value="6.0"/>
 
 	<rule ref="WordPress">

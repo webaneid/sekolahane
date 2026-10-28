@@ -9,7 +9,7 @@
 situs sekolah, madrasah, dan pesantren milik pelanggan Webane Indonesia.
 
 - **Versi saat ini:** `3.2.1`
-- **Target environment:** WordPress 6.0+, PHP 7.4+
+- **Target environment:** WordPress 6.0+, PHP 8.0+
 - **Hard dependency:** **ACF Pro** (Advanced Custom Fields Pro — repeater,
   flexible content, dan options page dipakai secara ekstensif di seluruh
   template).

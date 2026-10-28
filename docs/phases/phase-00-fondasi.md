@@ -38,7 +38,7 @@ dan pola updater jalawarta sebagai standar auto-update.
 - PHPCS memakai ruleset `WordPress` penuh, kecuali aturan nama file
   (template hierarchy) dan Yoda condition. Ditambah `composer lint:changed`
   (`bin/lint-changed.sh`) untuk mengecek hanya file yang disentuh di tiap fase.
-- `composer.json` mengunci `platform.php` 7.4 supaya dependensi dev tidak
+- `composer.json` mengunci `platform.php` 8.0 supaya dependensi dev tidak
   menarik paket yang butuh PHP lebih baru dari target theme.
 - `inc/Mobile_Detect.php` (library pihak ketiga) dikecualikan dari lint.
 

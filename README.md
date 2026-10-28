@@ -8,7 +8,7 @@ Onboarding singkat untuk developer manusia. Aturan kerja untuk AI agent ada di
 `AGENTS.md`; proses kerja di `docs/SOP.md`.
 
 ## Kebutuhan
-- WordPress 6.0+, PHP 7.4+
+- WordPress 6.0+, PHP 8.0+
 - Plugin **ACF Pro** (wajib)
 - Dev: PHP + Composer (mis. via Laravel Herd), Git
 

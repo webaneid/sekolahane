@@ -189,7 +189,7 @@ function sekolahane_updater_info( $result, $action, $args ) {
 		'homepage'      => $theme->get( 'ThemeURI' ),
 		'requires'      => '6.0',
 		'tested'        => '6.7',
-		'requires_php'  => '7.4',
+		'requires_php'  => '8.0',
 		'downloaded'    => 0,
 		'last_updated'  => $release['published'],
 		'sections'      => array(

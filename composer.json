@@ -4,7 +4,7 @@
     "type": "wordpress-theme",
     "license": "proprietary",
     "require": {
-        "php": ">=7.4"
+        "php": ">=8.0"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
@@ -19,7 +19,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "platform": {
-            "php": "7.4.33"
+            "php": "8.0.30"
         },
         "sort-packages": true
     },

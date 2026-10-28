@@ -61,6 +61,12 @@ composer lint        # php -l + PHPCS (WordPress Coding Standards)
 composer analyse     # PHPStan
 composer css:check   # Compile css/main.css -> css/main.min.css + audit 0 dead CSS
 ```
+- Tidak ada test suite otomatis; verifikasi = tiga perintah di atas + cek manual.
+- Tambahan: `composer lint:changed` (PHPCS hanya file yang berubah vs `main`),
+  `composer lint:fix` (phpcbf), `composer security:scan`, `composer dist:check`
+  (ZIP rilis bersih dari .md/docs/tooling dev).
+- Target runtime **PHP 8.0+** (`composer.json` platform 8.0.30). Fitur 8.1+
+  (enum, readonly, `never`, first-class callable) jangan dipakai.
 - File yang DIUBAH/DIBUAT di task ini wajib lolos ketiganya.
 - Setiap perubahan tampilan/redesign: **utamakan pakai class grid/utility yang sudah ada**, ganti langsung pada blok bagian `[01]`–`[12]` di `css/main.css` (jangan menumpuk override di bawah), dan **wajib hapus CSS class lama yang tidak lagi dipakai** (`composer css:check` wajib `0 dead CSS rules`).
 - Kode lama yang belum disentuh boleh masih melanggar (dicatat di baseline),

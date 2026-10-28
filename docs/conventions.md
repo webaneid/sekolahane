@@ -6,8 +6,8 @@
   kurung `foo( $bar )`, Yoda condition tidak diwajibkan.
 - Prefix baru: fungsi/hook/option/transient `sekolahane_`, konstanta
   `SEKOLAHANE_`, class `Sekolahane_`.
-- Kompatibilitas: PHP **7.4+**, WordPress **6.0+**. Fitur PHP 8-only
-  (`str_contains`, `match`, named args) jangan dipakai kecuali ada polyfill WP.
+- Kompatibilitas: PHP **8.0+**, WordPress **6.0+**. Fitur PHP 8.0 (`match`,
+  named args, `str_contains`, nullsafe) boleh dipakai; fitur 8.1+ jangan.
 - Satu file `inc/` = satu area tanggung jawab (`inc/enqueue.php`,
   `inc/updater.php`, `inc/cpt-guru.php`, ...). Hindari file "serba ada".
 - Komentar boleh Bahasa Indonesia; docblock fungsi publik minimal berisi
