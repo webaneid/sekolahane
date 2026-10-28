@@ -36,6 +36,14 @@ berada di git; tidak ada riwayat perubahan, tidak bisa rollback, tidak ada CI.
 
 ---
 
+## 2026-10-29 — Notice `_load_textdomain_just_in_time` domain `acf`
+**Masalah:** `debug.log` menampilkan notice terjemahan domain `acf` dimuat terlalu dini (WP 6.7+).
+**Root cause:** `acf_add_options_page()` / `acf_add_options_sub_page()` dipanggil di scope file `inc/sekolahane.php`, sebelum `init`.
+**Fix:** Dibungkus `sekolahane_register_options_pages()` dan di-hook ke `acf/init`.
+**Pencegahan:** Fungsi ACF (`acf_add_*`, `get_field`) tidak boleh dipanggil di scope file; selalu lewat hook `acf/init` atau `init`+.
+
+---
+
 ## [Tanggal] — [Judul]
 **Masalah:**
 **Root cause:**
