@@ -34,3 +34,4 @@
 | 26 | Submenu Admin "Google & Tracking" (GTM, GA4, Search Console, Meta/FB Pixel, & TikTok Pixel) | Done | `phases/phase-26-submenu-integrasi-google-dan-pixel.md` |
 | 27 | Dinamisasi Warna Tema (`Warna Web`) via ACF Color Picker & CSS Custom Properties (`:root`) | Done | `phases/phase-27-dinamisasi-warna-acf-css-variables.md` |
 | 28 | Redesign Profesional Dashboard Admin, Branding Icon Webane (`img/admin-webane*.svg`), & Penghapusan Banner Lama | Done | `phases/phase-28-redesign-dashboard-admin-webane.md` |
+| 29 | Redesign Mobile Sliding App-Icons pada `.section-featured.featured-style-flat` (`tp/section/featured.php`, `css/main.css`) | Done | `phases/phase-29-mobile-sliding-icons-section-featured.md` |

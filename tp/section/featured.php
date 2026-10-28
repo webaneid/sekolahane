@@ -53,9 +53,15 @@ if ( have_rows( 'ane_featured' ) ) :
 					<li>
 						<div class="item">
 							<?php if ( '' !== $sekolahane_image ) : ?>
-								<div class="image">
-									<img src="<?php echo esc_url( $sekolahane_image ); ?>" alt="<?php echo esc_attr( $sekolahane_judul ); ?>" title="<?php echo esc_attr( $sekolahane_judul ); ?>">
-								</div>
+								<?php if ( '' !== $sekolahane_link_url ) : ?>
+									<a href="<?php echo esc_url( $sekolahane_link_url ); ?>" target="<?php echo esc_attr( $sekolahane_link_target ); ?>" class="image" aria-label="<?php echo esc_attr( $sekolahane_judul ); ?>">
+										<img src="<?php echo esc_url( $sekolahane_image ); ?>" alt="<?php echo esc_attr( $sekolahane_judul ); ?>" title="<?php echo esc_attr( $sekolahane_judul ); ?>">
+									</a>
+								<?php else : ?>
+									<div class="image">
+										<img src="<?php echo esc_url( $sekolahane_image ); ?>" alt="<?php echo esc_attr( $sekolahane_judul ); ?>" title="<?php echo esc_attr( $sekolahane_judul ); ?>">
+									</div>
+								<?php endif; ?>
 							<?php endif; ?>
 
 							<div class="content">
