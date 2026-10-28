@@ -427,9 +427,12 @@ add_filter( 'get_the_excerpt', 'change_excerpt' );
  * @return string
  */
 function webane_popup_gallery( $content ) {
+	if ( false !== strpos( $content, 'data-wp-interactive="core/image"' ) ) {
+		return $content;
+	}
 	global $post;
 	$post_title  = ( is_object( $post ) && isset( $post->post_title ) ) ? esc_attr( $post->post_title ) : '';
-	$pattern     = "/<a(.*?)href=('|\")(.*?).(bmp|gif|jpeg|jpg|png)('|\")(.*?)>/i";
+	$pattern     = "/<a(?![^>]*gallery-popup)(.*?)href=('|\")(.*?)\.(bmp|gif|jpeg|jpg|png|webp)('|\")(.*?)>/i";
 	$replacement = '<a$1href=$2$3.$4$5 class="gallery-popup" title="' . $post_title . '"$6>';
 	$replaced    = preg_replace( $pattern, $replacement, $content );
 

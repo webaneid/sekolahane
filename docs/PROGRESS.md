@@ -40,3 +40,4 @@
 | 32 | Section Baru Landing Page: `section-funfact` (ACF Flexible Content, Repeater 4 Item, 3 Varian Warna Brand, & 2 Kolom Mobile) | Done | `phases/phase-32-section-funfact-landingpage.md` |
 | 33 | Section Baru Landing Page: `section-general-info` (Foto 3:4, 3 Desain Layout, Repeater Listing + Upload SVG Aman, & CTA Link) | Done | `phases/phase-33-section-general-info-dan-svg-upload.md` |
 | 34 | Redesign Total Default Sidebar (`.right-sidebar`, `.ane-sidebar`, Listing & Media Blocks) + Harmonisasi Font `16px` | Done | `phases/phase-34-redesign-sidebar-dan-tipografi-16px.md` |
+| 35 | Redesign Total `.ane-content` (Body `the_content()`): Tipografi, Tabel Card Mobile, Quote, Embed 16:9, Gallery, Button, File Download & Accordion FAQ | Done | `phases/phase-35-redesign-ane-content-gutenberg.md` |

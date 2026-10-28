@@ -353,6 +353,63 @@
 			}
 		});
 
+		/* Responsive Table data-label & Interactive FAQ Accordion (.ane-content) */
+		if ($('.ane-content').length) {
+			$('.ane-content table').each(function () {
+				var $table = $(this);
+				var headers = [];
+				var $thList = $table.find('thead th');
+				if (!$thList.length) {
+					$thList = $table.find('tr:first-child th');
+				}
+				$thList.each(function () {
+					headers.push($.trim($(this).text()));
+				});
+				if (headers.length) {
+					$table.find('tbody tr').each(function () {
+						$(this)
+							.find('td')
+							.each(function (idx) {
+								if (headers[idx] && !$(this).attr('data-label')) {
+									$(this).attr('data-label', headers[idx]);
+								}
+							});
+					});
+				}
+			});
+
+			$('.ane-content .schema-faq-section').each(function (idx) {
+				var $section = $(this);
+				var $question = $section.find('.schema-faq-question').first();
+				var $answer = $section.children().not('.schema-faq-question');
+				if (!$question.length || !$answer.length) {
+					return;
+				}
+				$section.addClass('is-faq-ready');
+				$question.attr({
+					role: 'button',
+					tabindex: '0',
+					'aria-expanded': idx === 0 ? 'true' : 'false'
+				});
+				if (idx === 0) {
+					$section.addClass('is-open');
+					$answer.show();
+				} else {
+					$answer.hide();
+				}
+				$question.on('click keydown', function (e) {
+					if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') {
+						return;
+					}
+					e.preventDefault();
+					var isOpen = $section.hasClass('is-open');
+					$section.toggleClass('is-open', !isOpen);
+					$question.attr('aria-expanded', !isOpen ? 'true' : 'false');
+					$answer.stop(true, true).slideToggle(220);
+				});
+			});
+		}
+
 		/* Google Maps (.acf-map) */
 		if ($('.acf-map').length) {
 			$('.acf-map').each(function () {
