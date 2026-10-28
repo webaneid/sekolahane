@@ -2027,8 +2027,18 @@ function musi_increment_views() {
 add_action( 'wp_ajax_postviews', 'musi_increment_views' );
 add_action( 'wp_ajax_nopriv_postviews', 'musi_increment_views' );
 
-// Daftarkan halaman ACF Options.
-if ( function_exists( 'acf_add_options_page' ) ) {
+/**
+ * Daftarkan halaman ACF Options.
+ *
+ * Dipanggil lewat acf/init supaya terjemahan domain acf tidak dimuat sebelum init.
+ *
+ * @return void
+ */
+function sekolahane_register_options_pages() {
+	if ( ! function_exists( 'acf_add_options_page' ) ) {
+		return;
+	}
+
 	acf_add_options_page(
 		array(
 			'page_title' => 'Webane General Information',
@@ -2082,6 +2092,7 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 		)
 	);
 }
+add_action( 'acf/init', 'sekolahane_register_options_pages' );
 
 /**
  * Daftarkan field API Keys (Google Maps & Facebook App ID) di Webane Settings.
