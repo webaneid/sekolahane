@@ -5034,6 +5034,10 @@ select:after {
   line-height: 1.55;
   margin: 0;
 }
+.ane-content table thead,
+.ane-content table tfoot {
+  border: 0;
+}
 .ane-content table thead tr {
   background: linear-gradient(135deg, var(--ane-warna-utama) 0%, var(--ane-warna-utama-2) 100%);
   color: var(--ane-warna-putih);
@@ -5050,6 +5054,7 @@ select:after {
 .ane-content table td {
   padding: 13px 18px;
   color: var(--ane-warna-text);
+  border: 0;
   border-bottom: 1px solid rgba(var(--ane-warna-utama-rgb), 0.1);
   vertical-align: top;
 }
@@ -5095,7 +5100,7 @@ select:after {
     align-items: flex-start;
     gap: 12px;
     padding: 4px 0;
-    border-bottom: 0;
+    border: 0;
     font-size: 14.5px;
     text-align: right;
   }
