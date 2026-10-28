@@ -40,7 +40,7 @@ ALLOWED_DYNAMIC_CLASSES = {
     "wp-block-tag-cloud", "wp-block-calendar", "wp-block-video",
     "gallery", "gallery-item", "gallery-icon",
     "wp-block-separator", "wp-block-pullquote", "has-nested-images", "wp-embed-aspect-16-9", "is-type-video",
-    "wp-block-buttons", "wp-block-button", "is-style-outline", "wp-block-details", "schema-faq-answer",
+    "wp-block-buttons", "wp-block-button", "is-style-outline", "wp-block-details", "schema-faq-answer", "individual-image",
     "menu-item", "menu-item-has-children", "sub-menu", "current-menu-item", "page_item",
     "comment", "comment-list", "comment-body", "comment-meta", "comment-author", "comment-content",
     "comment-respond", "comment-form", "comment-reply-title", "comments-area", "children",

@@ -4960,6 +4960,15 @@ select:after {
   .ane-content .wp-block-gallery ul.blocks-gallery-grid {
     gap: 10px;
   }
+  .ane-content .wp-block-gallery.has-nested-images figure.wp-block-image:not(#individual-image),
+  .ane-content .wp-block-gallery ul.blocks-gallery-grid li.blocks-gallery-item {
+    width: calc(50% - 5px);
+    flex-grow: 0;
+  }
+  .ane-content .gallery .gallery-item {
+    width: 50% !important;
+    padding: 5px;
+  }
 }
 
 /* --- 9.6 Embeds: YouTube, Video & Social Media (.wp-block-embed, .wp-block-video) --- */
@@ -5059,15 +5068,9 @@ select:after {
 }
 @media (max-width: 767px) {
   .ane-content .wp-block-table {
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
     margin-bottom: 20px;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-    box-shadow: none;
-    overflow: visible;
+    border-radius: 14px;
+    overflow: hidden;
   }
   .ane-content table,
   .ane-content table tbody {
@@ -5077,37 +5080,24 @@ select:after {
   .ane-content table thead {
     display: none;
   }
-  .ane-content table tbody tr,
-  .ane-content table tbody tr:nth-of-type(even) {
+  .ane-content table tbody tr {
     display: block;
     width: 100%;
-    background-color: var(--ane-warna-putih);
-    border: 1px solid rgba(var(--ane-warna-utama-rgb), 0.18);
-    border-left: 4px solid var(--ane-warna-utama);
-    border-radius: 14px;
-    padding: 12px 16px;
-    margin-bottom: 12px;
-    box-shadow: 0 4px 14px rgba(var(--ane-warna-gelap-rgb), 0.04);
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(var(--ane-warna-utama-rgb), 0.14);
   }
   .ane-content table tbody tr:last-child {
-    margin-bottom: 0;
+    border-bottom: 0;
   }
   .ane-content table tbody td {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 12px;
-    padding: 8px 0;
-    border-bottom: 1px dashed rgba(var(--ane-warna-utama-rgb), 0.16);
+    padding: 4px 0;
+    border-bottom: 0;
     font-size: 14.5px;
     text-align: right;
-  }
-  .ane-content table tbody td:first-child {
-    padding-top: 2px;
-  }
-  .ane-content table tbody td:last-child {
-    border-bottom: 0;
-    padding-bottom: 2px;
   }
   .ane-content table tbody td[data-label]:before {
     content: attr(data-label);
