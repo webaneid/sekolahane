@@ -1028,75 +1028,655 @@ function panggil_breadcrumb() {
 }
 
 /**
- * Kustomisasi tampilan form login wp-login.php.
+ * Ambil palet warna brand aktif (gelap, utama, utama-2) untuk tampilan Admin & Login.
+ *
+ * @return array{dark: string, primary: string, primary2: string}
+ */
+function sekolahane_get_admin_brand_colors() {
+	$dark     = '#160e06';
+	$primary  = '#c98b49';
+	$primary2 = '#e7ad57';
+
+	if ( function_exists( 'get_field' ) ) {
+		$c_dark = sanitize_hex_color( trim( (string) get_field( 'ane-warna-gelap', 'option' ) ) );
+		$c_pri  = sanitize_hex_color( trim( (string) get_field( 'ane-warna-utama', 'option' ) ) );
+		$c_pri2 = sanitize_hex_color( trim( (string) get_field( 'ane-warna-utama-2', 'option' ) ) );
+
+		if ( is_string( $c_dark ) && '' !== $c_dark ) {
+			$dark = $c_dark;
+		}
+		if ( is_string( $c_pri ) && '' !== $c_pri ) {
+			$primary = $c_pri;
+		}
+		if ( is_string( $c_pri2 ) && '' !== $c_pri2 ) {
+			$primary2 = $c_pri2;
+		}
+	}
+
+	return array(
+		'dark'     => $dark,
+		'primary'  => $primary,
+		'primary2' => $primary2,
+	);
+}
+
+/**
+ * Kustomisasi tampilan form login wp-login.php dengan ikon Webane & warna brand.
  *
  * @return void
  */
 function webane_load_login_form_logo() {
+	$colors   = sekolahane_get_admin_brand_colors();
+	$logo_url = get_template_directory_uri() . '/img/admin-webane-white.svg';
 	?>
 	<style type="text/css">
-		.login {background: #73ab01;}
-		#login h1 a, .login h1 a {
-			background-image: url(https://4.bp.blogspot.com/-jF3KjigDQCY/W7-WgeouSoI/AAAAAAAAAYc/zLuvSenN5oI7fuC_TnDIf14n9FUW40tXwCLcBGAs/s1600/login.png);
+		body.login {
+			background: <?php echo esc_attr( $colors['dark'] ); ?>;
 		}
-		#login {
-			background-color: #fff;
-			width: 100%;
-			overflow: hidden;
-			-webkit-box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
-			box-shadow: 0 25px 70px rgba(0, 0, 0, 0.07);
+		#login h1 a, .login h1 a {
+			background-image: url('<?php echo esc_url( $logo_url ); ?>');
+			background-size: 76px 76px;
+			width: 76px;
+			height: 76px;
+			margin-bottom: 18px;
+		}
+		.login form {
+			background: #ffffff;
+			border: 0;
+			border-radius: 18px;
+			padding: 28px 26px;
+			box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+		}
+		.login label {
+			font-weight: 600;
+			color: <?php echo esc_attr( $colors['dark'] ); ?>;
+		}
+		.login input[type="text"],
+		.login input[type="password"] {
+			border: 1.5px solid #e5e0d8;
+			border-radius: 10px;
+			padding: 6px 12px;
+			background: #faf8f5;
+		}
+		.login input[type="text"]:focus,
+		.login input[type="password"]:focus {
+			border-color: <?php echo esc_attr( $colors['primary'] ); ?>;
+			box-shadow: 0 0 0 3px rgba(201, 139, 73, 0.18);
 		}
 		#login .button-primary {
-			margin-top: 10px; display: block; width: 100%; background:#73ab01; color:#fff; border-color:#fff;
+			margin-top: 12px;
+			display: block;
+			width: 100%;
+			background: linear-gradient(135deg, <?php echo esc_attr( $colors['primary'] ); ?>, <?php echo esc_attr( $colors['primary2'] ); ?>);
+			color: #ffffff;
+			border: 0;
+			border-radius: 10px;
+			padding: 6px 14px;
+			font-weight: 600;
+			text-shadow: none;
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 		}
-		#login input[type="text"], #login input[type="password"] {border:0; border-bottom: 1px solid #73ab01}
+		.login #backtoblog a, .login #nav a {
+			color: rgba(255, 255, 255, 0.78) !important;
+		}
+		.login #backtoblog a:hover, .login #nav a:hover {
+			color: <?php echo esc_attr( $colors['primary2'] ); ?> !important;
+		}
 	</style>
 	<?php
 }
 add_action( 'login_enqueue_scripts', 'webane_load_login_form_logo' );
 
 /**
- * Placeholder dashboard widget.
+ * Arahkan URL logo pada wp-login.php ke situs Webane Indonesia.
+ *
+ * @return string
+ */
+function sekolahane_login_header_url() {
+	return 'https://webane.com/';
+}
+add_filter( 'login_headerurl', 'sekolahane_login_header_url' );
+
+/**
+ * Ganti ikon WordPress di Admin Bar dengan ikon resmi Webane (/img/admin-webane.svg)
+ * dan terapkan tema warna gelap brand pada Admin Bar & Sidebar Menu serta
+ * desain profesional halaman Dashboard utama.
  *
  * @return void
  */
-function wpexplorer_dashboard_widget_function() {
-	echo esc_html__( "Hello there, I'm a great Dashboard Widget. Edit me!", 'sekolahane' );
+function sekolahane_admin_brand_styles() {
+	$colors         = sekolahane_get_admin_brand_colors();
+	$icon_color_url = get_template_directory_uri() . '/img/admin-webane.svg';
+	?>
+	<style id="sekolahane-admin-branding">
+		:root {
+			--ane-admin-dark: <?php echo esc_attr( $colors['dark'] ); ?>;
+			--ane-admin-primary: <?php echo esc_attr( $colors['primary'] ); ?>;
+			--ane-admin-primary2: <?php echo esc_attr( $colors['primary2'] ); ?>;
+		}
+
+		/* 1. Admin Bar & Sidebar Menu sesuai Warna Dark Brand (tanpa mengubah susunan menu) */
+		#wpadminbar {
+			background: var(--ane-admin-dark) !important;
+			box-shadow: 0 2px 12px rgba(0, 0, 0, 0.14);
+		}
+		#adminmenuback,
+		#adminmenuwrap,
+		#adminmenu {
+			background: var(--ane-admin-dark) !important;
+		}
+		#adminmenu .wp-submenu {
+			background: rgba(0, 0, 0, 0.28) !important;
+		}
+		#adminmenu a {
+			color: rgba(255, 255, 255, 0.86);
+		}
+		#adminmenu div.wp-menu-image:before {
+			color: rgba(255, 255, 255, 0.72);
+		}
+		#adminmenu li.menu-top:hover,
+		#adminmenu li.opensub > a.menu-top,
+		#adminmenu li > a.menu-top:focus {
+			background: rgba(255, 255, 255, 0.07) !important;
+			color: var(--ane-admin-primary2) !important;
+		}
+		#adminmenu li.menu-top:hover div.wp-menu-image:before,
+		#adminmenu li.opensub > a.menu-top div.wp-menu-image:before {
+			color: var(--ane-admin-primary2) !important;
+		}
+		#adminmenu li.current a.menu-top,
+		#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+		#adminmenu li.wp-has-current-submenu .wp-submenu .wp-submenu-head {
+			background: linear-gradient(135deg, var(--ane-admin-primary), var(--ane-admin-primary2)) !important;
+			color: #ffffff !important;
+			font-weight: 600;
+		}
+		#adminmenu li.current div.wp-menu-image:before,
+		#adminmenu li.wp-has-current-submenu div.wp-menu-image:before {
+			color: #ffffff !important;
+		}
+		#adminmenu .wp-submenu a:hover,
+		#adminmenu .wp-submenu li.current a,
+		#adminmenu .wp-submenu li.current a:hover {
+			color: var(--ane-admin-primary2) !important;
+		}
+		#wpadminbar .ab-top-menu > li.hover > .ab-item,
+		#wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus,
+		#wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item,
+		#wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus {
+			background: rgba(255, 255, 255, 0.08) !important;
+			color: var(--ane-admin-primary2) !important;
+		}
+		#wpadminbar .quicklinks .menupop ul.ab-sub-secondary,
+		#wpadminbar .ab-top-menu > .menupop > .ab-sub-wrapper {
+			background: var(--ane-admin-dark) !important;
+		}
+
+		/* 2. Icon WordPress di Admin Bar & Menu Webane menggunakan SVG di /img/ */
+		#wpadminbar #wp-admin-bar-wp-logo > .ab-item .ab-icon:before {
+			content: "" !important;
+			display: inline-block !important;
+			width: 22px !important;
+			height: 22px !important;
+			background-image: url('<?php echo esc_url( $icon_color_url ); ?>') !important;
+			background-repeat: no-repeat !important;
+			background-position: center !important;
+			background-size: 18px 18px !important;
+			background-color: #ffffff !important;
+			border-radius: 50% !important;
+			vertical-align: middle !important;
+			margin-top: -2px !important;
+		}
+		#adminmenu #toplevel_page_webane-theme-general-settings .wp-menu-image img {
+			width: 20px;
+			height: 20px;
+			padding: 7px 0 0;
+			opacity: 0.92;
+		}
+
+		/* 3. Redesign Profesional Halaman Dashboard Utama (index.php) */
+		body.index-php #wpbody-content {
+			padding-bottom: 40px;
+		}
+		.ane-admin-hero {
+			margin: 20px 20px 22px 2px;
+			background: linear-gradient(135deg, var(--ane-admin-dark) 0%, #2a1c11 100%);
+			border-radius: 20px;
+			padding: 28px 30px;
+			color: #ffffff;
+			box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+			position: relative;
+			overflow: hidden;
+			border: 1px solid rgba(255, 255, 255, 0.08);
+		}
+		.ane-admin-hero::after {
+			content: "";
+			position: absolute;
+			right: -40px;
+			top: -50px;
+			width: 240px;
+			height: 240px;
+			background: radial-gradient(circle, rgba(231, 173, 87, 0.22) 0%, rgba(231, 173, 87, 0) 70%);
+			pointer-events: none;
+		}
+		.ane-admin-hero-top {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 20px;
+			flex-wrap: wrap;
+			margin-bottom: 24px;
+		}
+		.ane-admin-brand {
+			display: flex;
+			align-items: center;
+			gap: 16px;
+		}
+		.ane-admin-brand-icon {
+			width: 54px;
+			height: 54px;
+			border-radius: 16px;
+			background: rgba(255, 255, 255, 0.1);
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-shrink: 0;
+		}
+		.ane-admin-brand-icon img {
+			width: 32px;
+			height: 32px;
+			display: block;
+		}
+		.ane-admin-brand-meta {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+		}
+		.ane-admin-badge {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			align-self: flex-start;
+			font-size: 11px;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 0.08em;
+			padding: 3px 10px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.12);
+			color: var(--ane-admin-primary2);
+		}
+		.ane-admin-brand-meta h2 {
+			margin: 0;
+			font-size: 23px;
+			font-weight: 700;
+			color: #ffffff;
+			line-height: 1.25;
+		}
+		.ane-admin-brand-meta p {
+			margin: 0;
+			font-size: 13.5px;
+			color: rgba(255, 255, 255, 0.72);
+		}
+		.ane-admin-actions {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			flex-wrap: wrap;
+		}
+		.ane-admin-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 7px;
+			padding: 9px 16px;
+			border-radius: 11px;
+			font-size: 13px;
+			font-weight: 600;
+			text-decoration: none !important;
+			transition: all 0.2s ease;
+		}
+		.ane-admin-btn-primary {
+			background: linear-gradient(135deg, var(--ane-admin-primary), var(--ane-admin-primary2));
+			color: #ffffff !important;
+			box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+		}
+		.ane-admin-btn-primary:hover {
+			transform: translateY(-1px);
+			opacity: 0.95;
+		}
+		.ane-admin-btn-ghost {
+			background: rgba(255, 255, 255, 0.1);
+			color: #ffffff !important;
+			border: 1px solid rgba(255, 255, 255, 0.16);
+		}
+		.ane-admin-btn-ghost:hover {
+			background: rgba(255, 255, 255, 0.18);
+		}
+
+		.ane-admin-stats {
+			display: grid;
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+			gap: 12px;
+			margin-bottom: 18px;
+		}
+		.ane-admin-stat-card {
+			background: rgba(255, 255, 255, 0.07);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 14px;
+			padding: 14px 16px;
+			text-decoration: none !important;
+			color: #ffffff !important;
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+			transition: all 0.2s ease;
+		}
+		.ane-admin-stat-card:hover {
+			background: rgba(255, 255, 255, 0.13);
+			border-color: var(--ane-admin-primary2);
+			transform: translateY(-2px);
+		}
+		.ane-admin-stat-num {
+			font-size: 24px;
+			font-weight: 800;
+			color: var(--ane-admin-primary2);
+			line-height: 1.1;
+		}
+		.ane-admin-stat-label {
+			font-size: 12.5px;
+			color: rgba(255, 255, 255, 0.8);
+			font-weight: 500;
+		}
+
+		.ane-admin-quicklinks {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			flex-wrap: wrap;
+			padding-top: 14px;
+			border-top: 1px solid rgba(255, 255, 255, 0.1);
+		}
+		.ane-admin-quicklinks span {
+			font-size: 12px;
+			color: rgba(255, 255, 255, 0.6);
+			margin-right: 4px;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+		}
+		.ane-admin-chip {
+			display: inline-flex;
+			align-items: center;
+			padding: 5px 12px;
+			border-radius: 999px;
+			background: rgba(255, 255, 255, 0.09);
+			color: rgba(255, 255, 255, 0.9) !important;
+			font-size: 12px;
+			font-weight: 500;
+			text-decoration: none !important;
+			transition: all 0.2s ease;
+		}
+		.ane-admin-chip:hover {
+			background: var(--ane-admin-primary);
+			color: #ffffff !important;
+		}
+
+		/* 4. Kartu Meta Box Dashboard Modern */
+		body.index-php .postbox {
+			border: 1px solid #e6e2da !important;
+			border-radius: 16px !important;
+			box-shadow: 0 8px 24px rgba(22, 14, 6, 0.05) !important;
+			overflow: hidden;
+			background: #ffffff;
+		}
+		body.index-php .postbox .postbox-header {
+			border-bottom: 1px solid #f0ece4 !important;
+			background: #faf8f5;
+			padding: 4px 6px;
+		}
+		body.index-php .postbox .postbox-header h2.hndle {
+			font-size: 15px !important;
+			font-weight: 700 !important;
+			color: var(--ane-admin-dark) !important;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+		body.index-php .postbox .postbox-header h2.hndle::before {
+			content: "";
+			width: 18px;
+			height: 18px;
+			background-image: url('<?php echo esc_url( $icon_color_url ); ?>');
+			background-size: contain;
+			background-repeat: no-repeat;
+			display: inline-block;
+			flex-shrink: 0;
+		}
+		body.index-php .rss-widget ul li {
+			padding: 8px 0;
+			border-bottom: 1px dashed #eee9df;
+		}
+		body.index-php .rss-widget ul li:last-child {
+			border-bottom: 0;
+		}
+		body.index-php .rss-widget a.rsswidget {
+			font-weight: 600;
+			font-size: 13.5px;
+			color: var(--ane-admin-dark);
+			text-decoration: none;
+		}
+		body.index-php .rss-widget a.rsswidget:hover {
+			color: var(--ane-admin-primary);
+		}
+		.ane-dash-widget-footer {
+			margin-top: 14px;
+			padding-top: 12px;
+			border-top: 1px solid #f0ece4;
+			display: flex;
+			justify-content: flex-end;
+		}
+		.ane-dash-widget-btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			padding: 7px 14px;
+			border-radius: 9px;
+			background: var(--ane-admin-dark);
+			color: #ffffff !important;
+			font-size: 12.5px;
+			font-weight: 600;
+			text-decoration: none !important;
+			transition: all 0.2s ease;
+		}
+		.ane-dash-widget-btn:hover {
+			background: var(--ane-admin-primary);
+			color: #ffffff !important;
+		}
+
+		@media (max-width: 960px) {
+			.ane-admin-stats {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+		}
+	</style>
+	<?php
 }
+add_action( 'admin_head', 'sekolahane_admin_brand_styles' );
+add_action( 'wp_before_admin_bar_render', 'sekolahane_admin_brand_styles' );
 
 /**
- * Sesuaikan widget di halaman Dashboard wp-admin.
+ * Tampilkan Hero Panel Ringkasan Sekolah di bagian atas halaman Dashboard Utama (wp-admin/index.php).
+ *
+ * @return void
+ */
+function sekolahane_render_dashboard_hero() {
+	$screen = get_current_screen();
+	if ( ! is_object( $screen ) || 'dashboard' !== $screen->id ) {
+		return;
+	}
+
+	$org_name = (string) get_bloginfo( 'name' );
+	$slogan   = (string) get_bloginfo( 'description' );
+	if ( function_exists( 'get_field' ) ) {
+		$acf_org = trim( wp_strip_all_tags( (string) get_field( 'ane_com_name', 'option' ) ) );
+		if ( '' !== $acf_org ) {
+			$org_name = $acf_org;
+		}
+	}
+
+	$count_post   = (int) ( wp_count_posts( 'post' )->publish ?? 0 );
+	$count_page   = (int) ( wp_count_posts( 'page' )->publish ?? 0 );
+	$count_guru   = post_type_exists( 'guru' ) ? (int) ( wp_count_posts( 'guru' )->publish ?? 0 ) : 0;
+	$count_ekskul = post_type_exists( 'ekstrakurikuler' ) ? (int) ( wp_count_posts( 'ekstrakurikuler' )->publish ?? 0 ) : 0;
+	$count_testi  = post_type_exists( 'testimoni' ) ? (int) ( wp_count_posts( 'testimoni' )->publish ?? 0 ) : 0;
+
+	$icon_white = get_template_directory_uri() . '/img/admin-webane-fullwhite.svg';
+	$theme_ver  = defined( 'SEKOLAHANE_VERSION' ) ? SEKOLAHANE_VERSION : '3.2.1';
+	?>
+	<div class="ane-admin-hero">
+		<div class="ane-admin-hero-top">
+			<div class="ane-admin-brand">
+				<div class="ane-admin-brand-icon">
+					<img src="<?php echo esc_url( $icon_white ); ?>" alt="Webane">
+				</div>
+				<div class="ane-admin-brand-meta">
+					<span class="ane-admin-badge">Sekolah Ane v<?php echo esc_html( $theme_ver ); ?> &bull; Webane CMS</span>
+					<h2><?php echo esc_html( $org_name ); ?></h2>
+					<?php if ( '' !== $slogan ) : ?>
+						<p><?php echo esc_html( $slogan ); ?></p>
+					<?php endif; ?>
+				</div>
+			</div>
+			<div class="ane-admin-actions">
+				<a class="ane-admin-btn ane-admin-btn-ghost" href="<?php echo esc_url( home_url( '/' ) ); ?>" target="_blank" rel="noopener">
+					<?php esc_html_e( 'Lihat Website', 'sekolahane' ); ?> &rarr;
+				</a>
+				<a class="ane-admin-btn ane-admin-btn-primary" href="<?php echo esc_url( admin_url( 'admin.php?page=webane-theme-general-settings' ) ); ?>">
+					<?php esc_html_e( 'Webane Settings', 'sekolahane' ); ?>
+				</a>
+			</div>
+		</div>
+
+		<div class="ane-admin-stats">
+			<a class="ane-admin-stat-card" href="<?php echo esc_url( admin_url( 'edit.php' ) ); ?>">
+				<span class="ane-admin-stat-num"><?php echo esc_html( number_format_i18n( $count_post ) ); ?></span>
+				<span class="ane-admin-stat-label"><?php esc_html_e( 'Berita & Artikel', 'sekolahane' ); ?></span>
+			</a>
+			<a class="ane-admin-stat-card" href="<?php echo esc_url( admin_url( 'edit.php?post_type=page' ) ); ?>">
+				<span class="ane-admin-stat-num"><?php echo esc_html( number_format_i18n( $count_page ) ); ?></span>
+				<span class="ane-admin-stat-label"><?php esc_html_e( 'Halaman Statis', 'sekolahane' ); ?></span>
+			</a>
+			<a class="ane-admin-stat-card" href="<?php echo esc_url( admin_url( 'edit.php?post_type=guru' ) ); ?>">
+				<span class="ane-admin-stat-num"><?php echo esc_html( number_format_i18n( $count_guru ) ); ?></span>
+				<span class="ane-admin-stat-label"><?php esc_html_e( 'Data Guru', 'sekolahane' ); ?></span>
+			</a>
+			<a class="ane-admin-stat-card" href="<?php echo esc_url( admin_url( 'edit.php?post_type=ekstrakurikuler' ) ); ?>">
+				<span class="ane-admin-stat-num"><?php echo esc_html( number_format_i18n( $count_ekskul ) ); ?></span>
+				<span class="ane-admin-stat-label"><?php esc_html_e( 'Ekstrakurikuler', 'sekolahane' ); ?></span>
+			</a>
+			<a class="ane-admin-stat-card" href="<?php echo esc_url( admin_url( 'edit.php?post_type=testimoni' ) ); ?>">
+				<span class="ane-admin-stat-num"><?php echo esc_html( number_format_i18n( $count_testi ) ); ?></span>
+				<span class="ane-admin-stat-label"><?php esc_html_e( 'Testimoni', 'sekolahane' ); ?></span>
+			</a>
+		</div>
+
+		<div class="ane-admin-quicklinks">
+			<span><?php esc_html_e( 'Aksi Cepat:', 'sekolahane' ); ?></span>
+			<a class="ane-admin-chip" href="<?php echo esc_url( admin_url( 'post-new.php' ) ); ?>">+ <?php esc_html_e( 'Tulis Berita', 'sekolahane' ); ?></a>
+			<a class="ane-admin-chip" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=guru' ) ); ?>">+ <?php esc_html_e( 'Tambah Guru', 'sekolahane' ); ?></a>
+			<a class="ane-admin-chip" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=ekstrakurikuler' ) ); ?>">+ <?php esc_html_e( 'Tambah Ekskul', 'sekolahane' ); ?></a>
+			<a class="ane-admin-chip" href="<?php echo esc_url( admin_url( 'admin.php?page=acf-options-warna-web' ) ); ?>"><?php esc_html_e( 'Warna Web', 'sekolahane' ); ?></a>
+			<a class="ane-admin-chip" href="<?php echo esc_url( admin_url( 'admin.php?page=acf-options-customer-care' ) ); ?>"><?php esc_html_e( 'Customer Care', 'sekolahane' ); ?></a>
+			<a class="ane-admin-chip" href="<?php echo esc_url( admin_url( 'admin.php?page=acf-options-google-tracking' ) ); ?>"><?php esc_html_e( 'Google & Tracking', 'sekolahane' ); ?></a>
+		</div>
+	</div>
+	<?php
+}
+add_action( 'in_admin_header', 'sekolahane_render_dashboard_hero' );
+
+/**
+ * Sesuaikan widget di halaman Dashboard wp-admin (seperti pada modernnews:
+ * Webane Services, Cara Edit Themes, dan Cara Update Website).
  *
  * @return void
  */
 function my_dashboard_widgets() {
 	global $wp_meta_boxes;
+	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	unset(
 		$wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins'],
 		$wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'],
-		$wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']
+		$wp_meta_boxes['dashboard']['side']['core']['dashboard_primary'],
+		$wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']
 	);
-	wp_add_dashboard_widget( 'dashboard_custom_feed', 'Greating From Webane', 'dashboard_custom_feed_output' );
+
+	wp_add_dashboard_widget( 'ane_dashboard_service_feed', 'Webane Services', 'sekolahane_dashboard_service_feed_output' );
+	wp_add_dashboard_widget( 'ane_dashboard_tutorial_themes_feed', 'Cara Edit Themes', 'sekolahane_dashboard_tutorial_themes_output' );
+	wp_add_dashboard_widget( 'ane_dashboard_tutorial_content_feed', 'Cara Update Website', 'sekolahane_dashboard_tutorial_content_output' );
 }
 add_action( 'wp_dashboard_setup', 'my_dashboard_widgets' );
 
 /**
- * Tampilkan RSS feed Webane di widget dashboard.
+ * Tampilkan RSS feed Layanan Webane di widget dashboard.
  *
  * @return void
  */
-function dashboard_custom_feed_output() {
+function sekolahane_dashboard_service_feed_output() {
 	echo '<div class="rss-widget">';
 	wp_widget_rss_output(
 		array(
-			'url'          => 'https://webane.com/feed/',
+			'url'          => 'https://webane.com/service/feed',
 			'title'        => 'Webane Indonesia',
-			'items'        => 10,
+			'items'        => 6,
 			'show_summary' => 0,
 			'show_author'  => 0,
-			'show_date'    => 1,
+			'show_date'    => 0,
 		)
 	);
+	echo '<div class="ane-dash-widget-footer"><a class="ane-dash-widget-btn" href="https://webane.com/service/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Lihat Semua Layanan', 'sekolahane' ) . ' &rarr;</a></div>';
+	echo '</div>';
+}
+
+/**
+ * Tampilkan RSS feed Tutorial Edit Themes di widget dashboard.
+ *
+ * @return void
+ */
+function sekolahane_dashboard_tutorial_themes_output() {
+	echo '<div class="rss-widget">';
+	wp_widget_rss_output(
+		array(
+			'url'          => 'https://webane.com/category/tutorial/themes/feed',
+			'title'        => 'Webane Indonesia',
+			'items'        => 6,
+			'show_summary' => 0,
+			'show_author'  => 0,
+			'show_date'    => 0,
+		)
+	);
+	echo '<div class="ane-dash-widget-footer"><a class="ane-dash-widget-btn" href="https://webane.com/category/tutorial/themes/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Semua Tutorial Theme', 'sekolahane' ) . ' &rarr;</a></div>';
+	echo '</div>';
+}
+
+/**
+ * Tampilkan RSS feed Tutorial Update Konten Website di widget dashboard.
+ *
+ * @return void
+ */
+function sekolahane_dashboard_tutorial_content_output() {
+	echo '<div class="rss-widget">';
+	wp_widget_rss_output(
+		array(
+			'url'          => 'https://webane.com/category/tutorial/content/feed',
+			'title'        => 'Webane Indonesia',
+			'items'        => 6,
+			'show_summary' => 0,
+			'show_author'  => 0,
+			'show_date'    => 0,
+		)
+	);
+	echo '<div class="ane-dash-widget-footer"><a class="ane-dash-widget-btn" href="https://webane.com/category/tutorial/content/" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Semua Tutorial Konten', 'sekolahane' ) . ' &rarr;</a></div>';
 	echo '</div>';
 }
 
@@ -1106,23 +1686,9 @@ function dashboard_custom_feed_output() {
  * @return string
  */
 function wpexplorer_remove_footer_admin() {
-	return '<span id="footer-thankyou">Designed with love by <a href="https://webane.com/" target="_blank" rel="nofollow noopener">Webane Indonesia</a> Powered By WordPress</span>';
+	return '<span id="footer-thankyou">Powered by <a href="https://wordpress.org/" target="_blank" rel="nofollow noopener">WordPress</a>, Designed by <a id="klik-webane" href="https://webane.com/?utm_source=wordpress_admin&utm_medium=footer_link&utm_campaign=webane_referral" target="_blank" rel="nofollow noopener">Webane Indonesia</a></span>';
 }
 add_filter( 'admin_footer_text', 'wpexplorer_remove_footer_admin' );
-
-/**
- * Tampilkan banner informasi Webane di wp-admin.
- *
- * @return void
- */
-function webane_ads_on_admin() {
-	$imageku = 'https://4.bp.blogspot.com/-J2K6WKNTj2E/W7-WgY1y9uI/AAAAAAAAAYg/GSYOwtOOJEEydFWCbxxfTGK5XtAM1cI7wCLcBGAs/s1600/webane-indonesia-ads.jpg';
-	$output  = '<a href="https://webane.com"><img style="width:100%;" src="' . esc_url( $imageku ) . '" alt="Webane Indonesia"></a>';
-
-	add_settings_error( 'webane_ads_on_admin', esc_attr( 'settings_updated' ), $output, 'notice-warning' );
-	settings_errors( 'webane_ads_on_admin' );
-}
-add_action( 'admin_notices', 'webane_ads_on_admin' );
 
 /**
  * Kembalikan HTML kredit desain di footer front-end.
@@ -1356,6 +1922,7 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 			'menu_title' => 'Webane Settings',
 			'menu_slug'  => 'webane-theme-general-settings',
 			'capability' => 'edit_posts',
+			'icon_url'   => get_template_directory_uri() . '/img/admin-webane-fullwhite.svg',
 			'redirect'   => false,
 		)
 	);
