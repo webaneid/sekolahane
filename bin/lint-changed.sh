@@ -11,7 +11,7 @@ FILES=$(
   {
     git diff --name-only --diff-filter=ACMR "$BASE" -- '*.php' 2>/dev/null || true
     git ls-files --others --exclude-standard -- '*.php'
-  } | grep -v '^vendor/' | sort -u
+  } | { grep -v '^vendor/' || true; } | sort -u
 )
 
 if [ -z "$FILES" ]; then
