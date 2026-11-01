@@ -65,9 +65,14 @@ function sekolahane_updater_get_release() {
 		return is_array( $cached ) ? $cached : false;
 	}
 
-	$token = sekolahane_updater_get_token();
-	if ( '' === $token ) {
-		return false;
+	$token   = sekolahane_updater_get_token();
+	$headers = array(
+		'Accept'     => 'application/vnd.github.v3+json',
+		'User-Agent' => 'Sekolahane-Updater',
+	);
+
+	if ( '' !== $token ) {
+		$headers['Authorization'] = 'token ' . $token;
 	}
 
 	$url = 'https://api.github.com/repos/' . SEKOLAHANE_UPDATER_REPO . '/releases/latest';
@@ -75,17 +80,13 @@ function sekolahane_updater_get_release() {
 	$response = wp_remote_get(
 		$url,
 		array(
-			'headers' => array(
-				'Authorization' => 'token ' . $token,
-				'Accept'        => 'application/vnd.github.v3+json',
-				'User-Agent'    => 'Sekolahane-Updater',
-			),
+			'headers' => $headers,
 			'timeout' => 15,
 		)
 	);
 
 	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
-		set_transient( 'sekolahane_github_release', 'error', HOUR_IN_SECONDS );
+		set_transient( 'sekolahane_github_release', 'error', 15 * MINUTE_IN_SECONDS );
 		return false;
 	}
 
@@ -94,13 +95,17 @@ function sekolahane_updater_get_release() {
 		return false;
 	}
 
-	// Cari asset .zip dari rilis (gunakan API URL agar kompatibel dengan repo privat).
+	// Cari asset .zip dari rilis (gunakan API URL jika pakai token privat, atau browser_download_url jika publik).
 	$asset_url = '';
 	if ( ! empty( $body->assets ) && is_array( $body->assets ) ) {
 		foreach ( $body->assets as $asset ) {
 			if ( is_object( $asset ) && ! empty( $asset->name ) && ! empty( $asset->url ) ) {
 				if ( '.zip' === substr( (string) $asset->name, -4 ) ) {
-					$asset_url = (string) $asset->url;
+					if ( '' === $token && ! empty( $asset->browser_download_url ) ) {
+						$asset_url = (string) $asset->browser_download_url;
+					} else {
+						$asset_url = (string) $asset->url;
+					}
 					break;
 				}
 			}
@@ -385,7 +390,27 @@ function sekolahane_register_updater_fields() {
 add_action( 'acf/init', 'sekolahane_register_updater_fields' );
 
 /**
+ * Bersihkan cache update saat admin menyimpan halaman ACF Options.
+ *
+ * @param int|string $post_id ID post atau 'options'.
+ * @return void
+ */
+function sekolahane_updater_on_save_options( $post_id ) {
+	if ( 'options' !== $post_id ) {
+		return;
+	}
+
+	delete_transient( 'sekolahane_github_release' );
+	delete_site_transient( 'update_themes' );
+}
+add_action( 'acf/save_post', 'sekolahane_updater_on_save_options', 20 );
+
+/**
  * Tangani permintaan "Cek Update Sekarang" (dengan verifikasi capability & nonce).
+ *
+ * Dijalankan pada prioritas 1 di `admin_init` (sebelum `_maybe_update_themes`
+ * pada prioritas 10) dan langsung memanggil `wp_update_themes()` agar notifikasi
+ * update tampil seketika di halaman `themes.php` tanpa perlu refresh kedua.
  *
  * @return void
  */
@@ -402,20 +427,58 @@ function sekolahane_updater_force_check_handler() {
 
 	delete_transient( 'sekolahane_github_release' );
 	delete_site_transient( 'update_themes' );
+	wp_update_themes();
 
 	add_action( 'admin_notices', 'sekolahane_updater_force_check_notice' );
 }
-add_action( 'admin_init', 'sekolahane_updater_force_check_handler' );
+add_action( 'admin_init', 'sekolahane_updater_force_check_handler', 1 );
 
 /**
- * Tampilkan admin notice setelah cache update dibersihkan.
+ * Tampilkan admin notice setelah cache update dibersihkan dan dicek ulang.
  *
  * @return void
  */
 function sekolahane_updater_force_check_notice() {
+	$release = sekolahane_updater_get_release();
+	$current = sekolahane_updater_get_theme_version();
+
+	if ( ! is_array( $release ) || empty( $release['version'] ) ) {
+		?>
+		<div class="notice notice-warning is-dismissible">
+			<p><?php esc_html_e( 'Gagal mengambil informasi rilis dari GitHub. Pastikan GitHub Personal Access Token sudah diisi dengan benar di Sekolah Ane → Pengaturan Umum → Tab Update (izin Contents: Read-only).', 'sekolahane' ); ?></p>
+		</div>
+		<?php
+		return;
+	}
+
+	if ( version_compare( $release['version'], $current, '>' ) ) {
+		?>
+		<div class="notice notice-info is-dismissible">
+			<p>
+				<?php
+				printf(
+					/* translators: 1: versi terbaru, 2: versi terpasang */
+					esc_html__( 'Pembaruan ditemukan! Versi terbaru v%1$s sudah siap diinstal (versi Anda saat ini: v%2$s). Silakan klik tombol Perbarui Sekarang pada kartu tema Sekolah Ane di bawah.', 'sekolahane' ),
+					esc_html( $release['version'] ),
+					esc_html( $current )
+				);
+				?>
+			</p>
+		</div>
+		<?php
+		return;
+	}
 	?>
 	<div class="notice notice-success is-dismissible">
-		<p><?php esc_html_e( 'Pengecekan update selesai. Cache update telah diperbarui.', 'sekolahane' ); ?></p>
+		<p>
+			<?php
+			printf(
+				/* translators: %s: versi terpasang */
+				esc_html__( 'Pengecekan update selesai. Tema Sekolah Ane Anda sudah menggunakan versi terbaru (v%s).', 'sekolahane' ),
+				esc_html( $current )
+			);
+			?>
+		</p>
 	</div>
 	<?php
 }

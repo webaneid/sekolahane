@@ -43,3 +43,4 @@
 | 35 | Redesign Total `.ane-content` (Body `the_content()`): Tipografi, Tabel Card Mobile, Quote, Embed 16:9, Gallery, Button, File Download & Accordion FAQ | Done | `phases/phase-35-redesign-ane-content-gutenberg.md` |
 | 36 | Naik Target Runtime ke PHP 8.0+ (`composer.json`, `phpcs.xml.dist`, `inc/updater.php`, dokumen) | Done | `phases/phase-36-naik-target-php-8.md` |
 | 37 | Optimasi PageSpeed Core Web Vitals (Zero-CLS & `fetchpriority` Hero LCP, Hapus Render-Blocking CSS, & Aksesibilitas 100) | Done | `phases/phase-37-optimasi-pagespeed-cwv-dan-aksesibilitas.md` |
+| 38 | Perbaikan Instant Force-Check & Auto-Clear Cache pada GitHub Auto-Updater (`inc/updater.php`) | Done | `phases/phase-38-perbaikan-force-check-github-updater.md` |
