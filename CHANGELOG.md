@@ -1,3 +1,9 @@
+## [3.3.2](https://github.com/webaneid/sekolahane/compare/v3.3.1...v3.3.2) (2026-11-01)
+
+### Bug Fixes
+
+* **updater:** panggil wp_update_themes instan saat force-check dan bersihkan cache saat simpan opsi ([a19794d](https://github.com/webaneid/sekolahane/commit/a19794d7e339e77657c5ea27fa09581a028b0d07))
+
 ## [3.3.1](https://github.com/webaneid/sekolahane/compare/v3.3.0...v3.3.1) (2026-11-01)
 
 ### Bug Fixes
