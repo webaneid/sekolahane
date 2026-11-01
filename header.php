@@ -12,6 +12,8 @@ defined( 'ABSPATH' ) || exit;
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="profile" href="https://gmpg.org/xfn/11" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -85,7 +87,7 @@ defined( 'ABSPATH' ) || exit;
 						if ( has_custom_logo() ) {
 							the_custom_logo();
 						} else {
-							echo '<a class="logo" href="' . esc_url( home_url( '/' ) ) . '" rel="home"><img src="' . esc_url( $sekolahane_logo ) . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '"></a>';
+							echo '<a class="logo" href="' . esc_url( home_url( '/' ) ) . '" rel="home"><img src="' . esc_url( $sekolahane_logo ) . '" width="255" height="62" fetchpriority="high" decoding="async" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '"></a>';
 						}
 						?>
 					</div>
@@ -115,7 +117,7 @@ defined( 'ABSPATH' ) || exit;
 		if ( has_custom_logo() ) {
 			the_custom_logo();
 		} else {
-			echo '<a class="logo" href="' . esc_url( home_url( '/' ) ) . '" rel="home"><img src="' . esc_url( $sekolahane_logo ) . '" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '"></a>';
+			echo '<a class="logo" href="' . esc_url( home_url( '/' ) ) . '" rel="home"><img src="' . esc_url( $sekolahane_logo ) . '" width="175" height="42" fetchpriority="high" decoding="async" title="' . esc_attr( get_bloginfo( 'name' ) ) . '" alt="' . esc_attr( get_bloginfo( 'name' ) ) . '"></a>';
 		}
 		?>
 		<div class="mobile-menu-area">

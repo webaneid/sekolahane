@@ -46,7 +46,8 @@ ALLOWED_DYNAMIC_CLASSES = {
     "comment-respond", "comment-form", "comment-reply-title", "comments-area", "children",
     "nav-links", "page-numbers", "prev", "next", "current", "dots",
     # JS Libraries (Owl Carousel, Magnific Popup, MeanMenu)
-    "owl-carousel", "owl-stage", "owl-item", "owl-nav", "owl-prev", "owl-next", "owl-dots", "owl-dot", "active",
+    "owl-carousel", "owl-stage", "owl-stage-outer", "owl-item", "owl-nav", "owl-prev", "owl-next", "owl-dots", "owl-dot",
+    "owl-loaded", "owl-loading", "owl-hidden", "owl-refresh", "owl-drag", "owl-grab", "disabled", "active",
     "mfp-bg", "mfp-wrap", "mfp-container", "mfp-content", "mfp-figure", "mfp-close", "mfp-img", "mfp-bottom-bar", "mfp-title", "mfp-counter",
     "mean-container", "mean-bar", "mean-nav", "meanmenu-reveal", "mean-expand", "mean-clicked", "mean-push", "mean-remove", "mean-last", "wrapper",
     "lazyloaded",

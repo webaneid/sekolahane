@@ -29,6 +29,7 @@ if ( have_rows( 'ane_featured' ) ) :
 	?>
 	<section class="section-featured <?php echo esc_attr( $sekolahane_pos_class . ' ' . $sekolahane_style_class ); ?>">
 		<div class="container">
+			<h2 class="screen-reader-text"><?php esc_html_e( 'Fitur Unggulan', 'sekolahane' ); ?></h2>
 			<ul>
 				<?php
 				while ( have_rows( 'ane_featured' ) ) :
@@ -55,24 +56,24 @@ if ( have_rows( 'ane_featured' ) ) :
 							<?php if ( '' !== $sekolahane_image ) : ?>
 								<?php if ( '' !== $sekolahane_link_url ) : ?>
 									<a href="<?php echo esc_url( $sekolahane_link_url ); ?>" target="<?php echo esc_attr( $sekolahane_link_target ); ?>" class="image" aria-label="<?php echo esc_attr( $sekolahane_judul ); ?>">
-										<img src="<?php echo esc_url( $sekolahane_image ); ?>" alt="<?php echo esc_attr( $sekolahane_judul ); ?>" title="<?php echo esc_attr( $sekolahane_judul ); ?>">
+										<img src="<?php echo esc_url( $sekolahane_image ); ?>" width="52" height="52" loading="lazy" decoding="async" alt="<?php echo esc_attr( $sekolahane_judul ); ?>" title="<?php echo esc_attr( $sekolahane_judul ); ?>">
 									</a>
 								<?php else : ?>
 									<div class="image">
-										<img src="<?php echo esc_url( $sekolahane_image ); ?>" alt="<?php echo esc_attr( $sekolahane_judul ); ?>" title="<?php echo esc_attr( $sekolahane_judul ); ?>">
+										<img src="<?php echo esc_url( $sekolahane_image ); ?>" width="52" height="52" loading="lazy" decoding="async" alt="<?php echo esc_attr( $sekolahane_judul ); ?>" title="<?php echo esc_attr( $sekolahane_judul ); ?>">
 									</div>
 								<?php endif; ?>
 							<?php endif; ?>
 
 							<div class="content">
 								<?php if ( '' !== $sekolahane_judul ) : ?>
-									<h4>
+									<h3>
 										<?php if ( '' !== $sekolahane_link_url ) : ?>
 											<a href="<?php echo esc_url( $sekolahane_link_url ); ?>" target="<?php echo esc_attr( $sekolahane_link_target ); ?>"><?php echo esc_html( $sekolahane_judul ); ?></a>
 										<?php else : ?>
 											<?php echo esc_html( $sekolahane_judul ); ?>
 										<?php endif; ?>
-									</h4>
+									</h3>
 								<?php endif; ?>
 
 								<?php if ( '' !== $sekolahane_deskripsi ) : ?>

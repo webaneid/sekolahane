@@ -149,12 +149,12 @@ $sekolahane_cs_welcome = trim( (string) get_field( 'ane_cs_welcome', 'option' ) 
 if ( have_rows( 'ane_cs', 'option' ) ) :
 	?>
 	<div class="cc-contactpop fixed">
-		<header class="kelapa" role="button" tabindex="0" aria-label="<?php echo esc_attr( $sekolahane_cs_label ); ?>">
+		<div class="kelapa" role="button" tabindex="0" aria-label="<?php echo esc_attr( $sekolahane_cs_label ); ?>">
 			<span class="cc-wa-fab">
 				<?php echo sekolahane_icon( 'whatsapp' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<span class="cc-wa-dot" aria-hidden="true"></span>
 			</span>
-		</header>
+		</div>
 
 		<div class="renseignement">
 			<div class="cc-popup-head">

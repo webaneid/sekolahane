@@ -42,3 +42,4 @@
 | 34 | Redesign Total Default Sidebar (`.right-sidebar`, `.ane-sidebar`, Listing & Media Blocks) + Harmonisasi Font `16px` | Done | `phases/phase-34-redesign-sidebar-dan-tipografi-16px.md` |
 | 35 | Redesign Total `.ane-content` (Body `the_content()`): Tipografi, Tabel Card Mobile, Quote, Embed 16:9, Gallery, Button, File Download & Accordion FAQ | Done | `phases/phase-35-redesign-ane-content-gutenberg.md` |
 | 36 | Naik Target Runtime ke PHP 8.0+ (`composer.json`, `phpcs.xml.dist`, `inc/updater.php`, dokumen) | Done | `phases/phase-36-naik-target-php-8.md` |
+| 37 | Optimasi PageSpeed Core Web Vitals (Zero-CLS & `fetchpriority` Hero LCP, Hapus Render-Blocking CSS, & Aksesibilitas 100) | Done | `phases/phase-37-optimasi-pagespeed-cwv-dan-aksesibilitas.md` |

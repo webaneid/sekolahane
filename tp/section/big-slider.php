@@ -17,6 +17,7 @@ $sekolahane_show_curve = ( null === $sekolahane_raw_curve || '' === $sekolahane_
 	<div class="home-big-slider owl-carousel">
 		<?php
 		if ( have_rows( 'home_slider' ) ) :
+			$sekolahane_slide_idx = 0;
 			while ( have_rows( 'home_slider' ) ) :
 				the_row();
 				$sekolahane_bg          = trim( (string) get_sub_field( 'ane_background' ) );
@@ -40,9 +41,16 @@ $sekolahane_show_curve = ( null === $sekolahane_raw_curve || '' === $sekolahane_
 
 				$sekolahane_has_text = ( '' !== $sekolahane_judul || '' !== $sekolahane_deskripsi || ( '' !== $sekolahane_link_url && '' !== $sekolahane_link_title ) );
 				$sekolahane_item_cls = 'home-slider-item ' . $sekolahane_align_class . ' ' . $sekolahane_overlay_class;
-				$sekolahane_bg_style = '' !== $sekolahane_bg ? "background-image: url('" . esc_url( $sekolahane_bg ) . "');" : '';
+				$sekolahane_img_alt  = '' !== $sekolahane_judul ? $sekolahane_judul : (string) get_bloginfo( 'name' );
 				?>
-				<div class="<?php echo esc_attr( $sekolahane_item_cls ); ?>"<?php echo '' !== $sekolahane_bg_style ? ' style="' . esc_attr( $sekolahane_bg_style ) . '"' : ''; ?>>
+				<div class="<?php echo esc_attr( $sekolahane_item_cls ); ?>">
+					<?php if ( '' !== $sekolahane_bg ) : ?>
+						<?php if ( 0 === $sekolahane_slide_idx ) : ?>
+							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_bg ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" fetchpriority="high" decoding="async">
+						<?php else : ?>
+							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_bg ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" loading="lazy" decoding="async">
+						<?php endif; ?>
+					<?php endif; ?>
 					<?php if ( $sekolahane_has_text ) : ?>
 						<div class="container">
 							<div class="text">
@@ -66,6 +74,7 @@ $sekolahane_show_curve = ( null === $sekolahane_raw_curve || '' === $sekolahane_
 					<?php endif; ?>
 				</div>
 				<?php
+				++$sekolahane_slide_idx;
 			endwhile;
 		endif;
 		?>

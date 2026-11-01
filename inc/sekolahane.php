@@ -335,10 +335,10 @@ function ane_load_css_and_js() {
 	$css_ver = file_exists( $css_f ) ? (string) filemtime( $css_f ) : $ver;
 	$js_ver  = file_exists( $js_f ) ? (string) filemtime( $js_f ) : $ver;
 
-	wp_enqueue_style( 'Google-Fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,400i,500,600,700,800,900&display=swap', array(), null );
-	wp_enqueue_style( 'OwlCarouse', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/assets/owl.carousel.min.css', array(), '2.2.1' );
+	// phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- Google Fonts URL memakai parameter family & display.
+	wp_enqueue_style( 'Google-Fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,400i,500,600,700,800&display=swap', array(), null );
 
-	if ( is_singular() ) {
+	if ( is_singular() && ! is_front_page() && ! is_page_template( array( 'page-home.php', 'page-kontak.php', 'page-newslist.php', 'page-mcategory.php' ) ) ) {
 		wp_enqueue_style( 'magnific-popup', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css', array(), '1.1.0' );
 		wp_enqueue_script( 'magnific', 'https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js', array( 'jquery' ), '1.1.0', true );
 	}
@@ -569,8 +569,8 @@ function ane_post_pagination( ?\WP_Query $wp_query = null, $echo = true ) {
 			'end_size'     => 3,
 			'mid_size'     => 1,
 			'prev_next'    => true,
-			'prev_text'    => sekolahane_icon( 'chevron-left' ),
-			'next_text'    => sekolahane_icon( 'chevron-right' ),
+			'prev_text'    => '<span class="screen-reader-text">' . esc_html__( 'Sebelumnya', 'sekolahane' ) . '</span>' . sekolahane_icon( 'chevron-left' ),
+			'next_text'    => '<span class="screen-reader-text">' . esc_html__( 'Selanjutnya', 'sekolahane' ) . '</span>' . sekolahane_icon( 'chevron-right' ),
 			'add_args'     => false,
 			'add_fragment' => '',
 		)
@@ -584,7 +584,8 @@ function ane_post_pagination( ?\WP_Query $wp_query = null, $echo = true ) {
 		$pagination .= '</ul></div>';
 
 		if ( $echo ) {
-			echo wp_kses_post( $pagination );
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Output dari paginate_links() + sekolahane_icon() SVG statis + esc_html__().
+			echo $pagination;
 		} else {
 			return $pagination;
 		}
