@@ -1,3 +1,9 @@
+## [3.3.1](https://github.com/webaneid/sekolahane/compare/v3.3.0...v3.3.1) (2026-11-01)
+
+### Bug Fixes
+
+* **pagespeed:** optimasi LCP & zero-CLS hero slider, hapus render-blocking CSS, dan perbaiki aksesibilitas Lighthouse ([92f815e](https://github.com/webaneid/sekolahane/commit/92f815e03d1522a4601592e8aca907b1d15ef472))
+
 ## [3.3.0](https://github.com/webaneid/sekolahane/compare/v3.2.1...v3.3.0) (2026-10-29)
 
 ### Features
