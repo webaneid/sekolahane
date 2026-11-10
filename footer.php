@@ -12,6 +12,7 @@ $sekolahane_org_name = get_field( 'nama_organisasi', 'option' );
 $sekolahane_judul    = ! empty( $sekolahane_org_name ) ? (string) $sekolahane_org_name : get_bloginfo( 'name' );
 ?>
 <footer id="footer" class="ane-footer">
+	<h2 class="screen-reader-text"><?php esc_html_e( 'Informasi Sekolah', 'sekolahane' ); ?></h2>
 	<div class="atas">
 		<div class="container">
 			<div class="row justify-content-center">

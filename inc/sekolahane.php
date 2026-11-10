@@ -410,7 +410,7 @@ function sekolahane_defer_frontend_scripts( $tag, $handle ) {
 		return $tag;
 	}
 
-	$defer_handles = array( 'OwlCarousel', 'magnific', 'sekolahane-js' );
+	$defer_handles = array( 'jquery-core', 'jquery-migrate', 'OwlCarousel', 'magnific', 'sekolahane-js' );
 	if ( ! in_array( $handle, $defer_handles, true ) ) {
 		return $tag;
 	}
@@ -442,6 +442,12 @@ function sekolahane_get_attachment_id_from_url( $url ) {
 	}
 
 	$att_id = (int) attachment_url_to_postid( $url );
+	if ( 0 === $att_id ) {
+		$stripped = (string) preg_replace( '/-\d+x\d+(?=\.[a-zA-Z0-9]+$)/', '', $url );
+		if ( '' !== $stripped && $stripped !== $url ) {
+			$att_id = (int) attachment_url_to_postid( $stripped );
+		}
+	}
 	wp_cache_set( $cache_key, $att_id, 'sekolahane_media', HOUR_IN_SECONDS );
 
 	return $att_id;
@@ -493,7 +499,7 @@ function sekolahane_preload_lcp_image() {
 				$href   = ( is_array( $src ) && ! empty( $src[0] ) ) ? (string) $src[0] : $raw_bg;
 				$srcset = (string) wp_get_attachment_image_srcset( $att_id, $size );
 				if ( '' !== $srcset ) {
-					echo '<link rel="preload" as="image" href="' . esc_url( $href ) . '" imagesrcset="' . esc_attr( $srcset ) . '" imagesizes="100vw" fetchpriority="high">' . "\n";
+					echo '<link rel="preload" as="image" href="' . esc_url( $href ) . '" imagesrcset="' . esc_attr( $srcset ) . '" imagesizes="(max-width: 767px) 240px, 100vw" fetchpriority="high">' . "\n";
 				} else {
 					echo '<link rel="preload" as="image" href="' . esc_url( $href ) . '" fetchpriority="high">' . "\n";
 				}

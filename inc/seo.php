@@ -1021,6 +1021,7 @@ function sekolahane_seo_resource_hints( $urls, $relation_type ) {
 			'href'        => 'https://fonts.gstatic.com',
 			'crossorigin' => 'anonymous',
 		);
+	} elseif ( 'dns-prefetch' === $relation_type ) {
 		$urls[] = 'https://cdnjs.cloudflare.com';
 	}
 	return $urls;

@@ -19,7 +19,7 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! defined( 'SEKOLAHANE_WEBP_QUALITY' ) ) {
-	define( 'SEKOLAHANE_WEBP_QUALITY', 82 );
+	define( 'SEKOLAHANE_WEBP_QUALITY', 78 );
 }
 
 /**

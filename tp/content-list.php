@@ -7,12 +7,19 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$sekolahane_img_url = '';
+$sekolahane_img_url    = '';
+$sekolahane_img_srcset = '';
+$sekolahane_img_w      = 400;
+$sekolahane_img_h      = 225;
 if ( has_post_thumbnail() ) {
-	$sekolahane_thumb = wp_get_attachment_image_src( (int) get_post_thumbnail_id( get_the_ID() ), 'kotak' );
+	$sekolahane_thumb_id = (int) get_post_thumbnail_id( get_the_ID() );
+	$sekolahane_thumb    = wp_get_attachment_image_src( $sekolahane_thumb_id, 'thumbnail' );
 	if ( is_array( $sekolahane_thumb ) && ! empty( $sekolahane_thumb[0] ) ) {
 		$sekolahane_img_url = (string) $sekolahane_thumb[0];
+		$sekolahane_img_w   = ! empty( $sekolahane_thumb[1] ) ? (int) $sekolahane_thumb[1] : 400;
+		$sekolahane_img_h   = ! empty( $sekolahane_thumb[2] ) ? (int) $sekolahane_thumb[2] : 225;
 	}
+	$sekolahane_img_srcset = (string) wp_get_attachment_image_srcset( $sekolahane_thumb_id, 'thumbnail' );
 }
 if ( '' === $sekolahane_img_url ) {
 	$sekolahane_img_url = (string) sekolahane_dummy_tumbnail();
@@ -24,7 +31,7 @@ $sekolahane_categories = get_the_category();
 	<header class="entry-header">
 		<a href="<?php echo esc_url( (string) get_permalink() ); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
 			<div class="ane-image">
-				<img src="<?php echo esc_url( $sekolahane_img_url ); ?>" width="400" height="400" alt="<?php echo esc_attr( get_the_title() ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy" decoding="async">
+				<img src="<?php echo esc_url( $sekolahane_img_url ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="(max-width: 767px) 86px, 98px"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy" decoding="async">
 			</div>
 		</a>
 	</header>

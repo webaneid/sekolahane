@@ -65,9 +65,9 @@ $sekolahane_show_curve = ( null === $sekolahane_raw_curve || '' === $sekolahane_
 				<div class="<?php echo esc_attr( $sekolahane_item_cls ); ?>">
 					<?php if ( '' !== $sekolahane_img_src ) : ?>
 						<?php if ( 0 === $sekolahane_slide_idx ) : ?>
-							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_img_src ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="100vw"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" fetchpriority="high" decoding="async">
+							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_img_src ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="(max-width: 767px) 240px, 100vw"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" fetchpriority="high" decoding="async">
 						<?php else : ?>
-							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_img_src ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="100vw"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" loading="lazy" fetchpriority="low" decoding="async">
+							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_img_src ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="(max-width: 767px) 240px, 100vw"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" loading="lazy" fetchpriority="low" decoding="async">
 						<?php endif; ?>
 					<?php endif; ?>
 					<?php if ( $sekolahane_has_text ) : ?>
