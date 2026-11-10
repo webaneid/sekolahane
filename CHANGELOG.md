@@ -1,3 +1,9 @@
+## [3.3.3](https://github.com/webaneid/sekolahane/compare/v3.3.2...v3.3.3) (2026-11-10)
+
+### Bug Fixes
+
+* **pagespeed:** terapkan standar webane-pagespeed-cwv (preload LCP, async CSS, defer JS, thumbnail mobile srcset, dan content-visibility) ([dfd87c0](https://github.com/webaneid/sekolahane/commit/dfd87c0c6599f5c3edf89bd4cebd6bd0dea0c7e4))
+
 ## [3.3.2](https://github.com/webaneid/sekolahane/compare/v3.3.1...v3.3.2) (2026-11-01)
 
 ### Bug Fixes
