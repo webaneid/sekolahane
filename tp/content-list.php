@@ -24,7 +24,7 @@ $sekolahane_categories = get_the_category();
 	<header class="entry-header">
 		<a href="<?php echo esc_url( (string) get_permalink() ); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
 			<div class="ane-image">
-				<img src="<?php echo esc_url( $sekolahane_img_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy">
+				<img src="<?php echo esc_url( $sekolahane_img_url ); ?>" width="400" height="400" alt="<?php echo esc_attr( get_the_title() ); ?>" title="<?php echo esc_attr( get_the_title() ); ?>" loading="lazy" decoding="async">
 			</div>
 		</a>
 	</header>

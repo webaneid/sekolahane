@@ -346,7 +346,10 @@ function ane_load_css_and_js() {
 	wp_enqueue_style( 'sekolahane-css', get_template_directory_uri() . '/css/main.min.css', array(), $css_ver );
 
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'OwlCarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js', array( 'jquery' ), '2.2.1', true );
+
+	if ( is_front_page() || is_home() || is_page_template( array( 'page-home.php', 'page-kelembagaan.php', 'page-aneprofil.php' ) ) || is_post_type_archive( 'testimoni' ) ) {
+		wp_enqueue_script( 'OwlCarousel', 'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.2.1/owl.carousel.min.js', array( 'jquery' ), '2.2.1', true );
+	}
 
 	if ( is_page_template( 'page-kontak.php' ) ) {
 		$gmaps_key = sekolahane_get_google_maps_api_key();
@@ -364,6 +367,175 @@ function ane_load_css_and_js() {
 	wp_enqueue_script( 'sekolahane-js', get_template_directory_uri() . '/js/sekolahane.js', array( 'jquery' ), $js_ver, true );
 }
 add_action( 'wp_enqueue_scripts', 'ane_load_css_and_js' );
+
+/**
+ * Ubah stylesheet non-kritis (Google Fonts & Magnific Popup) menjadi async
+ * agar tidak memblokir First Contentful Paint (FCP) dan Largest Contentful Paint (LCP).
+ *
+ * @param string $html   Tag HTML <link> stylesheet.
+ * @param string $handle Nama handle stylesheet.
+ * @param string $href   URL stylesheet.
+ * @return string
+ */
+function sekolahane_async_non_critical_styles( $html, $handle, $href ) {
+	if ( is_admin() ) {
+		return $html;
+	}
+
+	$async_handles = array( 'Google-Fonts', 'magnific-popup' );
+	if ( ! in_array( $handle, $async_handles, true ) ) {
+		return $html;
+	}
+
+	$async_html = str_replace(
+		array( "media='all'", 'media="all"' ),
+		'media="print" onload="this.media=\'all\'"',
+		$html
+	);
+
+	// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet -- Fallback noscript untuk stylesheet yang sudah di-enqueue via wp_enqueue_style.
+	return $async_html . '<noscript><link rel="stylesheet" href="' . esc_url( $href ) . '"></noscript>' . "\n";
+}
+add_filter( 'style_loader_tag', 'sekolahane_async_non_critical_styles', 10, 3 );
+
+/**
+ * Tambahkan atribut defer pada script frontend non-blocking.
+ *
+ * @param string $tag    Tag HTML <script>.
+ * @param string $handle Nama handle script.
+ * @return string
+ */
+function sekolahane_defer_frontend_scripts( $tag, $handle ) {
+	if ( is_admin() ) {
+		return $tag;
+	}
+
+	$defer_handles = array( 'OwlCarousel', 'magnific', 'sekolahane-js' );
+	if ( ! in_array( $handle, $defer_handles, true ) ) {
+		return $tag;
+	}
+
+	if ( false !== strpos( $tag, ' defer' ) ) {
+		return $tag;
+	}
+
+	return str_replace( ' src=', ' defer src=', $tag );
+}
+add_filter( 'script_loader_tag', 'sekolahane_defer_frontend_scripts', 10, 2 );
+
+/**
+ * Resolusi ID attachment WordPress dari URL gambar (dengan object cache).
+ *
+ * @param string $url URL gambar.
+ * @return int ID attachment atau 0 jika tidak ditemukan.
+ */
+function sekolahane_get_attachment_id_from_url( $url ) {
+	$url = trim( $url );
+	if ( '' === $url ) {
+		return 0;
+	}
+
+	$cache_key = 'att_id_' . md5( $url );
+	$cached    = wp_cache_get( $cache_key, 'sekolahane_media' );
+	if ( false !== $cached ) {
+		return (int) $cached;
+	}
+
+	$att_id = (int) attachment_url_to_postid( $url );
+	wp_cache_set( $cache_key, $att_id, 'sekolahane_media', HOUR_IN_SECONDS );
+
+	return $att_id;
+}
+
+/**
+ * Preload gambar LCP (Hero Slider pertama di beranda atau Featured Image di single post)
+ * pada wp_head prioritas 1 sesuai standar webane-pagespeed-cwv.
+ *
+ * @return void
+ */
+function sekolahane_preload_lcp_image() {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$is_mobile = wp_is_mobile();
+
+	// 1. Beranda / Template Landing Page: preload slide pertama dari home_box_slider.
+	if ( is_front_page() || is_page_template( array( 'page-home.php', 'page-kelembagaan.php', 'page-aneprofil.php' ) ) ) {
+		if ( ! function_exists( 'get_field' ) ) {
+			return;
+		}
+
+		$sections = get_field( 'home_content' );
+		if ( ! is_array( $sections ) ) {
+			return;
+		}
+
+		foreach ( $sections as $section ) {
+			if ( ! is_array( $section ) || empty( $section['acf_fc_layout'] ) || 'home_box_slider' !== $section['acf_fc_layout'] ) {
+				continue;
+			}
+
+			if ( empty( $section['home_slider'] ) || ! is_array( $section['home_slider'] ) ) {
+				break;
+			}
+
+			$first_slide = reset( $section['home_slider'] );
+			$raw_bg      = ( is_array( $first_slide ) && ! empty( $first_slide['ane_background'] ) ) ? trim( (string) $first_slide['ane_background'] ) : '';
+			if ( '' === $raw_bg ) {
+				break;
+			}
+
+			$att_id = sekolahane_get_attachment_id_from_url( $raw_bg );
+			if ( $att_id > 0 ) {
+				$size   = $is_mobile ? 'medium' : 'large';
+				$src    = wp_get_attachment_image_src( $att_id, $size );
+				$href   = ( is_array( $src ) && ! empty( $src[0] ) ) ? (string) $src[0] : $raw_bg;
+				$srcset = (string) wp_get_attachment_image_srcset( $att_id, $size );
+				if ( '' !== $srcset ) {
+					echo '<link rel="preload" as="image" href="' . esc_url( $href ) . '" imagesrcset="' . esc_attr( $srcset ) . '" imagesizes="100vw" fetchpriority="high">' . "\n";
+				} else {
+					echo '<link rel="preload" as="image" href="' . esc_url( $href ) . '" fetchpriority="high">' . "\n";
+				}
+			} else {
+				echo '<link rel="preload" as="image" href="' . esc_url( $raw_bg ) . '" fetchpriority="high">' . "\n";
+			}
+			break;
+		}
+		return;
+	}
+
+	// 2. Halaman Single Post / Page / CPT: preload featured image utama.
+	if ( is_singular() ) {
+		$post_id = (int) get_queried_object_id();
+		if ( $post_id <= 0 || ! has_post_thumbnail( $post_id ) ) {
+			return;
+		}
+
+		$post_type = (string) get_post_type( $post_id );
+		if ( 'guru' === $post_type ) {
+			$size = 'kotak';
+		} else {
+			$size = $is_mobile ? 'thumbnail' : 'large';
+		}
+
+		$thumb_id = (int) get_post_thumbnail_id( $post_id );
+		$src      = wp_get_attachment_image_src( $thumb_id, $size );
+		if ( ! is_array( $src ) || empty( $src[0] ) ) {
+			return;
+		}
+
+		$srcset = (string) wp_get_attachment_image_srcset( $thumb_id, $size );
+		$sizes  = ( 'guru' === $post_type ) ? '400px' : '(max-width: 767px) 400px, 1000px';
+
+		if ( '' !== $srcset ) {
+			echo '<link rel="preload" as="image" href="' . esc_url( (string) $src[0] ) . '" imagesrcset="' . esc_attr( $srcset ) . '" imagesizes="' . esc_attr( $sizes ) . '" fetchpriority="high">' . "\n";
+		} else {
+			echo '<link rel="preload" as="image" href="' . esc_url( (string) $src[0] ) . '" fetchpriority="high">' . "\n";
+		}
+	}
+}
+add_action( 'wp_head', 'sekolahane_preload_lcp_image', 1 );
 
 /**
  * Konfigurasi Google Maps API key untuk field Google Map ACF.

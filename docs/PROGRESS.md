@@ -44,3 +44,4 @@
 | 36 | Naik Target Runtime ke PHP 8.0+ (`composer.json`, `phpcs.xml.dist`, `inc/updater.php`, dokumen) | Done | `phases/phase-36-naik-target-php-8.md` |
 | 37 | Optimasi PageSpeed Core Web Vitals (Zero-CLS & `fetchpriority` Hero LCP, Hapus Render-Blocking CSS, & Aksesibilitas 100) | Done | `phases/phase-37-optimasi-pagespeed-cwv-dan-aksesibilitas.md` |
 | 38 | Perbaikan Instant Force-Check & Auto-Clear Cache pada GitHub Auto-Updater (`inc/updater.php`) | Done | `phases/phase-38-perbaikan-force-check-github-updater.md` |
+| 39 | Penerapan Standar `webane-pagespeed-cwv` (Preload LCP `wp_head`, Async CSS, Defer JS, Gambar Mobile `thumbnail` + `srcset`, `<img class="ane-overlay-bg">`, & `content-visibility: auto`) | Done | `phases/phase-39-standar-pagespeed-cwv-jalawarta.md` |

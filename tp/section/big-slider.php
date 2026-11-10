@@ -42,13 +42,32 @@ $sekolahane_show_curve = ( null === $sekolahane_raw_curve || '' === $sekolahane_
 				$sekolahane_has_text = ( '' !== $sekolahane_judul || '' !== $sekolahane_deskripsi || ( '' !== $sekolahane_link_url && '' !== $sekolahane_link_title ) );
 				$sekolahane_item_cls = 'home-slider-item ' . $sekolahane_align_class . ' ' . $sekolahane_overlay_class;
 				$sekolahane_img_alt  = '' !== $sekolahane_judul ? $sekolahane_judul : (string) get_bloginfo( 'name' );
+
+				$sekolahane_img_src    = $sekolahane_bg;
+				$sekolahane_img_srcset = '';
+				$sekolahane_img_w      = 1280;
+				$sekolahane_img_h      = 720;
+
+				if ( '' !== $sekolahane_bg ) {
+					$sekolahane_att_id = sekolahane_get_attachment_id_from_url( $sekolahane_bg );
+					if ( $sekolahane_att_id > 0 ) {
+						$sekolahane_size = wp_is_mobile() ? 'medium' : 'large';
+						$sekolahane_data = wp_get_attachment_image_src( $sekolahane_att_id, $sekolahane_size );
+						if ( is_array( $sekolahane_data ) && ! empty( $sekolahane_data[0] ) ) {
+							$sekolahane_img_src = (string) $sekolahane_data[0];
+							$sekolahane_img_w   = ! empty( $sekolahane_data[1] ) ? (int) $sekolahane_data[1] : 1000;
+							$sekolahane_img_h   = ! empty( $sekolahane_data[2] ) ? (int) $sekolahane_data[2] : 563;
+						}
+						$sekolahane_img_srcset = (string) wp_get_attachment_image_srcset( $sekolahane_att_id, $sekolahane_size );
+					}
+				}
 				?>
 				<div class="<?php echo esc_attr( $sekolahane_item_cls ); ?>">
-					<?php if ( '' !== $sekolahane_bg ) : ?>
+					<?php if ( '' !== $sekolahane_img_src ) : ?>
 						<?php if ( 0 === $sekolahane_slide_idx ) : ?>
-							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_bg ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" fetchpriority="high" decoding="async">
+							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_img_src ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="100vw"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" fetchpriority="high" decoding="async">
 						<?php else : ?>
-							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_bg ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" loading="lazy" decoding="async">
+							<img class="home-slider-bg" src="<?php echo esc_url( $sekolahane_img_src ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="100vw"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( $sekolahane_img_alt ); ?>" loading="lazy" fetchpriority="low" decoding="async">
 						<?php endif; ?>
 					<?php endif; ?>
 					<?php if ( $sekolahane_has_text ) : ?>

@@ -21,18 +21,24 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$sekolahane_post_id   = (int) get_the_ID();
-$sekolahane_post_type = (string) get_post_type( $sekolahane_post_id );
-$sekolahane_img_url   = '';
-$sekolahane_img_cap   = '';
+$sekolahane_post_id    = (int) get_the_ID();
+$sekolahane_post_type  = (string) get_post_type( $sekolahane_post_id );
+$sekolahane_img_url    = '';
+$sekolahane_img_srcset = '';
+$sekolahane_img_w      = 400;
+$sekolahane_img_h      = 225;
+$sekolahane_img_cap    = '';
 
 if ( has_post_thumbnail( $sekolahane_post_id ) ) {
-	$sekolahane_img_size = ( 'guru' === $sekolahane_post_type ) ? 'kotak' : 'large';
+	$sekolahane_img_size = ( 'guru' === $sekolahane_post_type ) ? 'kotak' : 'thumbnail';
 	$sekolahane_thumb_id = (int) get_post_thumbnail_id( $sekolahane_post_id );
 	$sekolahane_thumb    = wp_get_attachment_image_src( $sekolahane_thumb_id, $sekolahane_img_size );
 	if ( is_array( $sekolahane_thumb ) && ! empty( $sekolahane_thumb[0] ) ) {
 		$sekolahane_img_url = (string) $sekolahane_thumb[0];
+		$sekolahane_img_w   = ! empty( $sekolahane_thumb[1] ) ? (int) $sekolahane_thumb[1] : 400;
+		$sekolahane_img_h   = ! empty( $sekolahane_thumb[2] ) ? (int) $sekolahane_thumb[2] : ( 'guru' === $sekolahane_post_type ? 400 : 225 );
 	}
+	$sekolahane_img_srcset = (string) wp_get_attachment_image_srcset( $sekolahane_thumb_id, $sekolahane_img_size );
 	$sekolahane_thumb_post = get_post( $sekolahane_thumb_id );
 	if ( $sekolahane_thumb_post instanceof WP_Post && '' !== trim( $sekolahane_thumb_post->post_excerpt ) ) {
 		$sekolahane_img_cap = trim( $sekolahane_thumb_post->post_excerpt );
@@ -44,6 +50,7 @@ if ( has_post_thumbnail( $sekolahane_post_id ) ) {
 	}
 } elseif ( 'guru' === $sekolahane_post_type ) {
 	$sekolahane_img_url = ane_dummy_kotak();
+	$sekolahane_img_h   = 400;
 } elseif ( 'page' === $sekolahane_post_type ) {
 	$sekolahane_img_url = sekolahane_dummy_tumbnail();
 }
@@ -55,7 +62,7 @@ $sekolahane_single_cls = ( 'guru' === $sekolahane_post_type ) ? 'ane-mobile-sing
 	<?php if ( '' !== $sekolahane_img_url ) : ?>
 		<div class="msingle-media">
 			<div class="msingle-media-frame">
-				<img src="<?php echo esc_url( $sekolahane_img_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" loading="eager">
+				<img src="<?php echo esc_url( $sekolahane_img_url ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="(max-width: 767px) 400px, 700px"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" fetchpriority="high" decoding="async">
 			</div>
 			<?php if ( '' !== $sekolahane_img_cap ) : ?>
 				<span class="msingle-caption"><?php echo wp_kses_post( $sekolahane_img_cap ); ?></span>
