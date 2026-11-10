@@ -1,3 +1,9 @@
+## [3.3.4](https://github.com/webaneid/sekolahane/compare/v3.3.3...v3.3.4) (2026-11-10)
+
+### Bug Fixes
+
+* **pagespeed:** hapus duplikasi preconnect, defer jQuery frontend, dan optimasi ukuran gambar responsive ([c113e4f](https://github.com/webaneid/sekolahane/commit/c113e4fb19914bc51553a8eda302025307b63c7e))
+
 ## [3.3.3](https://github.com/webaneid/sekolahane/compare/v3.3.2...v3.3.3) (2026-11-10)
 
 ### Bug Fixes
