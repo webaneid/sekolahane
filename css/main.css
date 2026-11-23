@@ -1968,6 +1968,8 @@ select:after {
   width: 100%;
   height: auto;
   margin-bottom: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
 }
 .landing-page .home-klasik .pm-0 .ane-konten-klasik .post-content h2 {
   font-size: 20px;
@@ -2002,6 +2004,8 @@ select:after {
   width: 100%;
   height: auto;
   margin-bottom: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
 }
 .landing-page .home-column .ane-konten-overlay .entry-header {
   height: 323px;
@@ -2026,6 +2030,8 @@ select:after {
   width: 100%;
   height: auto;
   margin-bottom: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 420px;
 }
 .landing-page .home-sliding .ane-konten-overlay .entry-header {
   height: 323px;
@@ -2048,6 +2054,8 @@ select:after {
   width: 100%;
   height: auto;
   margin-bottom: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
 }
 .home-ekstrakurikuler .ane-ekstra-badge {
   display: inline-block;
@@ -2568,6 +2576,8 @@ select:after {
   width: 100%;
   display: block;
   margin-bottom: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
 }
 .landing-page .home-testimoni.testi-mb-yes,
 .home-testimoni.testi-mb-yes {
@@ -2626,6 +2636,8 @@ select:after {
   width: 100%;
   height: auto;
   margin-bottom: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
 }
 
 /* --- Section Funfact (.section-funfact) --- */
@@ -2635,6 +2647,8 @@ select:after {
   width: 100%;
   position: relative;
   margin-bottom: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 360px;
 }
 .landing-page .section-funfact.funfact-mb-yes,
 .section-funfact.funfact-mb-yes {
@@ -2774,6 +2788,8 @@ select:after {
   width: 100%;
   position: relative;
   margin-bottom: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 560px;
 }
 .landing-page .section-general-info.ginfo-mb-yes,
 .section-general-info.ginfo-mb-yes {
@@ -5557,6 +5573,17 @@ select:after {
   width: 100%;
   background-position: center center !important;
   margin-bottom: 0;
+  overflow: hidden;
+}
+.ane-page-default .entry-header .ane-overlay-bg,
+.ane-page-profil .entry-header .ane-overlay-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
 }
 .ane-page-default .entry-header:after {
   position: absolute;
@@ -5568,6 +5595,7 @@ select:after {
   bottom: 0;
   height: 100%;
   content: "";
+  z-index: 1;
 }
 .ane-page-default .breadcrumb-area {
   background-color: var(--ane-warna-putih);
@@ -5626,6 +5654,7 @@ select:after {
   width: 100%;
   background-position: center center !important;
   margin-bottom: 0;
+  overflow: hidden;
 }
 .ane-page-profil .entry-header:after {
   position: absolute;
@@ -5637,13 +5666,14 @@ select:after {
   bottom: 0;
   height: 100%;
   content: "";
+  z-index: 1;
 }
 .ane-page-profil .entry-header .isi {
   display: table;
   width: 70%;
   height: 600px;
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin: auto;
 }
 .ane-page-profil .entry-header .isi .text-isi {

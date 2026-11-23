@@ -468,47 +468,42 @@ function sekolahane_preload_lcp_image() {
 
 	// 1. Beranda / Template Landing Page: preload slide pertama dari home_box_slider.
 	if ( is_front_page() || is_page_template( array( 'page-home.php', 'page-kelembagaan.php', 'page-aneprofil.php' ) ) ) {
-		if ( ! function_exists( 'get_field' ) ) {
-			return;
-		}
+		if ( function_exists( 'get_field' ) ) {
+			$sections = get_field( 'home_content' );
+			if ( is_array( $sections ) ) {
+				foreach ( $sections as $section ) {
+					if ( ! is_array( $section ) || empty( $section['acf_fc_layout'] ) || 'home_box_slider' !== $section['acf_fc_layout'] ) {
+						continue;
+					}
 
-		$sections = get_field( 'home_content' );
-		if ( ! is_array( $sections ) ) {
-			return;
-		}
+					if ( empty( $section['home_slider'] ) || ! is_array( $section['home_slider'] ) ) {
+						break;
+					}
 
-		foreach ( $sections as $section ) {
-			if ( ! is_array( $section ) || empty( $section['acf_fc_layout'] ) || 'home_box_slider' !== $section['acf_fc_layout'] ) {
-				continue;
-			}
+					$first_slide = reset( $section['home_slider'] );
+					$raw_bg      = ( is_array( $first_slide ) && ! empty( $first_slide['ane_background'] ) ) ? trim( (string) $first_slide['ane_background'] ) : '';
+					if ( '' === $raw_bg ) {
+						break;
+					}
 
-			if ( empty( $section['home_slider'] ) || ! is_array( $section['home_slider'] ) ) {
-				break;
-			}
-
-			$first_slide = reset( $section['home_slider'] );
-			$raw_bg      = ( is_array( $first_slide ) && ! empty( $first_slide['ane_background'] ) ) ? trim( (string) $first_slide['ane_background'] ) : '';
-			if ( '' === $raw_bg ) {
-				break;
-			}
-
-			$att_id = sekolahane_get_attachment_id_from_url( $raw_bg );
-			if ( $att_id > 0 ) {
-				$size   = $is_mobile ? 'medium' : 'large';
-				$src    = wp_get_attachment_image_src( $att_id, $size );
-				$href   = ( is_array( $src ) && ! empty( $src[0] ) ) ? (string) $src[0] : $raw_bg;
-				$srcset = (string) wp_get_attachment_image_srcset( $att_id, $size );
-				if ( '' !== $srcset ) {
-					echo '<link rel="preload" as="image" href="' . esc_url( $href ) . '" imagesrcset="' . esc_attr( $srcset ) . '" imagesizes="(max-width: 767px) 240px, 100vw" fetchpriority="high">' . "\n";
-				} else {
-					echo '<link rel="preload" as="image" href="' . esc_url( $href ) . '" fetchpriority="high">' . "\n";
+					$att_id = sekolahane_get_attachment_id_from_url( $raw_bg );
+					if ( $att_id > 0 ) {
+						$size   = $is_mobile ? 'medium' : 'large';
+						$src    = wp_get_attachment_image_src( $att_id, $size );
+						$href   = ( is_array( $src ) && ! empty( $src[0] ) ) ? (string) $src[0] : $raw_bg;
+						$srcset = (string) wp_get_attachment_image_srcset( $att_id, $size );
+						if ( '' !== $srcset ) {
+							echo '<link rel="preload" as="image" href="' . esc_url( $href ) . '" imagesrcset="' . esc_attr( $srcset ) . '" imagesizes="(max-width: 767px) 240px, 100vw" fetchpriority="high">' . "\n";
+						} else {
+							echo '<link rel="preload" as="image" href="' . esc_url( $href ) . '" fetchpriority="high">' . "\n";
+						}
+					} else {
+						echo '<link rel="preload" as="image" href="' . esc_url( $raw_bg ) . '" fetchpriority="high">' . "\n";
+					}
+					return;
 				}
-			} else {
-				echo '<link rel="preload" as="image" href="' . esc_url( $raw_bg ) . '" fetchpriority="high">' . "\n";
 			}
-			break;
 		}
-		return;
 	}
 
 	// 2. Halaman Single Post / Page / CPT: preload featured image utama.
@@ -879,7 +874,7 @@ function ane_prev_next_post() {
 					<div class="entry-header">
 						<a href="' . $prev_url . '">
 							<div class="ane-image">
-								<img src="' . esc_url( $prev_img ) . '" alt="' . $prev_alt . '" title="' . $prev_alt . '">
+								<img src="' . esc_url( $prev_img ) . '" width="80" height="80" alt="' . $prev_alt . '" title="' . $prev_alt . '" loading="lazy" decoding="async">
 							</div>
 						</a>
 					</div>
@@ -903,7 +898,7 @@ function ane_prev_next_post() {
 					<div class="entry-header">
 						<a href="' . $next_url . '">
 							<div class="ane-image">
-								<img src="' . esc_url( $next_img ) . '" alt="' . $next_alt . '" title="' . $next_alt . '">
+								<img src="' . esc_url( $next_img ) . '" width="80" height="80" alt="' . $next_alt . '" title="' . $next_alt . '" loading="lazy" decoding="async">
 							</div>
 						</a>
 					</div>

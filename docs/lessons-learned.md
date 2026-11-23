@@ -5,6 +5,23 @@
 
 ---
 
+## 2026-11-10 — Optimasi PageSpeed Core Web Vitals (`webane-pagespeed-cwv`): Zero-CLS OwlCarousel, Batas `preconnect <= 4`, & DPR-Aware `sizes`
+**Masalah:**
+1. Saat script `OwlCarousel` di-defer untuk menghilangkan render-blocking, CLS melonjak ke `0.47–0.53` karena `.owl-carousel` memiliki `display: none` sampai JS selesai dieksekusi.
+2. Muncul peringatan Lighthouse `Ditemukan lebih dari 4 koneksi preconnect` karena `<link rel="preconnect">` ditulis ganda di `header.php` dan `wp_resource_hints` (`inc/seo.php`).
+3. Pada layar mobile ber-DPR tinggi (`412px × 2.625 DPR = 1081px`), `sizes="100vw"` pada gambar Hero Slider memicu browser mengunduh kandidat `1000w` (`1000x563`) alih-alih `700w` (`700x394`), dan inline `background-image` di section bawah fold (`calltoaction.php`) memicu unduhan eager file `-scaled.jpg` (`241 KB`).
+**Root cause:**
+1. Default CSS OwlCarousel menyembunyikan seluruh slider sebelum inisialisasi JS.
+2. Duplikasi resource hints antara template `header.php` dan fungsi PHP `wp_resource_hints`.
+3. Perhitungan `sizes="100vw"` dikalikan DPR perangkat oleh browser saat memilih kandidat `srcset`, dan CSS `background-image` inline tidak mendukung `loading="lazy"` maupun `srcset`.
+**Fix:**
+1. Menambahkan `.home-big-slider.owl-carousel { display: block; }` dan `.home-big-slider.owl-carousel:not(.owl-loaded) > *:not(:first-child) { display: none; }` di `css/main.css` sehingga CLS turun ke **`0.002` (Desktop) / `0.005` (Mobile)**.
+2. Menghapus `<link rel="preconnect">` di `header.php`, membatasi `preconnect` di `wp_resource_hints` hanya untuk 2 origin (`fonts.googleapis.com` & `fonts.gstatic.com`), dan memindahkan `cdnjs.cloudflare.com` ke `dns-prefetch`.
+3. Mengganti seluruh inline `background-image` konten dengan `<img>` (`object-fit: cover`), menyamakan `imagesizes`/`sizes="(max-width: 767px) 240px, 100vw"` pada Hero Slider, menggunakan ukuran `'thumbnail'` (`400x225`) pada `tp/content-list.php`, serta men-defer `'jquery-core'` dan `'jquery-migrate'` di frontend.
+**Pencegahan:** Selalu jalankan skill global `webane-pagespeed-cwv` (`"Jalankan optimasi pagespeed webane"` / `"Terapkan standar speed test webane"`) saat membangun atau mengaudit theme WordPress Webane.
+
+---
+
 ## 2026-10-26 — `get_sub_field()` pada Flexible Content Layout Harus Dipanggil Sebelum `have_rows()` Repeater Anak
 **Masalah:** Pengaturan level layout (`ane_featured_position`, `ane_featured_style`) pada blok Flexible Content `home_featured` selalu menghasilkan string kosong `""` di `tp/section/featured.php` meskipun sudah dipilih `Di Bawah Hero` dan disimpan di WP Admin.
 **Root cause:** `get_sub_field( 'ane_featured_position' )` dipanggil di dalam blok `if ( have_rows( 'ane_featured' ) )`. Pada ACF Pro, memanggil `have_rows( 'ane_featured' )` langsung menggeser pointer `acf_get_loop( 'active' )` ke repeater anak (`ane_featured`), sehingga `get_sub_field()` mencari field di dalam repeater anak, bukan di layout induk (`home_featured`).

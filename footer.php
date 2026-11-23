@@ -192,7 +192,7 @@ if ( have_rows( 'ane_cs', 'option' ) ) :
 						<a href="<?php echo esc_url( $sekolahane_wa_url ); ?>" target="_blank" rel="noopener noreferrer" class="cc-agent-item">
 							<div class="cc-agent-avatar">
 								<?php if ( '' !== $sekolahane_avatar ) : ?>
-									<img src="<?php echo esc_url( $sekolahane_avatar ); ?>" alt="<?php echo esc_attr( $sekolahane_nama ); ?>" loading="lazy">
+									<img src="<?php echo esc_url( $sekolahane_avatar ); ?>" width="45" height="45" alt="<?php echo esc_attr( $sekolahane_nama ); ?>" loading="lazy" decoding="async">
 								<?php else : ?>
 									<span class="cc-agent-fallback" aria-hidden="true">
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" focusable="false">

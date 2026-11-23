@@ -31,7 +31,7 @@ if ( ! is_string( $sekolahane_archive_url ) || '' === $sekolahane_archive_url ) 
 			if ( has_post_thumbnail() ) {
 				$sekolahane_thumb = wp_get_attachment_image_src( (int) get_post_thumbnail_id( get_the_ID() ), 'kotak' );
 				if ( is_array( $sekolahane_thumb ) && ! empty( $sekolahane_thumb[0] ) ) {
-					echo '<img src="' . esc_url( $sekolahane_thumb[0] ) . '" alt="' . esc_attr( get_the_title() ) . '" loading="lazy">';
+					echo '<img src="' . esc_url( (string) $sekolahane_thumb[0] ) . '" width="56" height="56" alt="' . esc_attr( get_the_title() ) . '" loading="lazy" decoding="async">';
 				}
 			} else {
 				?>

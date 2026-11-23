@@ -46,3 +46,4 @@
 | 38 | Perbaikan Instant Force-Check & Auto-Clear Cache pada GitHub Auto-Updater (`inc/updater.php`) | Done | `phases/phase-38-perbaikan-force-check-github-updater.md` |
 | 39 | Penerapan Standar `webane-pagespeed-cwv` (Preload LCP `wp_head`, Async CSS, Defer JS, Gambar Mobile `thumbnail` + `srcset`, `<img class="ane-overlay-bg">`, & `content-visibility: auto`) | Done | `phases/phase-39-standar-pagespeed-cwv-jalawarta.md` |
 | 40 | Perbaikan Preconnect (> 4 Koneksi), Defer jQuery, Optimasi Gambar Responsive (`big-slider`, `calltoaction`, `content-list`), & Aksesibilitas 100 (`darurrohmah.com`) | Done | `phases/phase-40-perbaikan-preconnect-dan-audit-darurrohmah.md` |
+| 41 | Penyempurnaan 100% Standar `webane-pagespeed-cwv` pada Seluruh Template Sekunder, CPT, & Section Pendukung | Done | `phases/phase-41-penyempurnaan-100-persen-standar-pagespeed-webane.md` |

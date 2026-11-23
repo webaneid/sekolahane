@@ -57,7 +57,22 @@ if ( is_string( $sekolahane_img_raw ) && '' !== trim( $sekolahane_img_raw ) ) {
 	$sekolahane_img_url = trim( (string) $sekolahane_img_raw['url'] );
 }
 if ( '' === $sekolahane_img_url ) {
-	$sekolahane_img_url = sekolahane_dummy_tumbnail();
+	$sekolahane_img_url = (string) sekolahane_dummy_tumbnail();
+}
+
+$sekolahane_img_srcset = '';
+$sekolahane_img_w      = 600;
+$sekolahane_img_h      = 800;
+$sekolahane_ginfo_att  = sekolahane_get_attachment_id_from_url( $sekolahane_img_url );
+if ( $sekolahane_ginfo_att > 0 ) {
+	$sekolahane_ginfo_size = wp_is_mobile() ? 'medium' : 'large';
+	$sekolahane_ginfo_data = wp_get_attachment_image_src( $sekolahane_ginfo_att, $sekolahane_ginfo_size );
+	if ( is_array( $sekolahane_ginfo_data ) && ! empty( $sekolahane_ginfo_data[0] ) ) {
+		$sekolahane_img_url = (string) $sekolahane_ginfo_data[0];
+		$sekolahane_img_w   = ! empty( $sekolahane_ginfo_data[1] ) ? (int) $sekolahane_ginfo_data[1] : 600;
+		$sekolahane_img_h   = ! empty( $sekolahane_ginfo_data[2] ) ? (int) $sekolahane_ginfo_data[2] : 800;
+	}
+	$sekolahane_img_srcset = (string) wp_get_attachment_image_srcset( $sekolahane_ginfo_att, $sekolahane_ginfo_size );
 }
 
 $sekolahane_judul       = trim( (string) get_sub_field( 'ane_title' ) );
@@ -138,7 +153,7 @@ $sekolahane_section_classes = 'section-general-info ' . $sekolahane_layout_class
 										<span class="ginfo-badge-num"><?php echo esc_html( $sekolahane_item['num'] ); ?></span>
 									<?php elseif ( 'custom' === $sekolahane_item['icon_type'] && '' !== $sekolahane_item['custom_url'] ) : ?>
 										<span class="ginfo-badge-icon ginfo-badge-custom">
-											<img src="<?php echo esc_url( $sekolahane_item['custom_url'] ); ?>" alt="<?php echo esc_attr( $sekolahane_item['title'] ); ?>" loading="lazy">
+											<img src="<?php echo esc_url( $sekolahane_item['custom_url'] ); ?>" width="24" height="24" alt="<?php echo esc_attr( $sekolahane_item['title'] ); ?>" loading="lazy" decoding="async">
 										</span>
 									<?php else : ?>
 										<span class="ginfo-badge-icon">
@@ -163,7 +178,7 @@ $sekolahane_section_classes = 'section-general-info ' . $sekolahane_layout_class
 
 					<div class="ginfo-media">
 						<div class="ginfo-media-frame">
-							<img src="<?php echo esc_url( $sekolahane_img_url ); ?>" alt="<?php echo esc_attr( '' !== $sekolahane_judul_plain ? $sekolahane_judul_plain : get_bloginfo( 'name' ) ); ?>" loading="lazy">
+							<img src="<?php echo esc_url( $sekolahane_img_url ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="(max-width: 767px) 380px, 460px"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( '' !== $sekolahane_judul_plain ? $sekolahane_judul_plain : get_bloginfo( 'name' ) ); ?>" loading="lazy" decoding="async">
 						</div>
 					</div>
 
@@ -177,7 +192,7 @@ $sekolahane_section_classes = 'section-general-info ' . $sekolahane_layout_class
 										<span class="ginfo-badge-num"><?php echo esc_html( $sekolahane_item['num'] ); ?></span>
 									<?php elseif ( 'custom' === $sekolahane_item['icon_type'] && '' !== $sekolahane_item['custom_url'] ) : ?>
 										<span class="ginfo-badge-icon ginfo-badge-custom">
-											<img src="<?php echo esc_url( $sekolahane_item['custom_url'] ); ?>" alt="<?php echo esc_attr( $sekolahane_item['title'] ); ?>" loading="lazy">
+											<img src="<?php echo esc_url( $sekolahane_item['custom_url'] ); ?>" width="24" height="24" alt="<?php echo esc_attr( $sekolahane_item['title'] ); ?>" loading="lazy" decoding="async">
 										</span>
 									<?php else : ?>
 										<span class="ginfo-badge-icon">
@@ -214,7 +229,7 @@ $sekolahane_section_classes = 'section-general-info ' . $sekolahane_layout_class
 			<div class="ginfo-split-row">
 				<div class="ginfo-media">
 					<div class="ginfo-media-frame">
-						<img src="<?php echo esc_url( $sekolahane_img_url ); ?>" alt="<?php echo esc_attr( '' !== $sekolahane_judul_plain ? $sekolahane_judul_plain : get_bloginfo( 'name' ) ); ?>" loading="lazy">
+						<img src="<?php echo esc_url( $sekolahane_img_url ); ?>"<?php echo '' !== $sekolahane_img_srcset ? ' srcset="' . esc_attr( $sekolahane_img_srcset ) . '" sizes="(max-width: 767px) 380px, 460px"' : ''; ?> width="<?php echo esc_attr( (string) $sekolahane_img_w ); ?>" height="<?php echo esc_attr( (string) $sekolahane_img_h ); ?>" alt="<?php echo esc_attr( '' !== $sekolahane_judul_plain ? $sekolahane_judul_plain : get_bloginfo( 'name' ) ); ?>" loading="lazy" decoding="async">
 					</div>
 				</div>
 
@@ -239,7 +254,7 @@ $sekolahane_section_classes = 'section-general-info ' . $sekolahane_layout_class
 											<span class="ginfo-badge-num"><?php echo esc_html( $sekolahane_item['num'] ); ?></span>
 										<?php elseif ( 'custom' === $sekolahane_item['icon_type'] && '' !== $sekolahane_item['custom_url'] ) : ?>
 											<span class="ginfo-badge-icon ginfo-badge-custom">
-												<img src="<?php echo esc_url( $sekolahane_item['custom_url'] ); ?>" alt="<?php echo esc_attr( $sekolahane_item['title'] ); ?>" loading="lazy">
+												<img src="<?php echo esc_url( $sekolahane_item['custom_url'] ); ?>" width="24" height="24" alt="<?php echo esc_attr( $sekolahane_item['title'] ); ?>" loading="lazy" decoding="async">
 											</span>
 										<?php else : ?>
 											<span class="ginfo-badge-icon">
