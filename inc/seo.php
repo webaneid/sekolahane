@@ -222,6 +222,72 @@ function sekolahane_seo_trim_description( $text, $max_length = 158 ) {
 }
 
 /**
+ * Hasilkan Meta Description cerdas untuk objek WP_Post tertentu.
+ *
+ * @param WP_Post $post Objek post.
+ * @return string
+ */
+function sekolahane_build_post_smart_description( $post ) {
+	if ( ! $post instanceof WP_Post ) {
+		return '';
+	}
+
+	$profile   = sekolahane_get_school_profile();
+	$org_name  = (string) $profile['org_name'];
+	$slogan    = (string) $profile['slogan'];
+	$address   = (string) $profile['address'];
+	$post_id   = (int) $post->ID;
+	$post_type = (string) $post->post_type;
+	$title     = trim( wp_strip_all_tags( get_the_title( $post ) ) );
+	$raw_body  = '' !== trim( $post->post_excerpt ) ? $post->post_excerpt : $post->post_content;
+
+	if ( 'guru' === $post_type ) {
+		$jabatan   = function_exists( 'get_field' ) ? trim( wp_strip_all_tags( (string) get_field( 'ane_jabatan', $post_id ) ) ) : '';
+		$pelajaran = get_the_terms( $post_id, 'pelajaran' );
+		$mapel_arr = is_array( $pelajaran ) ? wp_list_pluck( $pelajaran, 'name' ) : array();
+		$mapel_str = ! empty( $mapel_arr ) ? implode( ', ', $mapel_arr ) : '';
+
+		$desc = 'Profil ' . $title;
+		if ( '' !== $jabatan ) {
+			$desc .= ' (' . $jabatan . ')';
+		}
+		if ( '' !== $mapel_str ) {
+			$desc .= ', pengajar ' . $mapel_str;
+		}
+		if ( '' !== $org_name ) {
+			$desc .= ' di ' . $org_name . '. ';
+		} else {
+			$desc .= '. ';
+		}
+		$desc .= wp_strip_all_tags( strip_shortcodes( $raw_body ) );
+		return sekolahane_seo_trim_description( $desc, 158 );
+	}
+
+	if ( 'ekstrakurikuler' === $post_type ) {
+		$desc = 'Kegiatan Ekstrakurikuler ' . $title . ' di ' . $org_name . '. ' . wp_strip_all_tags( strip_shortcodes( $raw_body ) );
+		return sekolahane_seo_trim_description( $desc, 158 );
+	}
+
+	if ( 'page-kontak.php' === get_page_template_slug( $post_id ) ) {
+		$desc = 'Hubungi ' . $org_name;
+		if ( '' !== $address ) {
+			$desc .= ' — Alamat: ' . $address . '.';
+		}
+		if ( '' !== (string) $profile['phone'] || '' !== (string) $profile['mobile'] ) {
+			$desc .= ' Informasi layanan telepon, WhatsApp Customer Care, dan peta lokasi resmi.';
+		}
+		return sekolahane_seo_trim_description( $desc, 158 );
+	}
+
+	$trimmed = sekolahane_seo_trim_description( $raw_body, 158 );
+	if ( '' !== $trimmed ) {
+		return $trimmed;
+	}
+
+	return sekolahane_seo_trim_description( $title . ' — ' . $org_name . ( '' !== $slogan ? ' (' . $slogan . ')' : '' ), 158 );
+}
+
+/**
  * Hasilkan Meta Description cerdas otomatis untuk halaman aktif jika meta Yoast kosong.
  *
  * @return string
@@ -255,55 +321,7 @@ function sekolahane_generate_smart_description() {
 		if ( ! $post instanceof WP_Post ) {
 			return '';
 		}
-
-		$post_type = $post->post_type;
-		$title     = trim( wp_strip_all_tags( get_the_title( $post ) ) );
-		$raw_body  = '' !== trim( $post->post_excerpt ) ? $post->post_excerpt : $post->post_content;
-
-		if ( 'guru' === $post_type ) {
-			$jabatan   = function_exists( 'get_field' ) ? trim( wp_strip_all_tags( (string) get_field( 'ane_jabatan', $post_id ) ) ) : '';
-			$pelajaran = get_the_terms( $post_id, 'pelajaran' );
-			$mapel_arr = is_array( $pelajaran ) ? wp_list_pluck( $pelajaran, 'name' ) : array();
-			$mapel_str = ! empty( $mapel_arr ) ? implode( ', ', $mapel_arr ) : '';
-
-			$desc = 'Profil ' . $title;
-			if ( '' !== $jabatan ) {
-				$desc .= ' (' . $jabatan . ')';
-			}
-			if ( '' !== $mapel_str ) {
-				$desc .= ', pengajar ' . $mapel_str;
-			}
-			if ( '' !== $org_name ) {
-				$desc .= ' di ' . $org_name . '. ';
-			} else {
-				$desc .= '. ';
-			}
-			$desc .= wp_strip_all_tags( strip_shortcodes( $raw_body ) );
-			return sekolahane_seo_trim_description( $desc, 158 );
-		}
-
-		if ( 'ekstrakurikuler' === $post_type ) {
-			$desc = 'Kegiatan Ekstrakurikuler ' . $title . ' di ' . $org_name . '. ' . wp_strip_all_tags( strip_shortcodes( $raw_body ) );
-			return sekolahane_seo_trim_description( $desc, 158 );
-		}
-
-		if ( is_page_template( 'page-kontak.php' ) ) {
-			$desc = 'Hubungi ' . $org_name;
-			if ( '' !== $address ) {
-				$desc .= ' — Alamat: ' . $address . '.';
-			}
-			if ( '' !== (string) $profile['phone'] || '' !== (string) $profile['mobile'] ) {
-				$desc .= ' Informasi layanan telepon, WhatsApp Customer Care, dan peta lokasi resmi.';
-			}
-			return sekolahane_seo_trim_description( $desc, 158 );
-		}
-
-		$trimmed = sekolahane_seo_trim_description( $raw_body, 158 );
-		if ( '' !== $trimmed ) {
-			return $trimmed;
-		}
-
-		return sekolahane_seo_trim_description( $title . ' — ' . $org_name . ( '' !== $slogan ? ' (' . $slogan . ')' : '' ), 158 );
+		return sekolahane_build_post_smart_description( $post );
 	}
 
 	if ( is_category() || is_tag() || is_tax() ) {
@@ -659,6 +677,84 @@ function sekolahane_get_breadcrumb_schema_node() {
 }
 
 /**
+ * Ekstrak otomatis pasangan Tanya-Jawab (FAQ) dari isi konten post/halaman
+ * (mendukung blok `.schema-faq-section` maupun elemen HTML5 `<details><summary>`)
+ * menjadi node JSON-LD `FAQPage`.
+ *
+ * @param int $post_id ID post/halaman.
+ * @return array<string, mixed>|null
+ */
+function sekolahane_extract_faq_schema_node( $post_id ) {
+	$post = get_post( $post_id );
+	if ( ! $post instanceof WP_Post || '' === trim( $post->post_content ) ) {
+		return null;
+	}
+
+	$content   = $post->post_content;
+	$questions = array();
+	$seen_q    = array();
+
+	// 1. Pola Yoast / Gutenberg FAQ block (.schema-faq-question & .schema-faq-answer).
+	if ( false !== strpos( $content, 'schema-faq-question' ) ) {
+		$pattern_yoast = '/<[^>]*class="[^"]*schema-faq-question[^"]*"[^>]*>(.*?)<\/[^>]+>\s*<[^>]*class="[^"]*schema-faq-answer[^"]*"[^>]*>(.*?)<\/[^>]+>/is';
+		if ( preg_match_all( $pattern_yoast, $content, $matches, PREG_SET_ORDER ) ) {
+			foreach ( $matches as $m ) {
+				$q_text = trim( (string) preg_replace( '/\s+/', ' ', wp_strip_all_tags( $m[1] ) ) );
+				$a_text = trim( (string) preg_replace( '/\s+/', ' ', wp_strip_all_tags( $m[2] ) ) );
+				$q_key  = strtolower( $q_text );
+				if ( '' !== $q_text && '' !== $a_text && ! isset( $seen_q[ $q_key ] ) ) {
+					$seen_q[ $q_key ] = true;
+					$questions[]      = array(
+						'@type'          => 'Question',
+						'name'           => $q_text,
+						'acceptedAnswer' => array(
+							'@type' => 'Answer',
+							'text'  => $a_text,
+						),
+					);
+				}
+			}
+		}
+	}
+
+	// 2. Pola HTML5 <details><summary>Pertanyaan</summary>Jawaban</details>.
+	if ( false !== strpos( $content, '<details' ) && false !== strpos( $content, '<summary' ) ) {
+		$pattern_details = '/<details[^>]*>\s*<summary[^>]*>(.*?)<\/summary>(.*?)<\/details>/is';
+		if ( preg_match_all( $pattern_details, $content, $matches_d, PREG_SET_ORDER ) ) {
+			foreach ( $matches_d as $md ) {
+				$q_text = trim( (string) preg_replace( '/\s+/', ' ', wp_strip_all_tags( $md[1] ) ) );
+				$a_text = trim( (string) preg_replace( '/\s+/', ' ', wp_strip_all_tags( $md[2] ) ) );
+				$q_key  = strtolower( $q_text );
+				if ( '' !== $q_text && '' !== $a_text && ! isset( $seen_q[ $q_key ] ) ) {
+					$seen_q[ $q_key ] = true;
+					$questions[]      = array(
+						'@type'          => 'Question',
+						'name'           => $q_text,
+						'acceptedAnswer' => array(
+							'@type' => 'Answer',
+							'text'  => $a_text,
+						),
+					);
+				}
+			}
+		}
+	}
+
+	if ( empty( $questions ) ) {
+		return null;
+	}
+
+	$permalink = (string) get_permalink( $post );
+
+	return array(
+		'@type'      => 'FAQPage',
+		'@id'        => $permalink . '#faq',
+		'url'        => $permalink,
+		'mainEntity' => $questions,
+	);
+}
+
+/**
  * Bangun JSON-LD `@graph` lengkap untuk SEO Premium, Google Sitelinks, & Knowledge Graph GEO.
  *
  * @return array<string, mixed>
@@ -817,6 +913,7 @@ function sekolahane_build_schema_graph() {
 					'mainEntityOfPage' => $permalink,
 					'headline'         => $title,
 					'description'      => $desc,
+					'abstract'         => $desc,
 					'image'            => array( $img_url ),
 					'datePublished'    => (string) get_the_date( DATE_W3C, $post ),
 					'dateModified'     => (string) get_the_modified_date( DATE_W3C, $post ),
@@ -828,6 +925,10 @@ function sekolahane_build_schema_graph() {
 					'publisher'        => array( '@id' => $org_id ),
 					'isPartOf'         => array( '@id' => $web_id ),
 					'inLanguage'       => get_bloginfo( 'language' ),
+					'speakable'        => array(
+						'@type'       => 'SpeakableSpecification',
+						'cssSelector' => array( '.post-title', '.ane-content > p:first-of-type' ),
+					),
 				);
 
 				if ( ! empty( $keywords ) ) {
@@ -870,6 +971,11 @@ function sekolahane_build_schema_graph() {
 					'provider'    => array( '@id' => $org_id ),
 				);
 			}
+
+			$faq_node = sekolahane_extract_faq_schema_node( $post_id );
+			if ( is_array( $faq_node ) ) {
+				$graph[] = $faq_node;
+			}
 		}
 	}
 
@@ -878,6 +984,79 @@ function sekolahane_build_schema_graph() {
 		'@graph'   => $graph,
 	);
 }
+
+/**
+ * Integrasikan node Schema khusus Sekolah (`EducationalOrganization`, `SiteNavigationElement`
+ * Sitelinks, `Person` Guru, `Course` Ekstrakurikuler, `FAQPage`, serta atribut GEO `abstract`,
+ * `keywords`, dan `speakable`) langsung ke dalam Graph Yoast SEO (`wpseo_schema_graph`)
+ * agar menjadi 1 kesatuan `@graph` tanpa duplikasi node `WebSite` / `BreadcrumbList`.
+ *
+ * @param array<int, array<string, mixed>> $graph   Array node Schema Yoast.
+ * @param mixed                            $context Konteks indeksasi Yoast.
+ * @return array<int, array<string, mixed>>
+ */
+function sekolahane_enrich_yoast_schema_graph( $graph, $context = null ) {
+	unset( $context );
+	if ( ! is_array( $graph ) ) {
+		return $graph;
+	}
+
+	$GLOBALS['sekolahane_yoast_schema_merged'] = true;
+
+	$custom_schema = sekolahane_build_schema_graph();
+	$custom_nodes  = isset( $custom_schema['@graph'] ) && is_array( $custom_schema['@graph'] ) ? $custom_schema['@graph'] : array();
+	$keywords      = sekolahane_get_current_keywords();
+	$smart_desc    = sekolahane_generate_smart_description();
+
+	// 1. Perkaya node Article / NewsArticle / BlogPosting bawaan Yoast dengan keywords, abstract, & speakable.
+	foreach ( $graph as $idx => $node ) {
+		if ( ! is_array( $node ) || empty( $node['@type'] ) ) {
+			continue;
+		}
+		$types = (array) $node['@type'];
+		if ( array_intersect( $types, array( 'Article', 'NewsArticle', 'BlogPosting' ) ) ) {
+			if ( empty( $node['keywords'] ) && ! empty( $keywords ) ) {
+				$graph[ $idx ]['keywords'] = implode( ', ', $keywords );
+			}
+			if ( empty( $node['abstract'] ) && '' !== $smart_desc ) {
+				$graph[ $idx ]['abstract'] = $smart_desc;
+			}
+			if ( empty( $node['speakable'] ) ) {
+				$graph[ $idx ]['speakable'] = array(
+					'@type'       => 'SpeakableSpecification',
+					'cssSelector' => array( '.post-title', '.ane-content > p:first-of-type' ),
+				);
+			}
+		}
+	}
+
+	// 2. Suntikkan node unik Sekolahane (EducationalOrganization, SiteNavigationElement, Person Guru, Course Ekskul, FAQPage).
+	$existing_ids = array();
+	foreach ( $graph as $node ) {
+		if ( is_array( $node ) && ! empty( $node['@id'] ) ) {
+			$existing_ids[ (string) $node['@id'] ] = true;
+		}
+	}
+
+	foreach ( $custom_nodes as $cnode ) {
+		if ( ! is_array( $cnode ) || empty( $cnode['@type'] ) ) {
+			continue;
+		}
+		$ctypes = (array) $cnode['@type'];
+		// Skip WebSite, BreadcrumbList, dan NewsArticle karena sudah dibuat oleh Yoast.
+		if ( array_intersect( $ctypes, array( 'WebSite', 'BreadcrumbList', 'NewsArticle' ) ) ) {
+			continue;
+		}
+		$cid = isset( $cnode['@id'] ) ? (string) $cnode['@id'] : '';
+		if ( '' !== $cid && isset( $existing_ids[ $cid ] ) ) {
+			continue;
+		}
+		$graph[] = $cnode;
+	}
+
+	return $graph;
+}
+add_filter( 'wpseo_schema_graph', 'sekolahane_enrich_yoast_schema_graph', 20, 2 );
 
 /**
  * Cetak tag meta SEO, Keywords dari Tag, OpenGraph/Twitter fallback, link `/llms.txt` (GEO),
@@ -961,14 +1140,18 @@ function sekolahane_render_seo_head() {
 		}
 	}
 
-	// 4. Sinyal penemuan GEO (/llms.txt) untuk AI Search Crawlers (ChatGPT, Perplexity, Gemini, Claude).
+	// 4. Sinyal penemuan GEO (/llms.txt & /llms-full.txt) untuk AI Search Crawlers (ChatGPT, Perplexity, Gemini, Claude).
+	$llms_full_url = home_url( '/llms-full.txt' );
 	echo '<link rel="alternate" type="text/plain" title="LLMs.txt - Ringkasan Pengetahuan AI" href="' . esc_url( $llms_url ) . '" />' . "\n";
+	echo '<link rel="alternate" type="text/plain" title="LLMs-Full.txt - Basis Pengetahuan Lengkap AI" href="' . esc_url( $llms_full_url ) . '" />' . "\n";
 
-	// 5. Cetak JSON-LD Schema `@graph` (EducationalOrganization, WebSite, SiteNavigationElement Sitelinks, BreadcrumbList, Article/Person/Course).
-	$schema_graph = sekolahane_build_schema_graph();
-	$json_ld      = wp_json_encode( $schema_graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
-	if ( is_string( $json_ld ) && '' !== $json_ld ) {
-		echo '<script type="application/ld+json" class="sekolahane-schema-graph">' . $json_ld . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	// 5. Cetak JSON-LD Schema `@graph` mandiri jika belum digabungkan ke dalam output `wpseo_schema_graph` Yoast.
+	if ( empty( $GLOBALS['sekolahane_yoast_schema_merged'] ) ) {
+		$schema_graph = sekolahane_build_schema_graph();
+		$json_ld      = wp_json_encode( $schema_graph, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE );
+		if ( is_string( $json_ld ) && '' !== $json_ld ) {
+			echo '<script type="application/ld+json" class="sekolahane-schema-graph">' . $json_ld . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
 	}
 }
 add_action( 'wp_head', 'sekolahane_render_seo_head', 5 );
@@ -1041,15 +1224,19 @@ function sekolahane_clean_wp_head_noise() {
 add_action( 'init', 'sekolahane_clean_wp_head_noise' );
 
 /**
- * Bangun isi dokumen Markdown `/llms.txt` untuk Generative Engine Optimization (GEO).
+ * Bangun isi dokumen Markdown `/llms.txt` (ringkas) atau `/llms-full.txt` (lengkap)
+ * untuk Generative Engine Optimization (GEO) & RAG LLM.
  *
  * Digunakan oleh AI Search Engines (ChatGPT Search, Google AI Overviews, Perplexity,
  * Claude, Gemini) untuk mengutip informasi resmi sekolah secara akurat.
  *
+ * @param string $mode Mode output: `'summary'` (`/llms.txt`) atau `'full'` (`/llms-full.txt`).
  * @return string
  */
-function sekolahane_generate_llms_txt_content() {
-	$cached = get_transient( 'sekolahane_llms_txt_cache' );
+function sekolahane_generate_llms_txt_content( $mode = 'summary' ) {
+	$is_full   = ( 'full' === $mode );
+	$cache_key = $is_full ? 'sekolahane_llms_full_txt_cache' : 'sekolahane_llms_txt_cache';
+	$cached    = get_transient( $cache_key );
 	if ( false !== $cached && is_string( $cached ) && '' !== $cached ) {
 		return $cached;
 	}
@@ -1057,8 +1244,9 @@ function sekolahane_generate_llms_txt_content() {
 	$profile = sekolahane_get_school_profile();
 	$lines   = array();
 
-	$lines[] = '# ' . ( '' !== (string) $profile['org_name'] ? (string) $profile['org_name'] : (string) $profile['site_name'] );
-	$lines[] = '';
+	$title_suffix = $is_full ? ' — Basis Pengetahuan Lengkap (LLMs Full)' : '';
+	$lines[]      = '# ' . ( '' !== (string) $profile['org_name'] ? (string) $profile['org_name'] : (string) $profile['site_name'] ) . $title_suffix;
+	$lines[]      = '';
 
 	if ( '' !== (string) $profile['slogan'] ) {
 		$lines[] = '> ' . (string) $profile['slogan'];
@@ -1071,6 +1259,8 @@ function sekolahane_generate_llms_txt_content() {
 
 	$lines[] = '## Identitas & Kontak Resmi';
 	$lines[] = '- Website Resmi: ' . (string) $profile['home_url'];
+	$lines[] = '- Manifest Ringkas: ' . home_url( '/llms.txt' );
+	$lines[] = '- Manifest Lengkap: ' . home_url( '/llms-full.txt' );
 	if ( '' !== (string) $profile['address'] ) {
 		$lines[] = '- Alamat: ' . (string) $profile['address'];
 	}
@@ -1088,6 +1278,9 @@ function sekolahane_generate_llms_txt_content() {
 	}
 	if ( '' !== (string) $profile['ppdb_url'] ) {
 		$lines[] = '- Link Pendaftaran (PPDB): ' . (string) $profile['ppdb_url'];
+	}
+	if ( ! empty( $profile['socials'] ) && is_array( $profile['socials'] ) ) {
+		$lines[] = '- Media Sosial Resmi: ' . implode( ', ', $profile['socials'] );
 	}
 	if ( ! empty( $profile['cs_list'] ) && is_array( $profile['cs_list'] ) ) {
 		foreach ( $profile['cs_list'] as $cs ) {
@@ -1107,11 +1300,35 @@ function sekolahane_generate_llms_txt_content() {
 		$lines[] = '';
 	}
 
+	// Pada mode full (/llms-full.txt), sertakan ringkasan halaman statis profil & kelembagaan.
+	if ( $is_full ) {
+		$static_pages = get_posts(
+			array(
+				'post_type'      => 'page',
+				'posts_per_page' => 20,
+				'post_status'    => 'publish',
+				'orderby'        => 'menu_order title',
+				'order'          => 'ASC',
+			)
+		);
+		if ( is_array( $static_pages ) && ! empty( $static_pages ) ) {
+			$lines[] = '## Profil, Kelembagaan & Halaman Informasi';
+			foreach ( $static_pages as $sp ) {
+				if ( $sp instanceof WP_Post ) {
+					$sp_title = trim( wp_strip_all_tags( get_the_title( $sp ) ) );
+					$sp_desc  = sekolahane_seo_trim_description( '' !== $sp->post_excerpt ? $sp->post_excerpt : $sp->post_content, 260 );
+					$lines[]  = '- [' . $sp_title . '](' . (string) get_permalink( $sp ) . ')' . ( '' !== $sp_desc ? ': ' . $sp_desc : '' );
+				}
+			}
+			$lines[] = '';
+		}
+	}
+
 	// Ekstrakurikuler.
 	$ekskul_posts = get_posts(
 		array(
 			'post_type'      => 'ekstrakurikuler',
-			'posts_per_page' => 20,
+			'posts_per_page' => $is_full ? 35 : 20,
 			'post_status'    => 'publish',
 		)
 	);
@@ -1120,7 +1337,7 @@ function sekolahane_generate_llms_txt_content() {
 		foreach ( $ekskul_posts as $ek ) {
 			if ( $ek instanceof WP_Post ) {
 				$ek_title = trim( wp_strip_all_tags( get_the_title( $ek ) ) );
-				$ek_desc  = sekolahane_seo_trim_description( '' !== $ek->post_excerpt ? $ek->post_excerpt : $ek->post_content, 110 );
+				$ek_desc  = sekolahane_seo_trim_description( '' !== $ek->post_excerpt ? $ek->post_excerpt : $ek->post_content, $is_full ? 240 : 110 );
 				$lines[]  = '- [' . $ek_title . '](' . (string) get_permalink( $ek ) . ')' . ( '' !== $ek_desc ? ': ' . $ek_desc : '' );
 			}
 		}
@@ -1131,7 +1348,7 @@ function sekolahane_generate_llms_txt_content() {
 	$guru_posts = get_posts(
 		array(
 			'post_type'      => 'guru',
-			'posts_per_page' => 25,
+			'posts_per_page' => $is_full ? 50 : 25,
 			'post_status'    => 'publish',
 		)
 	);
@@ -1141,7 +1358,14 @@ function sekolahane_generate_llms_txt_content() {
 			if ( $gr instanceof WP_Post ) {
 				$gr_title   = trim( wp_strip_all_tags( get_the_title( $gr ) ) );
 				$gr_jabatan = function_exists( 'get_field' ) ? trim( wp_strip_all_tags( (string) get_field( 'ane_jabatan', $gr->ID ) ) ) : '';
-				$lines[]    = '- [' . $gr_title . '](' . (string) get_permalink( $gr ) . ')' . ( '' !== $gr_jabatan ? ' — ' . $gr_jabatan : '' );
+				$gr_line    = '- [' . $gr_title . '](' . (string) get_permalink( $gr ) . ')' . ( '' !== $gr_jabatan ? ' — ' . $gr_jabatan : '' );
+				if ( $is_full ) {
+					$gr_mapel = get_the_terms( $gr->ID, 'pelajaran' );
+					if ( is_array( $gr_mapel ) && ! empty( $gr_mapel ) ) {
+						$gr_line .= ' (Mata Pelajaran: ' . implode( ', ', wp_list_pluck( $gr_mapel, 'name' ) ) . ')';
+					}
+				}
+				$lines[] = $gr_line;
 			}
 		}
 		$lines[] = '';
@@ -1151,7 +1375,7 @@ function sekolahane_generate_llms_txt_content() {
 	$recent_posts = get_posts(
 		array(
 			'post_type'      => 'post',
-			'posts_per_page' => 10,
+			'posts_per_page' => $is_full ? 30 : 10,
 			'post_status'    => 'publish',
 		)
 	);
@@ -1161,7 +1385,7 @@ function sekolahane_generate_llms_txt_content() {
 			if ( $rp instanceof WP_Post ) {
 				$rp_title = trim( wp_strip_all_tags( get_the_title( $rp ) ) );
 				$rp_date  = (string) get_the_date( 'Y-m-d', $rp );
-				$rp_desc  = sekolahane_seo_trim_description( '' !== $rp->post_excerpt ? $rp->post_excerpt : $rp->post_content, 110 );
+				$rp_desc  = sekolahane_seo_trim_description( '' !== $rp->post_excerpt ? $rp->post_excerpt : $rp->post_content, $is_full ? 280 : 110 );
 				$lines[]  = '- [' . $rp_title . '](' . (string) get_permalink( $rp ) . ') (' . $rp_date . ')' . ( '' !== $rp_desc ? ': ' . $rp_desc : '' );
 			}
 		}
@@ -1169,34 +1393,42 @@ function sekolahane_generate_llms_txt_content() {
 	}
 
 	$output = implode( "\n", $lines );
-	set_transient( 'sekolahane_llms_txt_cache', $output, 6 * HOUR_IN_SECONDS );
+	set_transient( $cache_key, $output, 6 * HOUR_IN_SECONDS );
 
 	return $output;
 }
 
 /**
- * Bersihkan cache `/llms.txt` saat ada post atau halaman yang disimpan/diperbarui.
+ * Bersihkan cache `/llms.txt` dan `/llms-full.txt` saat ada post atau halaman yang disimpan/diperbarui.
  *
  * @return void
  */
 function sekolahane_flush_llms_txt_cache() {
 	delete_transient( 'sekolahane_llms_txt_cache' );
+	delete_transient( 'sekolahane_llms_full_txt_cache' );
 }
 add_action( 'save_post', 'sekolahane_flush_llms_txt_cache' );
 add_action( 'acf/save_post', 'sekolahane_flush_llms_txt_cache' );
 
 /**
- * Tangani request ke `/llms.txt` atau `?llms_txt=1` secara dinamis tanpa perlu
- * mengubah `.htaccess` atau flush rewrite rules manual di situs pelanggan.
+ * Tangani request ke `/llms.txt`, `/llms-full.txt`, atau `?llms_txt=1|full` secara dinamis
+ * tanpa perlu mengubah `.htaccess` atau flush rewrite rules manual di situs pelanggan.
  *
  * @return void
  */
 function sekolahane_serve_llms_txt_endpoint() {
 	$req_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 	$req_path = (string) wp_parse_url( $req_uri, PHP_URL_PATH );
-	$is_llms  = ( '/llms.txt' === substr( $req_path, -9 ) ) || ( isset( $_GET['llms_txt'] ) && '1' === sanitize_text_field( wp_unslash( $_GET['llms_txt'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$q_param  = isset( $_GET['llms_txt'] ) ? sanitize_text_field( wp_unslash( $_GET['llms_txt'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
-	if ( ! $is_llms ) {
+	$mode = '';
+	if ( '/llms-full.txt' === substr( $req_path, -14 ) || 'full' === $q_param ) {
+		$mode = 'full';
+	} elseif ( '/llms.txt' === substr( $req_path, -9 ) || '1' === $q_param ) {
+		$mode = 'summary';
+	}
+
+	if ( '' === $mode ) {
 		return;
 	}
 
@@ -1204,10 +1436,211 @@ function sekolahane_serve_llms_txt_endpoint() {
 	header( 'Content-Type: text/plain; charset=utf-8' );
 	header( 'X-Robots-Tag: index, follow' );
 
-	echo sekolahane_generate_llms_txt_content(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo sekolahane_generate_llms_txt_content( $mode ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	exit;
 }
 add_action( 'init', 'sekolahane_serve_llms_txt_endpoint', 1 );
+
+/**
+ * Konfigurasi izin eksplisit AI Search Crawlers (ChatGPT Search, Perplexity, Claude,
+ * Google AI Overviews, Apple Intelligence) pada `robots.txt` dan blokir scraper dataset spam.
+ *
+ * @param string $output    Isi robots.txt bawaan WordPress / Yoast.
+ * @param string $is_public Status visibilitas mesin pencari ('1' atau '0').
+ * @return string
+ */
+function sekolahane_seo_robots_txt( $output, $is_public ) {
+	if ( '0' === (string) $is_public ) {
+		return $output;
+	}
+
+	$ai_rules  = "\n# Sekolah Ane GEO & AI Search Crawler Permissions\n";
+	$ai_rules .= '# LLMs Manifest: ' . home_url( '/llms.txt' ) . "\n";
+	$ai_rules .= '# LLMs Full Manifest: ' . home_url( '/llms-full.txt' ) . "\n";
+
+	$allowed_bots = array(
+		'OAI-SearchBot',
+		'GPTBot',
+		'ChatGPT-User',
+		'PerplexityBot',
+		'ClaudeBot',
+		'Google-Extended',
+		'Applebot-Extended',
+	);
+	foreach ( $allowed_bots as $bot ) {
+		if ( false === stripos( $output, 'User-agent: ' . $bot ) ) {
+			$ai_rules .= 'User-agent: ' . $bot . "\nAllow: /\n\n";
+		}
+	}
+
+	$blocked_bots = array(
+		'CCBot',
+		'Bytespider',
+	);
+	foreach ( $blocked_bots as $bad_bot ) {
+		if ( false === stripos( $output, 'User-agent: ' . $bad_bot ) ) {
+			$ai_rules .= 'User-agent: ' . $bad_bot . "\nDisallow: /\n\n";
+		}
+	}
+
+	if ( false === stripos( $output, 'Sitemap:' ) ) {
+		$sitemap_url = sekolahane_is_yoast_active() ? home_url( '/sitemap_index.xml' ) : home_url( '/wp-sitemap.xml' );
+		$ai_rules   .= 'Sitemap: ' . $sitemap_url . "\n";
+	}
+
+	return rtrim( $output ) . "\n" . $ai_rules;
+}
+add_filter( 'robots_txt', 'sekolahane_seo_robots_txt', 20, 2 );
+
+/**
+ * Otomatis isi `_yoast_wpseo_focuskw` dan `_yoast_wpseo_metadesc` saat artikel/CPT
+ * disimpan jika admin membiarkannya kosong (replikasi fitur otomatisasi Yoast Premium
+ * tanpa biaya API eksternal dan 0 latensi jaringan).
+ *
+ * @param int     $post_id ID post yang disimpan.
+ * @param WP_Post $post    Objek post.
+ * @return void
+ */
+function sekolahane_sync_yoast_meta_on_save( $post_id, $post ) {
+	if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+		return;
+	}
+	if ( ! $post instanceof WP_Post || 'publish' !== $post->post_status ) {
+		return;
+	}
+
+	$allowed_types = array( 'post', 'page', 'guru', 'ekstrakurikuler' );
+	if ( ! in_array( $post->post_type, $allowed_types, true ) ) {
+		return;
+	}
+
+	// 1. Auto-fill Focus Keyphrase Yoast jika kosong.
+	$focus_kw = trim( (string) get_post_meta( $post_id, '_yoast_wpseo_focuskw', true ) );
+	if ( '' === $focus_kw ) {
+		$keywords = sekolahane_get_current_keywords( $post_id );
+		if ( ! empty( $keywords[0] ) ) {
+			$focus_kw = sanitize_text_field( $keywords[0] );
+		} else {
+			$focus_kw = sanitize_text_field( wp_strip_all_tags( get_the_title( $post ) ) );
+		}
+		if ( '' !== $focus_kw ) {
+			update_post_meta( $post_id, '_yoast_wpseo_focuskw', $focus_kw );
+		}
+	}
+
+	// 2. Auto-fill Meta Description Yoast jika kosong.
+	$meta_desc = trim( (string) get_post_meta( $post_id, '_yoast_wpseo_metadesc', true ) );
+	if ( '' === $meta_desc ) {
+		$smart_desc = sekolahane_build_post_smart_description( $post );
+		if ( '' !== $smart_desc ) {
+			update_post_meta( $post_id, '_yoast_wpseo_metadesc', sanitize_text_field( $smart_desc ) );
+		}
+	}
+}
+add_action( 'wp_after_insert_post', 'sekolahane_sync_yoast_meta_on_save', 20, 2 );
+
+/**
+ * Catat perubahan slug/URL pada post, halaman, guru, atau ekstrakurikuler yang sudah
+ * dipublikasikan agar otomatis dialihkan (HTTP 301) ke URL baru (maksimal 200 entri
+ * dengan `autoload = false` agar tidak membebani query halaman normal).
+ *
+ * @param int     $post_id     ID post.
+ * @param WP_Post $post_after  Objek post setelah perubahan.
+ * @param WP_Post $post_before Objek post sebelum perubahan.
+ * @return void
+ */
+function sekolahane_log_slug_change_redirect( $post_id, $post_after, $post_before ) {
+	if ( ! $post_after instanceof WP_Post || ! $post_before instanceof WP_Post ) {
+		return;
+	}
+	if ( 'publish' !== $post_after->post_status || 'publish' !== $post_before->post_status ) {
+		return;
+	}
+	if ( $post_before->post_name === $post_after->post_name || '' === $post_before->post_name || '' === $post_after->post_name ) {
+		return;
+	}
+
+	$allowed_types = array( 'post', 'page', 'guru', 'ekstrakurikuler' );
+	if ( ! in_array( $post_after->post_type, $allowed_types, true ) ) {
+		return;
+	}
+
+	$new_permalink = (string) get_permalink( $post_id );
+	$new_path      = (string) wp_parse_url( $new_permalink, PHP_URL_PATH );
+	if ( '' === $new_path ) {
+		return;
+	}
+
+	// Bangun path lama secara akurat berdasarkan struktur permalink aktif.
+	$search_slug  = '/' . rawurlencode( $post_after->post_name ) . '/';
+	$replace_slug = '/' . rawurlencode( $post_before->post_name ) . '/';
+	if ( false !== strpos( trailingslashit( $new_path ), $search_slug ) ) {
+		$old_path = str_replace( $search_slug, $replace_slug, trailingslashit( $new_path ) );
+	} else {
+		$old_path = trailingslashit( '/' . rawurlencode( $post_before->post_name ) );
+	}
+
+	$old_path = '/' . ltrim( trailingslashit( $old_path ), '/' );
+	$new_norm = '/' . ltrim( trailingslashit( $new_path ), '/' );
+	if ( $old_path === $new_norm ) {
+		return;
+	}
+
+	$redirects = get_option( 'sekolahane_seo_redirects', array() );
+	if ( ! is_array( $redirects ) ) {
+		$redirects = array();
+	}
+
+	unset( $redirects[ $old_path ], $redirects[ $new_norm ] );
+	$redirects[ $old_path ] = (int) $post_id;
+
+	if ( count( $redirects ) > 200 ) {
+		$redirects = array_slice( $redirects, -200, 200, true );
+	}
+
+	update_option( 'sekolahane_seo_redirects', $redirects, false );
+}
+add_action( 'post_updated', 'sekolahane_log_slug_change_redirect', 10, 3 );
+
+/**
+ * Eksekusi pengalihan HTTP 301 otomatis untuk slug lama HANYA ketika halaman
+ * menghasilkan 404 (`is_404()`), sehingga 0 overhead pada halaman normal (200 OK).
+ *
+ * @return void
+ */
+function sekolahane_execute_404_slug_redirect() {
+	if ( ! is_404() || is_admin() ) {
+		return;
+	}
+
+	$req_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+	$req_path = (string) wp_parse_url( $req_uri, PHP_URL_PATH );
+	if ( '' === $req_path ) {
+		return;
+	}
+
+	$norm_path = '/' . ltrim( trailingslashit( $req_path ), '/' );
+	$redirects = get_option( 'sekolahane_seo_redirects', array() );
+	if ( ! is_array( $redirects ) || empty( $redirects[ $norm_path ] ) ) {
+		return;
+	}
+
+	$target_id   = (int) $redirects[ $norm_path ];
+	$target_post = $target_id > 0 ? get_post( $target_id ) : null;
+	if ( ! $target_post instanceof WP_Post || 'publish' !== $target_post->post_status ) {
+		return;
+	}
+
+	$target_url  = (string) get_permalink( $target_post );
+	$target_path = '/' . ltrim( trailingslashit( (string) wp_parse_url( $target_url, PHP_URL_PATH ) ), '/' );
+	if ( '' === $target_url || $target_path === $norm_path ) {
+		return;
+	}
+
+	wp_safe_redirect( $target_url, 301 );
+	exit;
+}
+add_action( 'template_redirect', 'sekolahane_execute_404_slug_redirect', 1 );
 
 /**
  * Ekstrak nilai kode verifikasi murni dari input teks yang mungkin berisi

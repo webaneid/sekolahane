@@ -49,3 +49,4 @@
 | 41 | Penyempurnaan 100% Standar `webane-pagespeed-cwv` pada Seluruh Template Sekunder, CPT, & Section Pendukung | Done | `phases/phase-41-penyempurnaan-100-persen-standar-pagespeed-webane.md` |
 | 42 | Perbaikan Tumpukan Teks & Slide pada Hero Slider (`.home-big-slider`) akibat Opsi `animateOut`/`animateIn` Tanpa `animate.css` | Done | `phases/phase-42-perbaikan-tumpukan-slide-hero-owlcarousel.md` |
 | 43 | Perbaikan Tinggi Kartu Section Featured (`.section-featured.featured-style-default`) di Mobile Akibat Spesifisitas `min-height: 290px` | Done | `phases/phase-43-perbaikan-tinggi-kartu-featured-mobile.md` |
+| 44 | Pengayaan Standar SEO Modern 2026 & GEO (`/llms-full.txt`, AI `robots.txt`, Auto-`FAQPage`, `Speakable`, Yoast Graph Sync, & Auto-Redirect 301) | Done | `phases/phase-44-pengayaan-seo-2026-geo-llms-full-dan-redirect-301.md` |
