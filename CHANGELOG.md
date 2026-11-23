@@ -1,3 +1,9 @@
+## [3.3.5](https://github.com/webaneid/sekolahane/compare/v3.3.4...v3.3.5) (2026-11-23)
+
+### Bug Fixes
+
+* **pagespeed:** tuntaskan 100% standar webane-pagespeed-cwv di seluruh template halaman, CPT, dan section pendukung ([a22241c](https://github.com/webaneid/sekolahane/commit/a22241cbf63f0b3aa6532a714bddabaa4153301b))
+
 ## [3.3.4](https://github.com/webaneid/sekolahane/compare/v3.3.3...v3.3.4) (2026-11-10)
 
 ### Bug Fixes
