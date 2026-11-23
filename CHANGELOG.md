@@ -1,3 +1,9 @@
+## [3.3.7](https://github.com/webaneid/sekolahane/compare/v3.3.6...v3.3.7) (2026-11-23)
+
+### Bug Fixes
+
+* **featured:** perbaiki spesifisitas min-height kartu section featured di mobile agar proporsional ([66aab2c](https://github.com/webaneid/sekolahane/commit/66aab2cfe2b379a040c0e57eefa39aafaf3909aa))
+
 ## [3.3.6](https://github.com/webaneid/sekolahane/compare/v3.3.5...v3.3.6) (2026-11-23)
 
 ### Bug Fixes
