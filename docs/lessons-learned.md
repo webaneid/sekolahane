@@ -5,6 +5,14 @@
 
 ---
 
+## 2026-11-24 — Teks & Slide Hero Bertumpuk Saat Transisi OwlCarousel (`animateOut`/`animateIn` Tanpa `animate.css`)
+**Masalah:** Ketika Hero Slider (`.home-big-slider`) berpindah ke slide berikutnya, teks dari slide pertama tidak hilang melainkan bertumpuk dengan teks slide berikutnya.
+**Root cause:** Di `js/sekolahane.js`, inisialisasi `.home-big-slider` masih menyertakan `animateOut: 'fadeOut'` dan `animateIn: 'fadeIn'`, sedangkan library `animate.css` sudah dihapus saat konsolidasi CSS. Pada OwlCarousel2, fitur `animateOut` mengunci posisi `.owl-item` lama dengan inline `style="left: ...px"` di atas slide baru dan menunggu event CSS `animationend` untuk menghapusnya. Karena class `.fadeOut` tidak memiliki animasi CSS, event `animationend` tidak pernah terpanggil sehingga slide lama tetap menempel dan bertumpuk.
+**Fix:** Menghapus `animateOut: 'fadeOut'` dan `animateIn: 'fadeIn'` pada `.home-big-slider` di `js/sekolahane.js` dan menggantinya dengan `smartSpeed: 700` (sama seperti fix `0a56ba9` di `makhadane`).
+**Pencegahan:** Saat menghapus `animate.css` pada konsolidasi aset theme, wajib hapus seluruh opsi `animateOut` dan `animateIn` pada konfigurasi OwlCarousel di file JS.
+
+---
+
 ## 2026-11-10 — Optimasi PageSpeed Core Web Vitals (`webane-pagespeed-cwv`): Zero-CLS OwlCarousel, Batas `preconnect <= 4`, & DPR-Aware `sizes`
 **Masalah:**
 1. Saat script `OwlCarousel` di-defer untuk menghilangkan render-blocking, CLS melonjak ke `0.47–0.53` karena `.owl-carousel` memiliki `display: none` sampai JS selesai dieksekusi.
