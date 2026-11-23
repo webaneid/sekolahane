@@ -3788,20 +3788,42 @@ select:after {
     margin-bottom: 15px;
     border-bottom: 7px solid var(--ane-warna-terang);
   }
-  .section-featured ul li {
+  .section-featured ul li,
+  .section-featured.featured-style-default ul li {
     width: calc(50% - 8px);
     margin-right: 15px;
     margin-bottom: 15px;
-    padding: 14px 12px;
-    border-radius: 12px;
+    padding: 16px 12px;
+    border-radius: 14px;
     min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  .section-featured ul li:nth-child(2n+2) {
+  .section-featured ul li:nth-child(2n+2),
+  .section-featured.featured-style-default ul li:nth-child(2n+2) {
     margin-right: 0;
+  }
+  .section-featured.featured-style-default ul li .item {
+    padding: 2px;
+  }
+  .section-featured.featured-style-default ul li .item .image {
+    margin: 0 auto 10px;
+  }
+  .section-featured.featured-style-default ul li .item .image img {
+    width: 42px;
+    height: 42px;
   }
   .section-featured.featured-style-default ul li .item .content h3 {
     font-size: 13px;
+    line-height: 1.35;
+    margin-top: 0;
     margin-bottom: 0;
+  }
+  .section-featured.featured-style-default ul li .item .content h3 a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
   }
   .section-featured.featured-style-default ul li .item .content p,
   .section-featured.featured-style-default ul li .item .content .btn-primary {
