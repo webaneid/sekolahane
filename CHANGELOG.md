@@ -1,3 +1,9 @@
+## [3.4.0](https://github.com/webaneid/sekolahane/compare/v3.3.7...v3.4.0) (2026-11-23)
+
+### Features
+
+* **seo:** pengayaan standar SEO 2026 & GEO (/llms-full.txt, AI robots.txt, auto-FAQPage, Yoast graph sync, dan 301 slug redirect) ([5def0f9](https://github.com/webaneid/sekolahane/commit/5def0f95c4d4a55144bc0a1a7e1173d7deffcda0))
+
 ## [3.3.7](https://github.com/webaneid/sekolahane/compare/v3.3.6...v3.3.7) (2026-11-23)
 
 ### Bug Fixes
