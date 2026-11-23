@@ -1,3 +1,9 @@
+## [3.3.6](https://github.com/webaneid/sekolahane/compare/v3.3.5...v3.3.6) (2026-11-23)
+
+### Bug Fixes
+
+* **hero:** hapus opsi animateOut/animateIn tanpa animate.css yang menyebabkan teks slide bertumpuk ([849628b](https://github.com/webaneid/sekolahane/commit/849628b844e73f31ebb693a9bc5b6c087406de96))
+
 ## [3.3.5](https://github.com/webaneid/sekolahane/compare/v3.3.4...v3.3.5) (2026-11-23)
 
 ### Bug Fixes
